@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34616.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karma.API", "Karma\Karma.API.csproj", "{24340B01-E24A-4B4F-A4C0-1F8DAE282897}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karma.Core", "Karma.Domain\Karma.Core.csproj", "{09895989-74B0-49E5-A0F7-C3BDAD7CC316}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karma.Infrastructure", "Karma.Infrastructure\Karma.Infrastructure.csproj", "{4BF200F7-C2E1-4301-8C17-2D11F9A8CBD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karma.Application", "Karma.Application\Karma.Application.csproj", "{D4538FDE-46C7-48C8-9661-075D124B90A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karma.Tests", "Karma.Tests\Karma.Tests.csproj", "{B9BCE047-2A1D-429C-8B16-B162025ACA1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24340B01-E24A-4B4F-A4C0-1F8DAE282897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24340B01-E24A-4B4F-A4C0-1F8DAE282897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24340B01-E24A-4B4F-A4C0-1F8DAE282897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24340B01-E24A-4B4F-A4C0-1F8DAE282897}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09895989-74B0-49E5-A0F7-C3BDAD7CC316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09895989-74B0-49E5-A0F7-C3BDAD7CC316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09895989-74B0-49E5-A0F7-C3BDAD7CC316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09895989-74B0-49E5-A0F7-C3BDAD7CC316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BF200F7-C2E1-4301-8C17-2D11F9A8CBD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BF200F7-C2E1-4301-8C17-2D11F9A8CBD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BF200F7-C2E1-4301-8C17-2D11F9A8CBD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BF200F7-C2E1-4301-8C17-2D11F9A8CBD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4538FDE-46C7-48C8-9661-075D124B90A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4538FDE-46C7-48C8-9661-075D124B90A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4538FDE-46C7-48C8-9661-075D124B90A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4538FDE-46C7-48C8-9661-075D124B90A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9BCE047-2A1D-429C-8B16-B162025ACA1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9BCE047-2A1D-429C-8B16-B162025ACA1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9BCE047-2A1D-429C-8B16-B162025ACA1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9BCE047-2A1D-429C-8B16-B162025ACA1B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {53A361FA-42B5-4E39-8EC2-E48AA2D856F9}
+	EndGlobalSection
+EndGlobal
