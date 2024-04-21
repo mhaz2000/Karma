@@ -4,11 +4,11 @@ namespace Karma.Core.Repositories.Base
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        ValueTask<TEntity> GetByIdAsync(Guid id);
+        ValueTask<TEntity?> GetByIdAsync(Guid id);
         IEnumerable<TEntity> AsEnumerable();
         Task<ICollection<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
-        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
-        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicat);
+        Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+        TEntity? FirstOrDefault(Expression<Func<TEntity, bool>> predicat);
         Task AddAsync(TEntity entity);
         Task AddRangeAsync(IEnumerable<TEntity> entities);
         void Remove(TEntity entity);

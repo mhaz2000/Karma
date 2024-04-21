@@ -1,6 +1,6 @@
 ﻿namespace Karma.Core.Repositories.Base
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         IUserRepository UserRepository { get; }
 

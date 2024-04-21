@@ -3,8 +3,10 @@ using FluentAssertions;
 using Karma.Application.Base;
 using Karma.Application.Commands;
 using Karma.Application.Services;
+using Karma.Core.Caching;
 using Karma.Core.Entities;
 using Karma.Core.Repositories.Base;
+using Microsoft.Extensions.Configuration;
 using System.Linq.Expressions;
 
 namespace Karma.Tests.Services
@@ -13,10 +15,17 @@ namespace Karma.Tests.Services
     {
         private readonly UserService _userService;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ICacheProvider _cacheProvider;
+        private readonly IConfiguration _configuration;
         public UserServiceTest()
         {
             _unitOfWork = A.Fake<IUnitOfWork>();
-            _userService = new UserService(_unitOfWork);
+            _cacheProvider = A.Fake<ICacheProvider>();
+            _configuration = A.Fake<IConfiguration>();
+
+            _configuration["InMemoryCaching:OptExpirationTime"] = "120";
+
+            _userService = new UserService(_unitOfWork, _configuration, _cacheProvider);
         }
 
         [Fact]
@@ -45,9 +54,10 @@ namespace Karma.Tests.Services
             //Act
             await _userService.Invoking(c => c.Register(command)).Should().NotThrowAsync();
 
-            A.CallTo(() => _unitOfWork.UserRepository.CreateUserAsync(command.Phone, A<int>._))
+            A.CallTo(() => _cacheProvider.Set(command.Phone, A<string>._, A<int>._));
+            
+            A.CallTo(() => _unitOfWork.UserRepository.CreateUserAsync(command.Phone))
                 .MustHaveHappenedOnceExactly();
-
 
             A.CallTo(() => _unitOfWork.CommitAsync())
                 .MustHaveHappenedOnceExactly();

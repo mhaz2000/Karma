@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Karma.Infrastructure\Karma.Infrastructure.csproj" />
     <ProjectReference Include="..\Karma\Karma.API.csproj" />
   </ItemGroup>
 
