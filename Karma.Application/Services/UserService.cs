@@ -16,7 +16,7 @@ namespace Karma.Application.Services
 
         public async Task Register(RegisterCommand command)
         {
-            command.Phone = command.Phone.ToFormat();
+            command.Phone = command.Phone.ToDefaultFormat();
 
             var phoneDuplicationCheckCondition = await _unitOfWork.UserRepository.AnyAsync(c => c.PhoneNumber == command.Phone);
             if (phoneDuplicationCheckCondition)

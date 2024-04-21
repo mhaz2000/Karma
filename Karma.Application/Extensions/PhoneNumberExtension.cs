@@ -4,7 +4,7 @@ namespace Karma.Application.Extensions
 {
     public static class PhoneNumberExtension
     {
-        public static string ToFormat(this string value)
+        public static string ToDefaultFormat(this string value)
         {
             if (!Regex.IsMatch(value, @"^(\+98|0)?9\d{9}$"))
                 return value;
