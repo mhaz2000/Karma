@@ -11,9 +11,7 @@ namespace Karma.API.Controllers
         private readonly IUserService _userService;
         public UsersController(IUserService userService)
         {
-
             _userService = userService;
-
         }
 
 
@@ -24,7 +22,17 @@ namespace Karma.API.Controllers
 
             await _userService.Register(command);
 
-            return Ok("ثبت نام با موفقیت انجام شد.");
+            return Ok("ثبت نام با موفقیت انجام شد، کد");
+        }
+
+        [HttpPost("OtpLogin")]
+        public async Task<IActionResult> OtpLogin(LoginCommand command)
+        {
+            command.Validate();
+
+            await _userService.OtpLogin(command.Phone);
+
+            return Ok();
         }
     }
 }
