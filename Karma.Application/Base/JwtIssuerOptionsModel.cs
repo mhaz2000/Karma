@@ -1,14 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 
-namespace Karma.API.Base
+namespace Karma.Application.Base
 {
-    public class JwTToken
-    {
-        public string AuthToken { get; set; }
-        public string RefreshToken { get; set; }
-        public int expires_in { get; set; }
-    }
-
     public class JwtIssuerOptionsModel
     {
         public string Issuer { get; set; }
@@ -22,10 +15,5 @@ namespace Karma.API.Base
         public Func<Task<string>> JtiGenerator =>
             () => Task.FromResult(Guid.NewGuid().ToString());
         public SigningCredentials SigningCredentials { get; set; }
-    }
-
-    public class ConnectionStringsModel
-    {
-        public string Main { get; set; }
     }
 }

@@ -8,12 +8,13 @@ namespace Karma.Infrastructure.Repositories.Base
     {
         private readonly DataContext _context;
 
-
         private UserRepository _userRepository;
+        private RoleRepository _roleRepository;
 
         public UnitOfWork(DataContext context) => _context = context;
 
         public IUserRepository UserRepository => _userRepository ?? new UserRepository(_context);
+        public IRoleRepository RoleRepository => _roleRepository ?? new RoleRepository(_context);
 
         public async Task<int> CommitAsync()
         {

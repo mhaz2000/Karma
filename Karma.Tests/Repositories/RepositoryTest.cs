@@ -1,10 +1,9 @@
-﻿using Karma.Infrastructure.Data;
+﻿using Bogus;
+using Karma.Core.Entities;
+using Karma.Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Karma.Tests.Repositories
 {
@@ -15,6 +14,7 @@ namespace Karma.Tests.Repositories
         protected RepositoryTest()
         {
             InitializeDataContext();
+            FakeRoleIdentity().Wait();
         }
 
         private static Random random = new Random();
@@ -26,6 +26,56 @@ namespace Karma.Tests.Repositories
                 .Options;
 
             _dataContext = new DataContext(options);
+        }
+
+        private async Task FakeRoleIdentity()
+        {
+            var generatedRoles = GenerateIdentityRoleData();
+            await _dataContext.Roles.AddRangeAsync(generatedRoles);
+            await _dataContext.SaveChangesAsync();
+
+            var generatedUsers = GenerateUserData(10);
+
+            var userStore = new UserStore<User, IdentityRole<Guid>, DataContext, Guid>(_dataContext);
+            var userManager = new UserManager<User>(userStore, null, new PasswordHasher<User>(), null, null, null, null, null, null);
+
+            foreach (var newUser in generatedUsers)
+            {
+                await userManager.CreateAsync(newUser, "123456");
+                await userManager.AddToRoleAsync(newUser, generatedRoles[random.Next(0, 2)].NormalizedName);
+            }
+        }
+
+        private List<IdentityRole<Guid>> GenerateIdentityRoleData()
+        {
+            return new List<IdentityRole<Guid>>()
+            {
+                new IdentityRole<Guid>()
+                {
+                    Name = "Admin",
+                    Id = Guid.NewGuid(),
+                    NormalizedName = "admin"
+                },
+                new IdentityRole<Guid>()
+                {
+                    Name = "User",
+                    Id = Guid.NewGuid(),
+                    NormalizedName = "user"
+                }
+            };
+        }
+
+
+        private List<User> GenerateUserData(int count)
+        {
+            var faker = new Faker<User>()
+                .RuleFor(c => c.UserName, f => f.Name.FindName().Replace(" ", ""))
+                .RuleFor(c => c.FirstName, f => f.Person.FirstName)
+                .RuleFor(c => c.LastName, f => f.Person.LastName)
+                .RuleFor(c => c.NationalCode, f => random.NextInt64(1111111111, 9999999999).ToString())
+                .RuleFor(c => c.Id, f => Guid.NewGuid());
+
+            return faker.Generate(count);
         }
 
         public void Dispose()

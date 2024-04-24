@@ -4,9 +4,10 @@ using Karma.Application.Validators.Extensions;
 
 namespace Karma.Application.Commands
 {
-    public class LoginCommand :IBaseCommand
+    public class OtpLoginCommand :IBaseCommand
     {
         public string Phone { get; set; }
-        public void Validate() => new LoginCommandValidator().Validate(this).RaiseExceptionIfRequired();
+        public string OtpCode { get; set; }
+        public void Validate() => new OtpLoginCommandValidator().Validate(this).RaiseExceptionIfRequired();
     }
 }

@@ -1,4 +1,4 @@
-﻿using Karma.API.Base;
+﻿using Karma.Application.Base;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -10,8 +10,8 @@ namespace Karma.API.Extensions
     {
         public static IServiceCollection AddApplicationAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            var jwtIssuerOptions = JsonConvert.DeserializeObject<JwtIssuerOptionsModel>(configuration["JwtIssuerOptions"] 
-                ?? throw new ArgumentException("Jwt issuer options cannot be found!"));
+            var serviceProvider = services.BuildServiceProvider();
+            var jwtIssuerOptions = serviceProvider.GetRequiredService<JwtIssuerOptionsModel>();
 
             SymmetricSecurityKey signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtIssuerOptions!.SecretKey));
 

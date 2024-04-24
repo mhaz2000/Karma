@@ -27,8 +27,8 @@ namespace Karma.Tests.Repositories
             _dataContext.SaveChanges();
 
             //Assert
-            _dataContext.Users.Should().HaveCount(1);
-            _dataContext.Users.FirstOrDefault()?.PhoneNumber.Should().Be(phoneNumber);
+            _dataContext.Users.Where(c=> c.PhoneNumber == phoneNumber).Should().HaveCount(1);
+            _dataContext.Users.FirstOrDefault(c => c.PhoneNumber == phoneNumber)?.PhoneNumber.Should().Be(phoneNumber);
         }
     }
 }

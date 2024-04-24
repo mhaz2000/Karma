@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Karma.Infrastructure
 {
-    public static class Extension
+    public static class InfrastructureExtension
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, string dbConnectionString, string logConnectionString)
         {

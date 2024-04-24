@@ -1,14 +1,12 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
 using FluentValidation;
-using Karma.API.Controllers;
 using Karma.Application.Commands;
-using Karma.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Karma.Tests.Actions.Users
 {
-    public class RegisterationTest : UserControllerTest
+    public class OtpRequestTest : UserControllerTest
     {
         [Theory]
         [InlineData("0912495985")]
@@ -19,34 +17,34 @@ namespace Karma.Tests.Actions.Users
         [InlineData("")]
         [InlineData("+9891245789563")]
         [InlineData("+98912457895")]
-        public async Task Should_Return_Error_When_Inputs_Are_Not_Valid(string phoneNumber)
+        public async Task Otp_Request_Should_Return_Error_When_Phone_Number_Is_Not_Valid(string phoneNumber)
         {
             //Arragne
-            var command = new RegisterCommand() { Phone = phoneNumber };
+            var command = new OtpRequestCommand() { Phone = phoneNumber };
 
             // Assert
-            await _controller.Invoking(x => x.Register(command))
+            await _controller.Invoking(x => x.OtpRequest(command))
                 .Should().ThrowAsync<ValidationException>().WithMessage("فرمت شماره موبایل صحیح نمی‌باشد.");
         }
 
         [Fact]
-        public async Task User_Should_Be_Registered_Successfully()
+        public async Task Otp_Code_Must_Be_Sent_When_Phone_Format_Is_Valid()
         {
             //Arrange
-            var command = new RegisterCommand() { Phone = "09207831300" };
+            var command = new OtpRequestCommand() { Phone = "09207831300" };
 
             //Act
-            var act = async () => await _controller.Register(command);
+            var act = async () => await _controller.OtpRequest(command);
 
-            var response = await _controller.Register(command);
+            var response = await _controller.OtpRequest(command);
             var result = (OkObjectResult)response;
 
-            A.CallTo(() => _userService.Register(command))
+            A.CallTo(() => _userService.OtpRequest(command))
                 .MustHaveHappenedOnceExactly();
 
             //Assert
             result.StatusCode.Should().Be(200);
-            result.Value.Should().Be("ثبت نام با موفقیت انجام شد، کد ارسال شده به تلفن همراه خود را وارد نمایید.");
+            result.Value.Should().Be("کد تایید ارسال شد.");
         }
     }
 }

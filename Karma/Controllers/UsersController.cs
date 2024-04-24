@@ -22,17 +22,27 @@ namespace Karma.API.Controllers
 
             await _userService.Register(command);
 
-            return Ok("ثبت نام با موفقیت انجام شد، کد");
+            return Ok("ثبت نام با موفقیت انجام شد، کد ارسال شده به تلفن همراه خود را وارد نمایید.");
         }
 
-        [HttpPost("OtpLogin")]
-        public async Task<IActionResult> OtpLogin(LoginCommand command)
+        [HttpPost("OtpRequest")]
+        public async Task<IActionResult> OtpRequest(OtpRequestCommand command)
         {
             command.Validate();
 
-            await _userService.OtpLogin(command.Phone);
+            await _userService.OtpRequest(command);
 
-            return Ok();
+            return Ok("کد تایید ارسال شد.");
+        }
+
+        [HttpPost("OtpLogin")]
+        public async Task<IActionResult> OtpLogin(OtpLoginCommand command)
+        {
+            command.Validate();
+
+            await _userService.OtpLogin(command);
+
+            return Ok("با موفقیت وارد شدید.");
         }
     }
 }
