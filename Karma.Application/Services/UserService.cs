@@ -28,9 +28,21 @@ namespace Karma.Application.Services
                 ? expirationTime : throw new Exception("Opt expiration time cannot be found.");
         }
 
+        public async Task<AuthenticatedUserDTO> Login(LoginCommand command)
+        {
+            var user = await _unitOfWork.UserRepository.FirstOrDefaultAsync(c => c.UserName == command.Username && c.PhoneNumberConfirmed);
+            if (user is null)
+                throw new ManagedException("نام کاربری یا رمز عبور اشتباه است.");
+
+            if (!await _unitOfWork.UserRepository.CheckUserPasswordAsync(user, command.Password))
+                throw new ManagedException("نام کاربری یا رمز عبور اشتباه است.");
+
+            return await _authenticationHelper.GetToken(user);
+        }
+
         public async Task<AuthenticatedUserDTO> OtpLogin(OtpLoginCommand command)
         {
-            var user = await _unitOfWork.UserRepository.FirstOrDefaultAsync(c=> c.PhoneNumber == command.Phone);
+            var user = await _unitOfWork.UserRepository.FirstOrDefaultAsync(c=> c.PhoneNumber == command.Phone && c.PhoneNumberConfirmed);
             if (user is null)
                 throw new ManagedException("کاربری با این شماره تلفن یافت نشد.");
 
@@ -40,24 +52,46 @@ namespace Karma.Application.Services
             return await _authenticationHelper.GetToken(user);
         }
 
-        public Task OtpRequest(OtpRequestCommand command)
+        public async Task OtpRequest(OtpRequestCommand command)
         {
-            throw new NotImplementedException();
-        }
+            var user = await _unitOfWork.UserRepository.FirstOrDefaultAsync(c => c.PhoneNumber == command.Phone);
+            if (user is null)
+                throw new ManagedException("کاربری با این شماره تلفن یافت نشد.");
 
-        public async Task Register(RegisterCommand command)
-        {
-            command.Phone = command.Phone.ToDefaultFormat();
-
-            var phoneDuplicationCheckCondition = await _unitOfWork.UserRepository.AnyAsync(c => c.PhoneNumber == command.Phone);
-            if (phoneDuplicationCheckCondition)
-                throw new ManagedException("این شماره موبایل قبلا در سامانه ثبت شده است.");
+            if (await _cacheProvider.Get(command.Phone) is not null)
+                throw new ManagedException("از مدت زمان درخواست کد تایید شما کمتر از 2 دقیقه گذشته است.");
 
             var optCode = _random.Next(100000, 1000000);
 
             //Send Notification - Todo
 
             await _cacheProvider.Set(command.Phone, optCode.ToString(), _optExpirationTime);
+        }
+
+        public async Task<AuthenticatedUserDTO> PhoneConfirmation(PhoneConfirmationCommand command)
+        {
+            var user = await _unitOfWork.UserRepository.FirstOrDefaultAsync(c => c.PhoneNumber == command.Phone);
+            if (user is null)
+                throw new ManagedException("کاربری با این شماره تلفن یافت نشد.");
+
+            if (command.OtpCode != await _cacheProvider.Get(command.Phone))
+                throw new ManagedException("کد وارد شده صحیح نمی‌باشد.");
+
+            user.PhoneNumberConfirmed = true;
+            await _cacheProvider.Clear(command.Phone);
+
+            await _unitOfWork.CommitAsync();
+            return await _authenticationHelper.GetToken(user);
+        }
+
+        public async Task Register(RegisterCommand command)
+        {
+            command.Phone = command.Phone.ToDefaultFormat();
+
+            var phoneDuplicationCheckCondition = await _unitOfWork.UserRepository.AnyAsync(c => c.PhoneNumber == command.Phone && c.PhoneNumberConfirmed);
+            if (phoneDuplicationCheckCondition)
+                throw new ManagedException("این شماره موبایل قبلا در سامانه ثبت شده است.");
+
             await _unitOfWork.UserRepository.CreateUserAsync(command.Phone);
             await _unitOfWork.CommitAsync();
         }

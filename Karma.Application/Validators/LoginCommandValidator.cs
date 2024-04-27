@@ -1,15 +1,14 @@
 ﻿using FluentValidation;
 using Karma.Application.Commands;
-using System.Text.RegularExpressions;
 
 namespace Karma.Application.Validators
 {
-    internal class OtpLoginCommandValidator : AbstractValidator<OtpLoginCommand>
+    internal class LoginCommandValidator : AbstractValidator<LoginCommand>
     {
-        public OtpLoginCommandValidator()
+        public LoginCommandValidator()
         {
-            RuleFor(c => c.Phone).Must(c => Regex.IsMatch(c, @"^(\+98|0)?9\d{9}$")).WithMessage("فرمت شماره موبایل صحیح نمی‌باشد.");
-            RuleFor(c => c.OtpCode).NotEmpty().WithMessage("کد تایید الزامی است.");
+            RuleFor(c => c.Username).NotEmpty().WithMessage("نام کاربری الزامی است.");
+            RuleFor(c => c.Password).NotEmpty().WithMessage("رمز عبور الزامی است.");
         }
     }
 }

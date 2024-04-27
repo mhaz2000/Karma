@@ -1,6 +1,7 @@
 ﻿using Karma.API.Extensions;
 using Karma.API.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Karma.API.Controllers.Base
 {
@@ -11,6 +12,5 @@ namespace Karma.API.Controllers.Base
         protected string AccessToken => Request.GetAccessToken();
 
         protected virtual Guid UserId => ClaimHelper.GetClaim<Guid>(this.AccessToken, "id");
-
     }
 }

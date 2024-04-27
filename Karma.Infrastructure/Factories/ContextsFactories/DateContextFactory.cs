@@ -8,8 +8,6 @@ namespace Karma.Infrastructure.Factories.ContextsFactories
     {
         public DataContext CreateDbContext(IConfiguration configuration)
         {
-            Console.WriteLine(configuration.GetConnectionString("Default"));
-
             var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
 
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("Default"));

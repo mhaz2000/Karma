@@ -1,9 +1,7 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
 using FluentValidation;
-using Karma.API.Controllers;
 using Karma.Application.Commands;
-using Karma.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Karma.Tests.Actions.Users

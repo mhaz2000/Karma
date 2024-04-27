@@ -1,6 +1,5 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
-using Karma.Infrastructure.Data;
 using Karma.Infrastructure.Repositories;
 
 namespace Karma.Tests.Repositories
@@ -11,7 +10,7 @@ namespace Karma.Tests.Repositories
 
         public UserRepositoryTest()
         {
-            _userRepository = new UserRepository(_dataContext);
+            _userRepository = new UserRepository(_dataContext, null);
         }
 
         [Fact]

@@ -1,4 +1,5 @@
-﻿using Karma.Application.Commands;
+﻿using Karma.API.Controllers.Base;
+using Karma.Application.Commands;
 using Karma.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +7,7 @@ namespace Karma.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : ApiControllerBase
     {
         private readonly IUserService _userService;
         public UsersController(IUserService userService)
@@ -40,9 +41,29 @@ namespace Karma.API.Controllers
         {
             command.Validate();
 
-            await _userService.OtpLogin(command);
+            var result = await _userService.OtpLogin(command);
 
-            return Ok("با موفقیت وارد شدید.");
+            return Ok(new { Message = "با موفقیت وارد شدید.", Value = result });
+        }
+
+        [HttpPost("PhoneConfirmation")]
+        public async Task<IActionResult> PhoneConfirmation(PhoneConfirmationCommand command)
+        {
+            command.Validate();
+
+            var result = await _userService.PhoneConfirmation(command);
+
+            return Ok(new { Message = "تلفن همراه شما با موفقیت تایید شد.", Value = result });
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginCommand command)
+        {
+            command.Validate();
+
+            var result = await _userService.Login(command);
+
+            return Ok(new { Message = "با موفقیت وارد شدید.", Value = result });
         }
     }
 }
