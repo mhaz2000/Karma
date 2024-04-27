@@ -1,23 +1,13 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
 using FluentValidation;
-using Karma.API.Controllers;
 using Karma.Application.Commands;
-using Karma.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Karma.Tests.Actions.Users
 {
-    public class RegisterationTest
+    public class RegisterationTest : UserControllerTest
     {
-        private readonly UsersController _controller;
-        private readonly IUserService _userService;
-        public RegisterationTest()
-        {
-            _userService = A.Fake<IUserService>();
-            _controller = new UsersController(_userService);
-        }
-
         [Theory]
         [InlineData("0912495985")]
         [InlineData("091249598555")]
@@ -54,7 +44,7 @@ namespace Karma.Tests.Actions.Users
 
             //Assert
             result.StatusCode.Should().Be(200);
-            result.Value.Should().Be("ثبت نام با موفقیت انجام شد.");
+            result.Value.Should().Be("ثبت نام با موفقیت انجام شد، کد ارسال شده به تلفن همراه خود را وارد نمایید.");
         }
     }
 }

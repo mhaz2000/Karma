@@ -5,6 +5,7 @@ namespace Karma.Core.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
+        Task<bool> CheckUserPasswordAsync(User user, string password);
         Task CreateUserAsync(string phone);
     }
 }

@@ -1,19 +1,16 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
-using Karma.Infrastructure.Data;
 using Karma.Infrastructure.Repositories;
 
 namespace Karma.Tests.Repositories
 {
-    public class UserRepositoryTest
+    public class UserRepositoryTest : RepositoryTest
     {
         private readonly UserRepository _userRepository;
-        private readonly DataContext _dataContext;
 
         public UserRepositoryTest()
         {
-            _dataContext = A.Fake<DataContext>();
-            _userRepository = new UserRepository(_dataContext);
+            _userRepository = new UserRepository(_dataContext, null);
         }
 
         [Fact]
@@ -22,9 +19,15 @@ namespace Karma.Tests.Repositories
             //Arrange
             var phoneNumber = "091098289263";
 
-            //Assert
+            //Act
             await _userRepository.Invoking(c=> c.CreateUserAsync(phoneNumber))
                 .Should().NotThrowAsync();
+
+            _dataContext.SaveChanges();
+
+            //Assert
+            _dataContext.Users.Where(c=> c.PhoneNumber == phoneNumber).Should().HaveCount(1);
+            _dataContext.Users.FirstOrDefault(c => c.PhoneNumber == phoneNumber)?.PhoneNumber.Should().Be(phoneNumber);
         }
     }
 }
