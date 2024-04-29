@@ -10,19 +10,29 @@ namespace Karma.Infrastructure.DbMigration
 {
     public class DatabaseMigration : IDatabaseMigration
     {
-        private readonly DataContext _dataContext;
-        private readonly LogContext _logContext;
+        private DataContext _dataContext;
+        private LogContext _logContext;
 
-        public DatabaseMigration(IConfiguration configuration)
+        public DatabaseMigration()
         {
-            _dataContext = new DateContextFactory().CreateDbContext(configuration);
-            _logContext = new LogContextFactory().CreateDbContext(configuration);
-
         }
-        public async Task MigrateDatabase()
+        public async Task MigrateDatabase(string dbConnectionString, string logConnectionString)
         {
-            _dataContext.Database.Migrate();
-            _logContext.Database.Migrate();
+            _dataContext = new DateContextFactory().CreateDbContext(dbConnectionString);
+            _logContext = new LogContextFactory().CreateDbContext(logConnectionString);
+
+            try
+            {
+
+                _dataContext.Database.Migrate();
+                _logContext.Database.Migrate();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("exception");
+                throw;
+            }
 
             var userStore = new UserStore<User, IdentityRole<Guid>, DataContext, Guid>(_dataContext);
             var userManager = new UserManager<User>(userStore, null, new PasswordHasher<User>(), null, null, null, null, null, null);

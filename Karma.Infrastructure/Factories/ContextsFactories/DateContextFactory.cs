@@ -6,11 +6,11 @@ namespace Karma.Infrastructure.Factories.ContextsFactories
 {
     internal class DateContextFactory
     {
-        public DataContext CreateDbContext(IConfiguration configuration)
+        public DataContext CreateDbContext(string connectionString)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
 
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("Default"));
+            optionsBuilder.UseSqlServer(connectionString);
 
             return new DataContext(optionsBuilder.Options);
         }

@@ -15,6 +15,8 @@ namespace Karma.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, string dbConnectionString, string logConnectionString)
         {
+            Console.WriteLine(dbConnectionString);
+
             services.AddDbContext<DataContext>(opt => opt.UseSqlServer(dbConnectionString));
             services.AddDbContext<LogContext>(options => options.UseSqlServer(logConnectionString));
 

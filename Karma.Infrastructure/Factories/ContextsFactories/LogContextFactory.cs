@@ -1,16 +1,15 @@
 ﻿using Karma.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace Karma.Infrastructure.Factories.ContextsFactories
 {
     internal class LogContextFactory
     {
-        public LogContext CreateDbContext(IConfiguration configuration)
+        public LogContext CreateDbContext(string connectionString)
         {
             var optionsBuilder = new DbContextOptionsBuilder<LogContext>();
 
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("Log"));
+            optionsBuilder.UseSqlServer(connectionString);
 
             return new LogContext(optionsBuilder.Options);
         }
