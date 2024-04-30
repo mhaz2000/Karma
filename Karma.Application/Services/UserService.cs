@@ -80,8 +80,10 @@ namespace Karma.Application.Services
             user.PhoneNumberConfirmed = true;
             await _cacheProvider.Clear(command.Phone);
 
+            var token = await _authenticationHelper.GetToken(user);
             await _unitOfWork.CommitAsync();
-            return await _authenticationHelper.GetToken(user);
+
+            return token;
         }
 
         public async Task Register(RegisterCommand command)

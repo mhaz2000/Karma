@@ -9,12 +9,14 @@ namespace Karma.Core.Entities
         {
             Id = Guid.NewGuid();
             CreatedAt = DateTime.UtcNow;
+            SecurityStamp = Guid.NewGuid().ToString();
         }
 
         public User(string username, string firstName, string lastName, string nationalCode)
         {
             Id = Guid.NewGuid();
             CreatedAt = DateTime.UtcNow;
+            SecurityStamp = Guid.NewGuid().ToString();
             FirstName = firstName;
             LastName = lastName;
             NationalCode = nationalCode;
