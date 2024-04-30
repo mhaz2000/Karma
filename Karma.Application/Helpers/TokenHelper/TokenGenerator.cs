@@ -20,7 +20,7 @@ namespace Karma.Application.Helpers.TokenHelper
         {
             var refreshToken = _tokenFactory.GenerateToken();
 
-            var identity = _jwtFactory.GenerateClaimsIdentity(user.UserName, user.Id.ToString());
+            var identity = _jwtFactory.GenerateClaimsIdentity(user.UserName ?? string.Empty, user.Id.ToString());
             if (identity == null)
                 throw new SystemException("در فراخوانی و تطابق اطلاعات حساب کاربری خطایی رخ داده است!");
 

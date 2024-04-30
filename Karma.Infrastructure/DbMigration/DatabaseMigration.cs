@@ -40,6 +40,7 @@ namespace Karma.Infrastructure.DbMigration
                 var newUser = new User("admin", "کاربر", "ادمین", string.Empty)
                 {
                     NormalizedUserName = "admin",
+                    PhoneNumberConfirmed = true
                 };
 
                 var done = await userManager.CreateAsync(newUser, "123456");

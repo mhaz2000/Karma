@@ -12,5 +12,13 @@ namespace Karma.API.Controllers.Base
         protected string AccessToken => Request.GetAccessToken();
 
         protected virtual Guid UserId => ClaimHelper.GetClaim<Guid>(this.AccessToken, "id");
+
+        public override OkObjectResult Ok([ActionResultObjectValue] object? value)
+        {
+            if (value is string)
+                return base.Ok(new { Message = value });
+
+            return base.Ok(value);
+        }
     }
 }
