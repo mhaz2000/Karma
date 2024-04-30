@@ -10,6 +10,7 @@ namespace Karma.Infrastructure.Repositories
     public class UserRepository : Repository<User>, IUserRepository
     {
         private readonly UserManager<User> _userManager;
+        private const string UserRole = "user";
 
         public UserRepository(DataContext dataContext, UserManager<User> userManager) : base(dataContext)
         {
@@ -21,13 +22,14 @@ namespace Karma.Infrastructure.Repositories
 
         public async Task CreateUserAsync(string phone)
         {
-            var entity = new User() { PhoneNumber = phone };
+            var entity = new User() { PhoneNumber = phone};
 
             var idolUser = await _dbSet.FirstOrDefaultAsync(c => c.PhoneNumber == phone && !c.PhoneNumberConfirmed);
 
             if (idolUser is not null)
                 _dbSet.Remove(idolUser);
 
+            await _userManager.AddToRoleAsync(entity, UserRole);
             await _dbSet.AddAsync(entity);
         }
     }
