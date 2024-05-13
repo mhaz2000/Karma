@@ -4,6 +4,7 @@ using Karma.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Karma.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240512121909_resumes-added")]
+    partial class resumesadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,7 +165,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JobCategories");
+                    b.ToTable("JobCategorys");
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.Language", b =>
@@ -215,13 +218,6 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MainJobTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -230,32 +226,6 @@ namespace Karma.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Resumes");
-                });
-
-            modelBuilder.Entity("Karma.Core.Entities.SocialMedia", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Link")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("ResumeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("SocialMediaType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResumeId");
-
-                    b.ToTable("SocialMedias");
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.SoftwareSkill", b =>
@@ -329,9 +299,6 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ImageId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -591,13 +558,6 @@ namespace Karma.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Karma.Core.Entities.SocialMedia", b =>
-                {
-                    b.HasOne("Karma.Core.Entities.Resume", null)
-                        .WithMany("SocialMedias")
-                        .HasForeignKey("ResumeId");
-                });
-
             modelBuilder.Entity("Karma.Core.Entities.SoftwareSkill", b =>
                 {
                     b.HasOne("Karma.Core.Entities.Resume", null)
@@ -665,8 +625,6 @@ namespace Karma.Infrastructure.Migrations
                     b.Navigation("EducationalRecords");
 
                     b.Navigation("Languages");
-
-                    b.Navigation("SocialMedias");
 
                     b.Navigation("SoftwareSkills");
                 });

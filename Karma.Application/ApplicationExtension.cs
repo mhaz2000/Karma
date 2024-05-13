@@ -30,6 +30,7 @@ namespace Karma.Application
             services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IFileService, FileService>();
 
             return services;
         }
