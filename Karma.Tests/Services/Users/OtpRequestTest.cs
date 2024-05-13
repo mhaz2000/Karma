@@ -36,8 +36,10 @@ namespace Karma.Tests.Services.Users
             //Arrange
             var command = new OtpRequestCommand() { Phone = "09124568596" };
             User user = new User();
+            string CachedUser = null;
 
             A.CallTo(() => _unitOfWork.UserRepository.FirstOrDefaultAsync(A<Expression<Func<User, bool>>>._)).Returns(user);
+            A.CallTo(() => _cacheProvider.Get(A<string>._)).Returns(CachedUser);
 
             //Act
             await _userService.OtpRequest(command);

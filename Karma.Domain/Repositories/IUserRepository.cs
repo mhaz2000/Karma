@@ -7,5 +7,6 @@ namespace Karma.Core.Repositories
     {
         Task<bool> CheckUserPasswordAsync(User user, string password);
         Task CreateUserAsync(string phone);
+        Task<User?> GetActiveUserByIdAsync(Guid userId);
     }
 }

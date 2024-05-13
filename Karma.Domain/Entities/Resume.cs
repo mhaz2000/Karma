@@ -13,7 +13,11 @@ namespace Karma.Core.Entities
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
 
+        public required string MainJobTitle { get; set; }
+        public string? Description { get; set; }
+
         public virtual required User User { get; set; }
+        public virtual IEnumerable<SocialMedia> SocialMedias { get; set; } = Enumerable.Empty<SocialMedia>();
         public virtual IEnumerable<EducationalRecord> EducationalRecords { get; set; } = Enumerable.Empty<EducationalRecord>();
         public virtual IEnumerable<CareerRecord> CareerRecords { get; set; } = Enumerable.Empty<CareerRecord>();
         public virtual IEnumerable<Language> Languages { get; set; } = Enumerable.Empty<Language>();
