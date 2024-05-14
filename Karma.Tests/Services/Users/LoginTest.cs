@@ -20,7 +20,7 @@ namespace Karma.Tests.Services.Users
             A.CallTo(() => _unitOfWork.UserRepository.FirstOrDefaultAsync(A<Expression<Func<User, bool>>>._)).Returns(user);
 
             //Act
-            var act = async () => await _userService.Login(command);
+            var act = async () => await _userService.LoginAsync(command);
             act.Invoke();
 
             //Assert
@@ -42,7 +42,7 @@ namespace Karma.Tests.Services.Users
             A.CallTo(() => _unitOfWork.UserRepository.CheckUserPasswordAsync(user, command.Password)).Returns(false);
 
             //Act
-            var act = async () => await _userService.Login(command);
+            var act = async () => await _userService.LoginAsync(command);
             act.Invoke();
 
             //Assert
@@ -66,7 +66,7 @@ namespace Karma.Tests.Services.Users
             A.CallTo(() => _authenticationHelper.GetToken(user)).Returns(expectedAuthenticatedUserDto);
 
             //Act
-            var result = await _userService.Login(command);
+            var result = await _userService.LoginAsync(command);
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.FirstOrDefaultAsync(A<Expression<Func<User, bool>>>._)).MustHaveHappenedOnceExactly();

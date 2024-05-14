@@ -19,9 +19,9 @@ namespace Karma.Tests.Actions.Users
             // Act
             var act = async () => await _controller.Login(command);
 
-            //Arrange
+            //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("نام کاربری الزامی است.");
-            A.CallTo(() => _userService.Login(command)).MustNotHaveHappened();
+            A.CallTo(() => _userService.LoginAsync(command)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -33,9 +33,9 @@ namespace Karma.Tests.Actions.Users
             // Act
             var act = async () => await _controller.Login(command);
 
-            //Arrange
+            //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("رمز عبور الزامی است.");
-            A.CallTo(() => _userService.Login(command)).MustNotHaveHappened();
+            A.CallTo(() => _userService.LoginAsync(command)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -47,9 +47,9 @@ namespace Karma.Tests.Actions.Users
             // Act
             var act = async () => await _controller.Login(command);
 
-            //Arrange
+            //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("نام کاربری الزامی است.\nرمز عبور الزامی است.");
-            A.CallTo(() => _userService.Login(command)).MustNotHaveHappened();
+            A.CallTo(() => _userService.LoginAsync(command)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -59,14 +59,14 @@ namespace Karma.Tests.Actions.Users
             var command = new LoginCommand() { Password = "faked password", Username = "faked username" };
             var expectedAuthenticatedUserDto = new AuthenticatedUserDTO() { AuthToken = "faked auth token", RefreshToken = "faked refresh token" };
 
-            A.CallTo(() => _userService.Login(command)).Returns(expectedAuthenticatedUserDto);
+            A.CallTo(() => _userService.LoginAsync(command)).Returns(expectedAuthenticatedUserDto);
 
             // Act
             var response = await _controller.Login(command);
 
             var result = (OkObjectResult)response;
 
-            A.CallTo(() => _userService.Login(command))
+            A.CallTo(() => _userService.LoginAsync(command))
                 .MustHaveHappenedOnceExactly();
 
             //Assert
