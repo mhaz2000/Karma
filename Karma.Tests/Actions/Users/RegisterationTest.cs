@@ -3,6 +3,7 @@ using FluentAssertions;
 using FluentValidation;
 using Karma.Application.Commands;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace Karma.Tests.Actions.Users
 {
@@ -39,12 +40,15 @@ namespace Karma.Tests.Actions.Users
             var response = await _controller.Register(command);
             var result = (OkObjectResult)response;
 
-            A.CallTo(() => _userService.Register(command))
+            A.CallTo(() => _userService.RegisterAsync(command))
                 .MustHaveHappenedOnceExactly();
 
             //Assert
             result.StatusCode.Should().Be(200);
-            result.Value.Should().Be("ثبت نام با موفقیت انجام شد، کد ارسال شده به تلفن همراه خود را وارد نمایید.");
+            result.Value!.GetType()
+                .GetProperty("message", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase)!
+                .GetValue(result.Value, null)
+                .Should().Be("ثبت نام با موفقیت انجام شد، کد ارسال شده به تلفن همراه خود را وارد نمایید.");
         }
     }
 }

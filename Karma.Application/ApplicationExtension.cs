@@ -2,10 +2,11 @@
 using Karma.Application.Helpers;
 using Karma.Application.Helpers.TokenHelper;
 using Karma.Application.Services;
+using Karma.Application.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
 
 namespace Karma.Application
 {
@@ -21,6 +22,8 @@ namespace Karma.Application
             jwtIusserOptionsModel.ValidTimeInMinute = int.Parse(configuration.GetSection("JwtIssuerOptions").GetSection("ValidTimeInMinute").Value!);
             jwtIusserOptionsModel.ExpireTimeTokenInMinute = int.Parse(configuration.GetSection("JwtIssuerOptions").GetSection("ExpireTimeTokenInMinute").Value!);
 
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
             services.AddSingleton<JwtIssuerOptionsModel>(jwtIusserOptionsModel);
 
             services.AddScoped<JwtSecurityTokenHandler>();
@@ -30,6 +33,9 @@ namespace Karma.Application
             services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IResumeWriteService, ResumeWriteService>();
+            services.AddScoped<IResumeReadService, ResumeReadService>();
 
             return services;
         }

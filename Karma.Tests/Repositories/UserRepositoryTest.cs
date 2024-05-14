@@ -1,6 +1,8 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
+using Karma.Core.Entities;
 using Karma.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 namespace Karma.Tests.Repositories
 {
@@ -10,7 +12,7 @@ namespace Karma.Tests.Repositories
 
         public UserRepositoryTest()
         {
-            _userRepository = new UserRepository(_dataContext, null);
+            _userRepository = new UserRepository(_dataContext, A.Fake<UserManager<User>>());
         }
 
         [Fact]

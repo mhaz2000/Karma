@@ -3,7 +3,7 @@ using FluentAssertions;
 using FluentValidation;
 using Karma.API.Controllers;
 using Karma.Application.Commands;
-using Karma.Application.Services;
+using Karma.Application.Services.Interfaces;
 
 namespace Karma.Tests.Actions.Users
 {

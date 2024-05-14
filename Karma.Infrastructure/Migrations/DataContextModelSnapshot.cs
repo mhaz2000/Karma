@@ -25,6 +25,280 @@ namespace Karma.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Karma.Core.Entities.AdditionalSkill", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ResumeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResumeId");
+
+                    b.ToTable("AdditionalSkills");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.CareerRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("CurrentJob")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("FromMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FromYear")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("JobCategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("JobTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ResumeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("SeniorityLevel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ToMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ToYear")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobCategoryId");
+
+                    b.HasIndex("ResumeId");
+
+                    b.ToTable("CareerRecords");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.EducationalRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DegreeLevel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FromYear")
+                        .HasColumnType("int");
+
+                    b.Property<float?>("GPA")
+                        .HasColumnType("real");
+
+                    b.Property<Guid>("MajorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ResumeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("StillEducating")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("ToYear")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UniversityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MajorId");
+
+                    b.HasIndex("ResumeId");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("EducationalRecords");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.JobCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JobCategories");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.Language", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LanguageLevel")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("ResumeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResumeId");
+
+                    b.ToTable("Languages");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.Major", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Majors");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.Resume", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MainJobTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Resumes");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.SocialMedia", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ResumeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("SocialMediaType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResumeId");
+
+                    b.ToTable("SocialMedias");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.SoftwareSkill", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ResumeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("SofwareSkillLevel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResumeId");
+
+                    b.ToTable("SoftwareSkills");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.University", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Universities");
+                });
+
             modelBuilder.Entity("Karma.Core.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -33,6 +307,13 @@ namespace Karma.Infrastructure.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -49,6 +330,9 @@ namespace Karma.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("ImageId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -58,6 +342,12 @@ namespace Karma.Infrastructure.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("MaritalStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MilitaryServiceStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("NationalCode")
                         .IsRequired()
@@ -81,6 +371,10 @@ namespace Karma.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telephone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -234,6 +528,83 @@ namespace Karma.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Karma.Core.Entities.AdditionalSkill", b =>
+                {
+                    b.HasOne("Karma.Core.Entities.Resume", null)
+                        .WithMany("AdditionalSkills")
+                        .HasForeignKey("ResumeId");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.CareerRecord", b =>
+                {
+                    b.HasOne("Karma.Core.Entities.JobCategory", "JobCategory")
+                        .WithMany()
+                        .HasForeignKey("JobCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Karma.Core.Entities.Resume", null)
+                        .WithMany("CareerRecords")
+                        .HasForeignKey("ResumeId");
+
+                    b.Navigation("JobCategory");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.EducationalRecord", b =>
+                {
+                    b.HasOne("Karma.Core.Entities.Major", "Major")
+                        .WithMany()
+                        .HasForeignKey("MajorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Karma.Core.Entities.Resume", null)
+                        .WithMany("EducationalRecords")
+                        .HasForeignKey("ResumeId");
+
+                    b.HasOne("Karma.Core.Entities.University", "University")
+                        .WithMany()
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Major");
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.Language", b =>
+                {
+                    b.HasOne("Karma.Core.Entities.Resume", null)
+                        .WithMany("Languages")
+                        .HasForeignKey("ResumeId");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.Resume", b =>
+                {
+                    b.HasOne("Karma.Core.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.SocialMedia", b =>
+                {
+                    b.HasOne("Karma.Core.Entities.Resume", null)
+                        .WithMany("SocialMedias")
+                        .HasForeignKey("ResumeId");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.SoftwareSkill", b =>
+                {
+                    b.HasOne("Karma.Core.Entities.Resume", null)
+                        .WithMany("SoftwareSkills")
+                        .HasForeignKey("ResumeId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -283,6 +654,21 @@ namespace Karma.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.Resume", b =>
+                {
+                    b.Navigation("AdditionalSkills");
+
+                    b.Navigation("CareerRecords");
+
+                    b.Navigation("EducationalRecords");
+
+                    b.Navigation("Languages");
+
+                    b.Navigation("SocialMedias");
+
+                    b.Navigation("SoftwareSkills");
                 });
 #pragma warning restore 612, 618
         }

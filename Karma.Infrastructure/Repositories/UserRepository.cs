@@ -32,5 +32,8 @@ namespace Karma.Infrastructure.Repositories
             await _userManager.AddToRoleAsync(entity, UserRole);
             await _dbSet.AddAsync(entity);
         }
+
+        public async Task<User?> GetActiveUserByIdAsync(Guid userId)
+            => await _dbSet.FirstOrDefaultAsync(c => c.Id == userId && c.PhoneNumberConfirmed);
     }
 }

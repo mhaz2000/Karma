@@ -1,0 +1,9 @@
+﻿using Karma.Application.DTOs;
+
+namespace Karma.Application.Services.Interfaces
+{
+    public interface IResumeReadService
+    {
+        Task<AboutMeDTO> GetAboutMe(Guid userId);
+    }
+}

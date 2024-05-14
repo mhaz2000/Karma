@@ -19,7 +19,7 @@ namespace Karma.Tests.Services.Users
             A.CallTo(() => _unitOfWork.UserRepository.FirstOrDefaultAsync(A<Expression<Func<User, bool>>>._)).Returns(user);
 
             //Act
-            var act = async () => await _userService.OtpLogin(command);
+            var act = async () => await _userService.OtpLoginAsync(command);
             act.Invoke();
 
             //Assert
@@ -40,7 +40,7 @@ namespace Karma.Tests.Services.Users
             A.CallTo(() => _cacheProvider.Get(command.OtpCode)).Returns(string.Empty);
 
             //Act
-            var act = async () => await _userService.OtpLogin(command);
+            var act = async () => await _userService.OtpLoginAsync(command);
             act.Invoke();
 
             //Assert
@@ -61,7 +61,7 @@ namespace Karma.Tests.Services.Users
             A.CallTo(() => _cacheProvider.Get(A<string>._)).Returns(command.OtpCode);
 
             //Act
-            var result = await _userService.OtpLogin(command);
+            var result = await _userService.OtpLoginAsync(command);
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.FirstOrDefaultAsync(A<Expression<Func<User, bool>>>._)).MustHaveHappenedOnceExactly();

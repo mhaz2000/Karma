@@ -1,6 +1,6 @@
 ﻿using Karma.API.Controllers.Base;
 using Karma.Application.Commands;
-using Karma.Application.Services;
+using Karma.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Karma.API.Controllers
@@ -21,7 +21,7 @@ namespace Karma.API.Controllers
         {
             command.Validate();
 
-            await _userService.Register(command);
+            await _userService.RegisterAsync(command);
 
             return Ok("ثبت نام با موفقیت انجام شد، کد ارسال شده به تلفن همراه خود را وارد نمایید.");
         }
@@ -31,7 +31,7 @@ namespace Karma.API.Controllers
         {
             command.Validate();
 
-            await _userService.OtpRequest(command);
+            await _userService.OtpRequestAsync(command);
 
             return Ok("کد تایید ارسال شد.");
         }
@@ -41,7 +41,7 @@ namespace Karma.API.Controllers
         {
             command.Validate();
 
-            var result = await _userService.OtpLogin(command);
+            var result = await _userService.OtpLoginAsync(command);
 
             return Ok(new { Message = "با موفقیت وارد شدید.", Value = result });
         }
@@ -51,7 +51,7 @@ namespace Karma.API.Controllers
         {
             command.Validate();
 
-            var result = await _userService.PhoneConfirmation(command);
+            var result = await _userService.PhoneConfirmationAsync(command);
 
             return Ok(new { Message = "تلفن همراه شما با موفقیت تایید شد.", Value = result });
         }
@@ -61,7 +61,7 @@ namespace Karma.API.Controllers
         {
             command.Validate();
 
-            var result = await _userService.Login(command);
+            var result = await _userService.LoginAsync(command);
 
             return Ok(new { Message = "با موفقیت وارد شدید.", Value = result });
         }
