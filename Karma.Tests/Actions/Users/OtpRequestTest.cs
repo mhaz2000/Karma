@@ -40,7 +40,7 @@ namespace Karma.Tests.Actions.Users
             var response = await _controller.OtpRequest(command);
             var result = (OkObjectResult)response;
 
-            A.CallTo(() => _userService.OtpRequest(command))
+            A.CallTo(() => _userService.OtpRequestAsync(command))
                 .MustHaveHappenedOnceExactly();
 
             //Assert

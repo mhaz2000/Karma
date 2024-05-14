@@ -14,6 +14,7 @@ namespace Karma.Infrastructure.Repositories.Base
         private UserRepository _userRepository;
         private RoleRepository _roleRepository;
         private ResumeRepository _resumeRepository;
+        private SocialMediaRepository _socialMediaRepository;
 
         public UnitOfWork(DataContext context, UserManager<User> userManager)
         {
@@ -24,6 +25,7 @@ namespace Karma.Infrastructure.Repositories.Base
         public IUserRepository UserRepository => _userRepository ?? new UserRepository(_context, _userManager);
         public IRoleRepository RoleRepository => _roleRepository ?? new RoleRepository(_context);
         public IResumeRepository ResumeRepository => _resumeRepository ?? new ResumeRepository(_context);
+        public ISocialMediaRepository SocialMediaRepository => _socialMediaRepository ?? new SocialMediaRepository(_context);
 
         public async Task<int> CommitAsync()
         {

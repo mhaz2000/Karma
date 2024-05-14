@@ -48,7 +48,7 @@ namespace Karma.Tests.Actions.Users
             var command = new PhoneConfirmationCommand() { Phone = "09207831300", OtpCode = "11111" };
             var expectedAuthenticatedUserDto = new AuthenticatedUserDTO() { AuthToken = "Faked token", RefreshToken = "Faked refresh token" };
 
-            A.CallTo(() => _userService.PhoneConfirmation(command)).Returns(expectedAuthenticatedUserDto);
+            A.CallTo(() => _userService.PhoneConfirmationAsync(command)).Returns(expectedAuthenticatedUserDto);
 
             //Act
             var act = async () => await _controller.PhoneConfirmation(command);
@@ -56,7 +56,7 @@ namespace Karma.Tests.Actions.Users
             var response = await _controller.PhoneConfirmation(command);
             var result = (OkObjectResult)response;
 
-            A.CallTo(() => _userService.PhoneConfirmation(command))
+            A.CallTo(() => _userService.PhoneConfirmationAsync(command))
                 .MustHaveHappenedOnceExactly();
 
             //Assert

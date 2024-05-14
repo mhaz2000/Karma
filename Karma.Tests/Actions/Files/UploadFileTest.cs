@@ -2,7 +2,7 @@
 using FakeItEasy;
 using FluentAssertions;
 using Karma.API.Controllers;
-using Karma.Application.Services;
+using Karma.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -46,7 +46,7 @@ namespace Karma.Tests.Actions.Files
             IFormFile file = new FormFile(stream, 0, stream.Length, "id_from_form", fileName);
 
 
-            A.CallTo(() => _fileService.StoreFile(A<MemoryStream>._, A<Guid>._)).Returns(expectedId);
+            A.CallTo(() => _fileService.StoreFileAsync(A<MemoryStream>._, A<Guid>._)).Returns(expectedId);
 
             //Act
             var response = await _filesController.Upload(file);

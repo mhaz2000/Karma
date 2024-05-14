@@ -19,7 +19,7 @@ namespace Karma.Tests.Services.Users
                 .Returns(true);
 
             //Act
-            await _userService.Invoking(c => c.Register(command)).Should()
+            await _userService.Invoking(c => c.RegisterAsync(command)).Should()
                 .ThrowAsync<ManagedException>().WithMessage("این شماره موبایل قبلا در سامانه ثبت شده است.");
         }
 
@@ -33,7 +33,7 @@ namespace Karma.Tests.Services.Users
                 .Returns(false);
 
             //Act
-            await _userService.Invoking(c => c.Register(command)).Should().NotThrowAsync();
+            await _userService.Invoking(c => c.RegisterAsync(command)).Should().NotThrowAsync();
 
             A.CallTo(() => _cacheProvider.Set(command.Phone, A<string>._, A<int>._));
 

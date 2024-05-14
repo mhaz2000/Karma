@@ -8,20 +8,32 @@ namespace Karma.Core.Entities
         {
             Id = Guid.NewGuid();
             CreatedAt = DateTime.UtcNow;
+
+            SocialMedias = new HashSet<SocialMedia>();
+            EducationalRecords = new HashSet<EducationalRecord>();
+            CareerRecords = new HashSet<CareerRecord>();
+            Languages = new HashSet<Language>();
+            SoftwareSkills = new HashSet<SoftwareSkill>();
+            AdditionalSkills = new HashSet<AdditionalSkill>();
+        }
+
+        public Resume(User user) : this()
+        {
+            User = user;
         }
 
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public required string MainJobTitle { get; set; }
+        public string MainJobTitle { get; set; } = string.Empty;
         public string? Description { get; set; }
 
-        public virtual required User User { get; set; }
-        public virtual IEnumerable<SocialMedia> SocialMedias { get; set; } = Enumerable.Empty<SocialMedia>();
-        public virtual IEnumerable<EducationalRecord> EducationalRecords { get; set; } = Enumerable.Empty<EducationalRecord>();
-        public virtual IEnumerable<CareerRecord> CareerRecords { get; set; } = Enumerable.Empty<CareerRecord>();
-        public virtual IEnumerable<Language> Languages { get; set; } = Enumerable.Empty<Language>();
-        public virtual IEnumerable<SoftwareSkill> SoftwareSkills { get; set; } = Enumerable.Empty<SoftwareSkill>();
-        public virtual IEnumerable<AdditionalSkill> AdditionalSkills { get; set; } = Enumerable.Empty<AdditionalSkill>();
+        public virtual required User User { get; set; } 
+        public virtual IEnumerable<SocialMedia> SocialMedias { get; set; }
+        public virtual IEnumerable<EducationalRecord> EducationalRecords { get; set; }
+        public virtual IEnumerable<CareerRecord> CareerRecords { get; set; }
+        public virtual IEnumerable<Language> Languages { get; set; }
+        public virtual IEnumerable<SoftwareSkill> SoftwareSkills { get; set; }
+        public virtual IEnumerable<AdditionalSkill> AdditionalSkills { get; set; }
     }
 }

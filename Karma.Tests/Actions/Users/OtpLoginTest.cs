@@ -47,7 +47,7 @@ namespace Karma.Tests.Actions.Users
             var command = new OtpLoginCommand() { Phone = "09207831300", OtpCode = "11111" };
             var expectedAuthenticatedUserDto = new AuthenticatedUserDTO() { AuthToken = "Faked token", RefreshToken = "Faked refresh token" };
 
-            A.CallTo(() => _userService.OtpLogin(command)).Returns(expectedAuthenticatedUserDto);
+            A.CallTo(() => _userService.OtpLoginAsync(command)).Returns(expectedAuthenticatedUserDto);
 
             //Act
             var act = async () => await _controller.OtpLogin(command);
@@ -55,7 +55,7 @@ namespace Karma.Tests.Actions.Users
             var response = await _controller.OtpLogin(command);
             var result = (OkObjectResult)response;
 
-            A.CallTo(() => _userService.OtpLogin(command))
+            A.CallTo(() => _userService.OtpLoginAsync(command))
                 .MustHaveHappenedOnceExactly();
 
             //Assert

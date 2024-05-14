@@ -40,7 +40,7 @@ namespace Karma.Tests.Actions.Users
             var response = await _controller.Register(command);
             var result = (OkObjectResult)response;
 
-            A.CallTo(() => _userService.Register(command))
+            A.CallTo(() => _userService.RegisterAsync(command))
                 .MustHaveHappenedOnceExactly();
 
             //Assert
