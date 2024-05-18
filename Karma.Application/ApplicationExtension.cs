@@ -37,6 +37,10 @@ namespace Karma.Application
             services.AddScoped<IResumeWriteService, ResumeWriteService>();
             services.AddScoped<IResumeReadService, ResumeReadService>();
 
+            var path = Directory.GetCurrentDirectory() + "\\FileStorage";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
             return services;
         }
     }

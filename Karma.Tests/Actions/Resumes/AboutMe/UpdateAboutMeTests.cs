@@ -6,7 +6,7 @@ using Karma.Application.Commands;
 using Karma.Application.Services.Interfaces;
 using Karma.Core.Enums;
 
-namespace Karma.Tests.Actions.Resumes
+namespace Karma.Tests.Actions.Resumes.AboutMe
 {
     public class UpdateAboutMeTests
     {
