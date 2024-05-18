@@ -15,7 +15,8 @@ namespace Karma.Application.Mappings
 
             CreateMap<User, BasicInfoDTO>()
                 .ForMember(c=> c.MaritalStatus, opt => opt.MapFrom<BasicInfoMaritalStatusResolver>())
-                .ForMember(c=> c.MilitaryServiceStatus, opt => opt.MapFrom<MilitaryServiceStatusResolver>());
+                .ForMember(c=> c.MilitaryServiceStatus, opt => opt.MapFrom<MilitaryServiceStatusResolver>())
+                .ForMember(c=> c.Gender, opt => opt.MapFrom<GenderResolver>());
 
         }
 

@@ -57,6 +57,7 @@ namespace Karma.Application.Services
             user.Telephone = command.Telephone;
             user.MaritalStatus = command.MaritalStatus;
             user.MilitaryServiceStatus = command.MilitaryServiceStatus;
+            user.Gender = command.Gender;
 
             await _unitOfWork.CommitAsync();
         }

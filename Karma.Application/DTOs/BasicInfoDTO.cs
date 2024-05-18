@@ -11,7 +11,8 @@ namespace Karma.Application.DTOs
         public string City { get; set; } = string.Empty;
         public string Telephone { get; set; } = string.Empty;
         public DateTime BirthDate { get; set; }
-        public string MaritalStatus { get; set; }
-        public string MilitaryServiceStatus { get; set; }
+        public required string MaritalStatus { get; set; }
+        public required string MilitaryServiceStatus { get; set; }
+        public required string Gender { get; set; }
     }
 }

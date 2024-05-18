@@ -20,4 +20,12 @@ namespace Karma.Application.Mappings
             return source.MilitaryServiceStatus.GetDescription();
         }
     }
+
+    public class GenderResolver : IValueResolver<User, BasicInfoDTO, string>
+    {
+        public string Resolve(User source, BasicInfoDTO destination, string destMember, ResolutionContext context)
+        {
+            return source.Gender.GetDescription();
+        }
+    }
 }

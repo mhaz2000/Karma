@@ -29,6 +29,7 @@ namespace Karma.Core.Entities
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public MaritalStatus MaritalStatus { get; set; }
+        public Gender Gender { get; set; } = Gender.Male;
         public MilitaryServiceStatus MilitaryServiceStatus { get; set; }
         public string City { get; set; } = string.Empty;
         public DateTime? BirthDate { get; set; }

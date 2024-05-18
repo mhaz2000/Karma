@@ -12,6 +12,7 @@ namespace Karma.Application.Commands
         public required string LastName { get; set; } 
         public MaritalStatus MaritalStatus { get; set; }
         public MilitaryServiceStatus MilitaryServiceStatus { get; set; }
+        public Gender Gender { get; set; }
         public required string City { get; set; }
         public DateTime BirthDate { get; set; }
         public string Telephone { get; set; } = string.Empty;
