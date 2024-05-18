@@ -2,14 +2,10 @@
 using FluentAssertions;
 using Karma.API.Controllers;
 using Karma.Application.DTOs;
+using Karma.Application.Helpers;
 using Karma.Application.Services.Interfaces;
 using Karma.Core.Enums;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Karma.Tests.Actions.Resumes.BasicInfo
 {
@@ -41,9 +37,10 @@ namespace Karma.Tests.Actions.Resumes.BasicInfo
                 City = "Fake City",
                 FirstName = "Fake First Name",
                 LastName = "Fake Last Name",
-                MaritalStatus= MaritalStatus.Unknown,
-                MilitaryServiceStatus = MilitaryServiceStatus.Unknown,
-                Telephone = "Fake Telephoe"
+                MaritalStatus= MaritalStatus.Unknown.GetDescription(),
+                MilitaryServiceStatus = MilitaryServiceStatus.Unknown.GetDescription(),
+                Telephone = "Fake Telephoe",
+                Gender = Gender.Male.GetDescription(),
             };
 
             A.CallTo(() => _resumeReadService.GetBasicInfo(A<Guid>._)).Returns(expectedResult);
