@@ -43,5 +43,23 @@ namespace Karma.Application.Services
 
             await _unitOfWork.CommitAsync();
         }
+
+        public async Task UpdateBasicInfo(UpdateBasicInfoCommand command, Guid userId)
+        {
+            var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId);
+            if (user is null)
+                throw new ManagedException("کاربر مورد نظر یافت نشد.");
+
+            user.BirthDate = command.BirthDate;
+            user.FirstName = command.FirstName;
+            user.LastName = command.LastName;
+            user.City = command.City;
+            user.Telephone = command.Telephone;
+            user.MaritalStatus = command.MaritalStatus;
+            user.MilitaryServiceStatus = command.MilitaryServiceStatus;
+            user.Gender = command.Gender;
+
+            await _unitOfWork.CommitAsync();
+        }
     }
 }

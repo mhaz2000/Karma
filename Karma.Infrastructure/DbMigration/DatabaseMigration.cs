@@ -47,7 +47,7 @@ namespace Karma.Infrastructure.DbMigration
 
             if (!context.Users.Any(u => u.UserName == username))
             {
-                var newUser = new User("admin", "کاربر", "ادمین", string.Empty)
+                var newUser = new User("admin", "کاربر", "ادمین")
                 {
                     NormalizedUserName = "admin",
                     PhoneNumberConfirmed = true

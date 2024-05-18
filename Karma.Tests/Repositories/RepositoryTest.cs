@@ -72,7 +72,6 @@ namespace Karma.Tests.Repositories
                 .RuleFor(c => c.UserName, f => f.Name.FindName().Replace(" ", ""))
                 .RuleFor(c => c.FirstName, f => f.Person.FirstName)
                 .RuleFor(c => c.LastName, f => f.Person.LastName)
-                .RuleFor(c => c.NationalCode, f => random.NextInt64(1111111111, 9999999999).ToString())
                 .RuleFor(c => c.Id, f => Guid.NewGuid());
 
             return faker.Generate(count);

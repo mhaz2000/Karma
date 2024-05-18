@@ -8,7 +8,7 @@ using Karma.Core.Entities;
 using Karma.Core.Repositories.Base;
 using System.Linq.Expressions;
 
-namespace Karma.Tests.Services.Resumes
+namespace Karma.Tests.Services.Resumes.AboutMe
 {
     public class GetAboutMeTests
     {
@@ -71,7 +71,7 @@ namespace Karma.Tests.Services.Resumes
         {
             var userId = Guid.NewGuid();
             User user = new User();
-            Resume? resume = new Resume() { User = user};
+            Resume? resume = new Resume() { User = user };
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
