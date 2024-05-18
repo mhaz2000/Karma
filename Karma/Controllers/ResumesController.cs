@@ -28,10 +28,28 @@ namespace Karma.API.Controllers
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
 
+        [HttpPut("BasicInfo")]
+        public async Task<IActionResult> UpdateBasicInfo([FromBody] UpdateBasicInfoCommand command)
+        {
+            command.Validate();
+
+            await _resumeWriteService.UpdateBasicInfo(command, UserId);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
         [HttpGet("AboutMe")]
         public async Task<IActionResult> AboutMe()
         {
             var result = await _resumeReadService.GetAboutMe(UserId);
+
+            return Ok(result);
+        }
+
+        [HttpGet("BasicInfo")]
+        public async Task<IActionResult> BasicInfo()
+        {
+            var result = await _resumeReadService.GetBasicInfo(UserId);
 
             return Ok(result);
         }

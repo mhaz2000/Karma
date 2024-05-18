@@ -6,7 +6,7 @@ using Karma.Application.Services.Interfaces;
 using Karma.Core.Enums;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Karma.Tests.Actions.Resumes
+namespace Karma.Tests.Actions.Resumes.AboutMe
 {
     public class GetAboutMeTests
     {

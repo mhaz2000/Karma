@@ -34,5 +34,14 @@ namespace Karma.Application.Services.Interfaces
                 SocialMedias = _mapper.Map<IEnumerable<SocialMediaDTO>>(resume.SocialMedias)
             };
         }
+
+        public async Task<BasicInfoDTO> GetBasicInfo(Guid userId)
+        {
+            var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId);
+            if (user is null)
+                throw new ManagedException("کاربر مورد نظر یافت نشد.");
+
+            return _mapper.Map<BasicInfoDTO>(user);
+        }
     }
 }
