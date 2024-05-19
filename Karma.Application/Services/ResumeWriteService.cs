@@ -61,5 +61,23 @@ namespace Karma.Application.Services
 
             await _unitOfWork.CommitAsync();
         }
+
+        public async Task UpdateEducationalRecord(UpdateEducationalRecordCommand command, Guid userId)
+        {
+            var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId);
+            if (user is null)
+                throw new ManagedException("کاربر مورد نظر یافت نشد.");
+
+            var existingResume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user);
+
+            var resume = new ResumeBuilder(existingResume, user)
+                .WithEducationalRecords(_mapper.Map<EducationalRecord>(command))
+                .Build();
+
+            if (existingResume is null)
+                await _unitOfWork.ResumeRepository.AddAsync(resume);
+
+            await _unitOfWork.CommitAsync();
+        }
     }
 }

@@ -6,5 +6,6 @@ namespace Karma.Application.Services.Interfaces
     {
         Task UpdateAboutMeAsync(UpdateAboutMeCommand command, Guid userId);
         Task UpdateBasicInfo(UpdateBasicInfoCommand command, Guid userId);
+        Task UpdateEducationalRecord(UpdateEducationalRecordCommand command, Guid userId);
     }
 }

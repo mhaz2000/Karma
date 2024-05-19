@@ -35,9 +35,9 @@ namespace Karma.Core.EntityBuilders
             return this;
         }
 
-        public ResumeBuilder WithEducationalRecords(IEnumerable<EducationalRecord> educationalRecords)
+        public ResumeBuilder WithEducationalRecords(EducationalRecord educationalRecord)
         {
-            _resume.EducationalRecords = educationalRecords.ToList();
+            _resume.EducationalRecords.ToList().Add(educationalRecord);
             return this;
         }
 

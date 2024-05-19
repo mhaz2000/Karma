@@ -12,6 +12,7 @@ namespace Karma.Infrastructure.Repositories.Base
         private readonly UserManager<User> _userManager;
 
         private UserRepository _userRepository;
+        private MajorRepository _majorRepository;
         private RoleRepository _roleRepository;
         private ResumeRepository _resumeRepository;
         private SocialMediaRepository _socialMediaRepository;
@@ -24,6 +25,7 @@ namespace Karma.Infrastructure.Repositories.Base
 
         public IUserRepository UserRepository => _userRepository ?? new UserRepository(_context, _userManager);
         public IRoleRepository RoleRepository => _roleRepository ?? new RoleRepository(_context);
+        public IMajorRepository MajorRepository => _majorRepository ?? new MajorRepository(_context);
         public IResumeRepository ResumeRepository => _resumeRepository ?? new ResumeRepository(_context);
         public ISocialMediaRepository SocialMediaRepository => _socialMediaRepository ?? new SocialMediaRepository(_context);
 
