@@ -6,18 +6,23 @@ using Karma.Application.DTOs;
 using Karma.Application.Services;
 using Karma.Core.Entities;
 using Karma.Core.Repositories.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Karma.Tests.Services.Resumes.AboutMe
+namespace Karma.Tests.Services.Resumes.EducationalRecords
 {
-    public class GetAboutMeTests
+    public class GetEducationalRecordsTests
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         private readonly ResumeReadService _resumeReadService;
 
-        public GetAboutMeTests()
+        public GetEducationalRecordsTests()
         {
             _unitOfWork = A.Fake<IUnitOfWork>();
             _mapper = A.Fake<IMapper>();
@@ -35,7 +40,7 @@ namespace Karma.Tests.Services.Resumes.AboutMe
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
 
             //Act
-            var act = async () => await _resumeReadService.GetAboutMe(userId);
+            var act = async () => await _resumeReadService.GetEducationalRecords(userId);
             act.Invoke();
 
             //Assert
@@ -56,7 +61,7 @@ namespace Karma.Tests.Services.Resumes.AboutMe
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
 
             //Act
-            var act = async () => await _resumeReadService.GetAboutMe(userId);
+            var act = async () => await _resumeReadService.GetEducationalRecords(userId);
             act.Invoke();
 
             //Assert
@@ -67,7 +72,7 @@ namespace Karma.Tests.Services.Resumes.AboutMe
         }
 
         [Fact]
-        public async Task Should_Return_About_Me_Data()
+        public async Task Should_Return_Educational_Records()
         {
             var userId = Guid.NewGuid();
             User user = new User();
@@ -75,9 +80,9 @@ namespace Karma.Tests.Services.Resumes.AboutMe
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
-
+            A.CallTo(() => _mapper.Map<IEnumerable<EducationalRecordDTO>>(A<IQueryable<EducationalRecord>>._)).Returns(new List<EducationalRecordDTO>());
             //Act
-            var act = async () => await _resumeReadService.GetAboutMe(userId);
+            var act = async () => await _resumeReadService.GetEducationalRecords(userId);
             var result = await act.Invoke();
 
             //Assert
@@ -85,8 +90,6 @@ namespace Karma.Tests.Services.Resumes.AboutMe
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustHaveHappenedOnceExactly();
 
             await act.Should().NotThrowAsync<ManagedException>();
-
-            result.Should().BeOfType<AboutMeDTO>();
         }
     }
 }

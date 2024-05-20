@@ -18,7 +18,7 @@ namespace Karma.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<MajorDTO>> GetMajors(string search, IPageQuery pageQuery)
+        public async Task<IEnumerable<MajorDTO>> GetMajorsAsync(string search, IPageQuery pageQuery)
         {
             var result = _mapper.Map<IEnumerable<MajorDTO>>(_unitOfWork.MajorRepository.Where(c => c.Title.Contains(search)));
             return  await Task.FromResult(result.ToPagingAndSorting(pageQuery));

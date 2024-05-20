@@ -3,7 +3,7 @@ using Karma.Core.Entities;
 
 namespace Karma.Application.DTOs
 {
-    public record MajorDTO : IMapFrom<Major>
+    public record UniversityDTO : IMapFrom<University>
     {
         public int Id { get; set; }
         public required string Title { get; set; }

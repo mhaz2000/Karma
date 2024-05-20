@@ -1,6 +1,7 @@
 ﻿using Karma.API.Controllers.Base;
 using Karma.Application.Commands;
 using Karma.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Karma.API.Controllers
@@ -38,16 +39,28 @@ namespace Karma.API.Controllers
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
 
-        [HttpPut("EducationalRecord")]
-        public async Task<IActionResult> UpdateEducationalRecord([FromBody] UpdateEducationalRecordCommand command)
+        [HttpPut("AddEducationalRecord")]
+        public async Task<IActionResult> AddEducationalRecord([FromBody] AddEducationalRecordCommand command)
         {
             command.Validate();
 
-            await _resumeWriteService.UpdateEducationalRecord(command, UserId);
+            await _resumeWriteService.AddEducationalRecord(command, UserId);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
 
+
+        [HttpPut("UpdateEducationalRecord/{id}")]
+        public async Task<IActionResult> UpdateEducationalRecord(Guid id, [FromBody] UpdateEducationalRecordCommand command)
+        {
+            command.Validate();
+
+            await _resumeWriteService.UpdateEducationalRecord(id, command, UserId);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        [AllowAnonymous]
         [HttpGet("AboutMe")]
         public async Task<IActionResult> AboutMe()
         {
@@ -56,10 +69,20 @@ namespace Karma.API.Controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpGet("BasicInfo")]
         public async Task<IActionResult> BasicInfo()
         {
             var result = await _resumeReadService.GetBasicInfo(UserId);
+
+            return Ok(result);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("EducationalRecords")]
+        public async Task<IActionResult> EducationalRecords()
+        {
+            var result = await _resumeReadService.GetEducationalRecords(UserId);
 
             return Ok(result);
         }

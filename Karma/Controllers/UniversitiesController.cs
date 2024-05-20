@@ -7,19 +7,19 @@ namespace Karma.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MajorsController : ApiControllerBase
+    public class UniversitiesController : ApiControllerBase
     {
-        private readonly IMajorService _majorService;
+        private readonly IUniversityService _universityService;
 
-        public MajorsController(IMajorService majorService)
+        public UniversitiesController(IUniversityService universityService)
         {
-            _majorService = majorService;
+            _universityService = universityService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] PageQuery pageQuery, string search = "")
         {
-            var result = await _majorService.GetMajorsAsync(search, pageQuery);
+            var result = await _universityService.GetUniversitiesAsync(pageQuery, search);
 
             return Ok(result);
         }

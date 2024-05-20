@@ -1,10 +1,9 @@
-﻿using Karma.Application.DTOs.Base;
-using Karma.Application.Mappings;
+﻿using Karma.Application.Mappings;
 using Karma.Core.Entities;
 
 namespace Karma.Application.DTOs
 {
-    public record BasicInfoDTO : IMapFrom<User>, IHasEnum
+    public record BasicInfoDTO : IMapFrom<User>
     {
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;

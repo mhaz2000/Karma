@@ -62,20 +62,63 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task UpdateEducationalRecord(UpdateEducationalRecordCommand command, Guid userId)
+        public async Task AddEducationalRecord(AddEducationalRecordCommand command, Guid userId)
         {
             var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId);
             if (user is null)
                 throw new ManagedException("کاربر مورد نظر یافت نشد.");
 
+            var major = await _unitOfWork.MajorRepository.GetByIdAsync(command.MajorId) ??
+                throw new ManagedException("مقدار وارد شده برای رشته دانشگاهی صحیح نمی‌باشد.");
+
+            var university = await _unitOfWork.UniversityRepository.GetByIdAsync(command.UniversityId) ??
+                throw new ManagedException("مقدار وارد شده برای دانشگاه صحیح نمی‌باشد.");
+
             var existingResume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user);
 
+            var educationalRecord = _mapper.Map<EducationalRecord>(command);
+            educationalRecord.Major = major;
+            educationalRecord.University = university;
+
             var resume = new ResumeBuilder(existingResume, user)
-                .WithEducationalRecords(_mapper.Map<EducationalRecord>(command))
+                .WithEducationalRecords(educationalRecord)
                 .Build();
 
             if (existingResume is null)
                 await _unitOfWork.ResumeRepository.AddAsync(resume);
+
+            await _unitOfWork.EducationalRepository.AddAsync(educationalRecord);
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task UpdateEducationalRecord(Guid id, UpdateEducationalRecordCommand command, Guid userId)
+        {
+            var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
+                throw new ManagedException("کاربر مورد نظر یافت نشد.");
+
+            var educationalRecord = await _unitOfWork.EducationalRepository.GetByIdAsync(id) ??
+                throw new ManagedException("رکورد تحصیلی مورد نظر یافت نشد.");
+
+            var resume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user) ??
+                throw new ManagedException("رزومه شما یافت نشد.");
+
+            var major = await _unitOfWork.MajorRepository.GetByIdAsync(command.MajorId) ??
+                throw new ManagedException("مقدار وارد شده برای رشته دانشگاهی صحیح نمی‌باشد.");
+
+            var university = await _unitOfWork.UniversityRepository.GetByIdAsync(command.UniversityId) ??
+                throw new ManagedException("مقدار وارد شده برای دانشگاه صحیح نمی‌باشد.");
+
+            educationalRecord.DegreeLevel = command.DegreeLevel;
+            educationalRecord.ToYear = command.ToYear;
+            educationalRecord.FromYear = command.FromYear;
+            educationalRecord.Major = major;
+            educationalRecord.University = university;
+            educationalRecord.GPA = command.GPA;
+            educationalRecord.StillEducating = command.StillEducating;
+
+            resume = new ResumeBuilder(resume, user)
+                .Build();
 
             await _unitOfWork.CommitAsync();
         }

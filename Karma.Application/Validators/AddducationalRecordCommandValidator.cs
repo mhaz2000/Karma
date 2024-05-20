@@ -4,14 +4,14 @@ using System.Globalization;
 
 namespace Karma.Application.Validators
 {
-    internal class UpdateEducationalRecordCommandValidator : AbstractValidator<UpdateEducationalRecordCommand>
+    internal class AddEducationalRecordCommandValidator : AbstractValidator<AddEducationalRecordCommand>
     {
-        public UpdateEducationalRecordCommandValidator()
+        public AddEducationalRecordCommandValidator()
         {
             var pc = new PersianCalendar();
             RuleFor(c => c.GPA).GreaterThanOrEqualTo(0).When(c => c.GPA is not null)
                 .WithMessage("مقدار وارد شده برای معدل صحیح نیست.");
-
+            
             RuleFor(c => c.GPA).LessThanOrEqualTo(20).When(c => c.GPA is not null)
                 .WithMessage("مقدار وارد شده برای معدل صحیح نیست.");
 

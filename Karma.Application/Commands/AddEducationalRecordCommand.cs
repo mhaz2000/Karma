@@ -5,7 +5,7 @@ using Karma.Core.Enums;
 
 namespace Karma.Application.Commands
 {
-    public class UpdateEducationalRecordCommand : IBaseCommand
+    public class AddEducationalRecordCommand : IBaseCommand
     {
         public DegreeLevel DegreeLevel { get; set; }
         public int MajorId { get; set; }
@@ -14,7 +14,7 @@ namespace Karma.Application.Commands
         public int FromYear { get; set; }
         public int? ToYear { get; set; }
         public bool StillEducating { get; set; }
-        public void Validate() => new UpdateEducationalRecordCommandValidator().Validate(this).RaiseExceptionIfRequired();
+        public void Validate() => new AddEducationalRecordCommandValidator().Validate(this).RaiseExceptionIfRequired();
 
     }
 }

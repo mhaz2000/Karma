@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json;
 
 namespace Karma.Infrastructure.DbMigration
 {
@@ -29,6 +31,9 @@ namespace Karma.Infrastructure.DbMigration
 
             await CreateRolesSeed(_dataContext);
             await CreateAdminSeed(_dataContext, userManager);
+
+            await SeedMajors(_dataContext);
+            await SeedUniversities(_dataContext);
         }
 
         private static async Task CreateAdminSeed(DataContext context, UserManager<User> userManager)
@@ -79,6 +84,32 @@ namespace Karma.Infrastructure.DbMigration
             }
 
             context.SaveChanges();
+        }
+
+        private static async Task SeedMajors(DataContext context)
+        {
+            if (!context.Majors.Any())
+            {
+                var filePath = Directory.GetCurrentDirectory() + "/StaticFiles/majors.json";
+                using FileStream stream = File.OpenRead(filePath);
+                var majors = await JsonSerializer.DeserializeAsync<ICollection<string>>(stream);
+
+                await context.Majors.AddRangeAsync(majors!.Select(s=> new Major() { Title = s}));
+                await context.SaveChangesAsync();
+            }
+        }
+
+        private static async Task SeedUniversities(DataContext context)
+        {
+            if (!context.Universities.Any())
+            {
+                var filePath = Directory.GetCurrentDirectory() + "/StaticFiles/universities.json";
+                using FileStream stream = File.OpenRead(filePath);
+                var universities = await JsonSerializer.DeserializeAsync<ICollection<string>>(stream);
+
+                await context.Universities.AddRangeAsync(universities!.Select(s => new University() { Title = s }));
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

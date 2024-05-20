@@ -22,7 +22,7 @@ namespace Karma.Tests.Actions.Majors
         public async Task Should_Get_Majors()
         {
             //Act
-            var result = await _majorsController.Get(A.Fake<IPageQuery>());
+            var result = await _majorsController.Get(new PageQuery());
             var response = (OkObjectResult)result;
 
             //Assert

@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Karma.Application.Base;
 using Karma.Application.DTOs;
+using Karma.Application.Services.Interfaces;
 using Karma.Core.Repositories.Base;
 
-namespace Karma.Application.Services.Interfaces
+namespace Karma.Application.Services
 {
     public class ResumeReadService : IResumeReadService
     {
@@ -22,7 +23,7 @@ namespace Karma.Application.Services.Interfaces
             if (user is null)
                 throw new ManagedException("کاربر مورد نظر یافت نشد.");
 
-            var resume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c=>c.User == user);
+            var resume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user);
             if (resume is null)
                 throw new ManagedException("رزومه شما یافت نشد.");
 
@@ -42,6 +43,19 @@ namespace Karma.Application.Services.Interfaces
                 throw new ManagedException("کاربر مورد نظر یافت نشد.");
 
             return _mapper.Map<BasicInfoDTO>(user);
+        }
+
+        public async Task<IEnumerable<EducationalRecordDTO>> GetEducationalRecords(Guid userId)
+        {
+            var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId);
+            if (user is null)
+                throw new ManagedException("کاربر مورد نظر یافت نشد.");
+
+            var resume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user);
+            if (resume is null)
+                throw new ManagedException("رزومه شما یافت نشد.");
+
+            return _mapper.Map<IEnumerable<EducationalRecordDTO>>(resume.EducationalRecords);
         }
     }
 }

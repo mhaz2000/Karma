@@ -17,7 +17,6 @@ namespace Karma.API.Controllers
             _fileService = fileService;
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Upload([FromQuery] IFormFile file)
         {
@@ -30,6 +29,7 @@ namespace Karma.API.Controllers
             return Ok(new { Message = "فایل با موفقیت باگذاری شد.", Value = result });
         }
 
+        [AllowAnonymous]
         [HttpGet("Image/{id}")]
         public async Task<IActionResult> Download(Guid id)
         {

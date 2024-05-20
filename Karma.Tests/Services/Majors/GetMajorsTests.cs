@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FakeItEasy;
+using FluentAssertions;
 using Karma.Application.Base;
 using Karma.Application.DTOs;
 using Karma.Application.Services;
@@ -29,17 +30,20 @@ namespace Karma.Tests.Services.Majors
             //Arrange
             var expectedValue = new List<MajorDTO>()
             {
-                new MajorDTO(),
-                new MajorDTO(),
+                new MajorDTO() { Title = "Fake Title 1" },
+                new MajorDTO() { Title = "Fake Title 2" }
             };
 
+            A.CallTo(() => _mapper.Map<IEnumerable<MajorDTO>>(A<IQueryable<Major>>._)).Returns(expectedValue);
+
             //Act
-            var act = async () => await _majorService.GetMajors(string.Empty, A.Fake<IPageQuery>());
+            var act = async () => await _majorService.GetMajorsAsync(string.Empty, A.Fake<IPageQuery>());
             var result = await act.Invoke();
 
             //Assert
             A.CallTo(() => _unitOfWork.MajorRepository.Where(A<Expression<Func<Major, bool>>>._)).MustHaveHappenedOnceExactly();
 
+            result.Should().BeEquivalentTo(expectedValue);
         }
     }
 }

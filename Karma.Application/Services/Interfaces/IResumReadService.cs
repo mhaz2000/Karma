@@ -6,5 +6,6 @@ namespace Karma.Application.Services.Interfaces
     {
         Task<AboutMeDTO> GetAboutMe(Guid userId);
         Task<BasicInfoDTO> GetBasicInfo(Guid userId);
+        Task<IEnumerable<EducationalRecordDTO>> GetEducationalRecords(Guid userId);
     }
 }

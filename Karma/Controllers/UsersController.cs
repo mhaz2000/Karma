@@ -1,6 +1,7 @@
 ﻿using Karma.API.Controllers.Base;
 using Karma.Application.Commands;
 using Karma.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Karma.API.Controllers
@@ -16,6 +17,7 @@ namespace Karma.API.Controllers
         }
 
 
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterCommand command)
         {
@@ -26,6 +28,7 @@ namespace Karma.API.Controllers
             return Ok("ثبت نام با موفقیت انجام شد، کد ارسال شده به تلفن همراه خود را وارد نمایید.");
         }
 
+        [AllowAnonymous]
         [HttpPost("OtpRequest")]
         public async Task<IActionResult> OtpRequest(OtpRequestCommand command)
         {
@@ -36,6 +39,7 @@ namespace Karma.API.Controllers
             return Ok("کد تایید ارسال شد.");
         }
 
+        [AllowAnonymous]
         [HttpPost("OtpLogin")]
         public async Task<IActionResult> OtpLogin(OtpLoginCommand command)
         {
@@ -46,6 +50,7 @@ namespace Karma.API.Controllers
             return Ok(new { Message = "با موفقیت وارد شدید.", Value = result });
         }
 
+        [AllowAnonymous]
         [HttpPost("PhoneConfirmation")]
         public async Task<IActionResult> PhoneConfirmation(PhoneConfirmationCommand command)
         {
@@ -56,6 +61,7 @@ namespace Karma.API.Controllers
             return Ok(new { Message = "تلفن همراه شما با موفقیت تایید شد.", Value = result });
         }
 
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginCommand command)
         {
