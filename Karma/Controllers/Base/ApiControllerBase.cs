@@ -1,10 +1,12 @@
 ﻿using Karma.API.Extensions;
 using Karma.API.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Karma.API.Controllers.Base
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ApiControllerBase : ControllerBase

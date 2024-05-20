@@ -124,8 +124,8 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<float?>("GPA")
                         .HasColumnType("real");
 
-                    b.Property<Guid>("MajorId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("MajorId")
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("ResumeId")
                         .HasColumnType("uniqueidentifier");
@@ -136,8 +136,8 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<int?>("ToYear")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UniversityId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("UniversityId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -193,9 +193,11 @@ namespace Karma.Infrastructure.Migrations
 
             modelBuilder.Entity("Karma.Core.Entities.Major", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -286,9 +288,11 @@ namespace Karma.Infrastructure.Migrations
 
             modelBuilder.Entity("Karma.Core.Entities.University", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Title")
                         .IsRequired()

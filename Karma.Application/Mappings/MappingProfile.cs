@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Karma.Application.Commands;
-using Karma.Application.DTOs;
 using Karma.Core.Entities;
 using System.Reflection;
 
@@ -11,7 +10,9 @@ namespace Karma.Application.Mappings
         public MappingProfile()
         {
             ApplyMappingFromAssembly(Assembly.GetExecutingAssembly());
+
             CreateMap<SocialMediaCommand, SocialMedia>();
+            CreateMap<AddEducationalRecordCommand, EducationalRecord>();
         }
 
         private void ApplyMappingFromAssembly(Assembly assembly)

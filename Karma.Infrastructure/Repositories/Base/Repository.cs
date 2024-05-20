@@ -35,7 +35,7 @@ namespace Karma.Infrastructure.Repositories.Base
             return Context.Set<TEntity>().AsEnumerable();
         }
 
-        public ValueTask<TEntity?> GetByIdAsync(Guid id)
+        public ValueTask<TEntity?> GetByIdAsync<Type>(Type id)
         {
             return Context.Set<TEntity>().FindAsync(id);
         }

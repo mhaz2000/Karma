@@ -39,6 +39,10 @@ namespace Karma.API.Middlewares
             {
                 await ConfigureResponse(context, HttpStatusCode.BadRequest, exception.Message);
             }
+            catch (ApplicationException exception)
+            {
+                await ConfigureResponse(context, HttpStatusCode.BadRequest, exception.Message);
+            }
             catch (Exception exception)
             {
                 var newExceptionLog = ExceptionLog.Create(requestUrl, exception.Message, exception.InnerException?.Message, exception.StackTrace);

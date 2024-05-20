@@ -3,7 +3,7 @@ using FakeItEasy;
 using FluentAssertions;
 using Karma.Application.Base;
 using Karma.Application.DTOs;
-using Karma.Application.Services.Interfaces;
+using Karma.Application.Services;
 using Karma.Core.Entities;
 using Karma.Core.Repositories.Base;
 using System.Linq.Expressions;
