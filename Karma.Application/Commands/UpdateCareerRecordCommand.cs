@@ -5,7 +5,7 @@ using Karma.Core.Enums;
 
 namespace Karma.Application.Commands
 {
-    public class AddCareerRecordCommand : IBaseCommand
+    public class UpdateCareerRecordCommand : IBaseCommand
     {
         public required string JobTitle { get; set; }
         public int JobCategoryId { get; set; }
@@ -19,7 +19,7 @@ namespace Karma.Application.Commands
         public int? ToYear { get; set; }
         public bool CurrentJob { get; set; }
 
-        public void Validate() => new AddCareerRecordCommandValidator().Validate(this).RaiseExceptionIfRequired();
+        public void Validate() => new UpdateCareerRecordCommandValidator().Validate(this).RaiseExceptionIfRequired();
 
     }
 }

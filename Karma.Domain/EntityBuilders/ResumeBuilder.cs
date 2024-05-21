@@ -41,9 +41,9 @@ namespace Karma.Core.EntityBuilders
             return this;
         }
 
-        public ResumeBuilder WithCareerRecords(IEnumerable<CareerRecord> careerRecords)
+        public ResumeBuilder WithCareerRecords(CareerRecord careerRecord)
         {
-            _resume.CareerRecords = careerRecords.ToList();
+            _resume.CareerRecords.Add(careerRecord);
             return this;
         }
 

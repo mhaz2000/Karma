@@ -4,9 +4,9 @@ using System.Globalization;
 
 namespace Karma.Application.Validators
 {
-    internal class AddCareerRecordCommandValidator : AbstractValidator<AddCareerRecordCommand>
+    internal class UpdateCareerRecordCommandValidator : AbstractValidator<UpdateCareerRecordCommand>
     {
-        public AddCareerRecordCommandValidator()
+        public UpdateCareerRecordCommandValidator()
         {
             var pc = new PersianCalendar();
 

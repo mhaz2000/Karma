@@ -118,6 +118,16 @@ namespace Karma.API.Controllers
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
 
+        [HttpPut("UpdateCareerRecord/{id}")]
+        public async Task<IActionResult> UpdateCareerRecord(Guid id, [FromBody] UpdateCareerRecordCommand command)
+        {
+            command.Validate();
+
+            await _resumeWriteService.UpdateCareerRecord(command, id);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
         #endregion
     }
 }

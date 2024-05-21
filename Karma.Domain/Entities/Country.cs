@@ -1,17 +1,17 @@
 ﻿namespace Karma.Core.Entities
 {
-    public class JobCategory
+    public class Country
     {
-        public JobCategory()
+        public Country()
         {
+
         }
 
-        public JobCategory(string title)
+        public Country(string title)
         {
             Title = title;
         }
-
-        public int Id { get; set; }
         public required string Title { get; set; }
+        public int Id { get; set; }
     }
 }

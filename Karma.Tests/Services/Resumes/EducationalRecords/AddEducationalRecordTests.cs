@@ -10,12 +10,12 @@ using System.Linq.Expressions;
 
 namespace Karma.Tests.Services.Resumes.EducationalRecords
 {
-    public class AddEducationalRecordServiceTests
+    public class AddEducationalRecordTests
     {
         private readonly ResumeWriteService _resumeService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public AddEducationalRecordServiceTests()
+        public AddEducationalRecordTests()
         {
             _mapper = A.Fake<IMapper>();
             _unitOfWork = A.Fake<IUnitOfWork>();
