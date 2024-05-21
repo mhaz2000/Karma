@@ -8,5 +8,6 @@ namespace Karma.Application.Services.Interfaces
         Task UpdateBasicInfo(UpdateBasicInfoCommand command, Guid userId);
         Task AddEducationalRecord(AddEducationalRecordCommand command, Guid userId);
         Task UpdateEducationalRecord(Guid id, UpdateEducationalRecordCommand command, Guid userId);
+        Task RemoveEducationalRecord(Guid id);
     }
 }

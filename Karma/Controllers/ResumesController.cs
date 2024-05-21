@@ -49,13 +49,20 @@ namespace Karma.API.Controllers
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
 
-
         [HttpPut("UpdateEducationalRecord/{id}")]
         public async Task<IActionResult> UpdateEducationalRecord(Guid id, [FromBody] UpdateEducationalRecordCommand command)
         {
             command.Validate();
 
             await _resumeWriteService.UpdateEducationalRecord(id, command, UserId);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        [HttpDelete("RemoveEducationalRecord/{id}")]
+        public async Task<IActionResult> RemoveEducationanlRecord(Guid id)
+        {
+            await _resumeWriteService.RemoveEducationalRecord(id);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
