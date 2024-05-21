@@ -62,11 +62,11 @@ namespace Karma.Application.Services
             if (await _cacheProvider.Get(command.Phone) is not null)
                 throw new ManagedException("از مدت زمان درخواست کد تایید شما کمتر از 2 دقیقه گذشته است.");
 
-            var optCode = _random.Next(100000, 1000000);
-
+            var otpCode = _random.Next(100000, 1000000);
+            Console.WriteLine(otpCode); //while we don't have sms panel
             //Send Notification - Todo
 
-            await _cacheProvider.Set(command.Phone, optCode.ToString(), _optExpirationTime);
+            await _cacheProvider.Set(command.Phone, otpCode.ToString(), _optExpirationTime);
         }
 
         public async Task<AuthenticatedUserDTO> PhoneConfirmationAsync(PhoneConfirmationCommand command)

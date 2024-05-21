@@ -9,5 +9,6 @@ namespace Karma.Application.Services.Interfaces
         Task AddEducationalRecord(AddEducationalRecordCommand command, Guid userId);
         Task UpdateEducationalRecord(Guid id, UpdateEducationalRecordCommand command, Guid userId);
         Task RemoveEducationalRecord(Guid id);
+        Task AddCareerRecord(AddCareerRecordCommand command, Guid userId);
     }
 }

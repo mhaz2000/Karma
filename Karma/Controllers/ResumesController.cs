@@ -19,6 +19,8 @@ namespace Karma.API.Controllers
             _resumeReadService = resumeReadService;
         }
 
+        #region About Me
+
         [HttpPut("AboutMe")]
         public async Task<IActionResult> UpdateAboutMe([FromBody] UpdateAboutMeCommand command)
         {
@@ -29,6 +31,19 @@ namespace Karma.API.Controllers
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
 
+        [AllowAnonymous]
+        [HttpGet("AboutMe")]
+        public async Task<IActionResult> AboutMe()
+        {
+            var result = await _resumeReadService.GetAboutMe(UserId);
+
+            return Ok(result);
+        }
+
+        #endregion
+
+        #region Basic Info
+
         [HttpPut("BasicInfo")]
         public async Task<IActionResult> UpdateBasicInfo([FromBody] UpdateBasicInfoCommand command)
         {
@@ -38,6 +53,19 @@ namespace Karma.API.Controllers
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
+
+        [AllowAnonymous]
+        [HttpGet("BasicInfo")]
+        public async Task<IActionResult> BasicInfo()
+        {
+            var result = await _resumeReadService.GetBasicInfo(UserId);
+
+            return Ok(result);
+        }
+
+        #endregion
+
+        #region Educational Records
 
         [HttpPut("AddEducationalRecord")]
         public async Task<IActionResult> AddEducationalRecord([FromBody] AddEducationalRecordCommand command)
@@ -68,24 +96,6 @@ namespace Karma.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("AboutMe")]
-        public async Task<IActionResult> AboutMe()
-        {
-            var result = await _resumeReadService.GetAboutMe(UserId);
-
-            return Ok(result);
-        }
-
-        [AllowAnonymous]
-        [HttpGet("BasicInfo")]
-        public async Task<IActionResult> BasicInfo()
-        {
-            var result = await _resumeReadService.GetBasicInfo(UserId);
-
-            return Ok(result);
-        }
-
-        [AllowAnonymous]
         [HttpGet("EducationalRecords")]
         public async Task<IActionResult> EducationalRecords()
         {
@@ -93,5 +103,21 @@ namespace Karma.API.Controllers
 
             return Ok(result);
         }
+
+        #endregion
+
+        #region Career Records
+
+        [HttpPut("AddCareerRecord")]
+        public async Task<IActionResult> AddCareerRecord([FromBody] AddCareerRecordCommand command)
+        {
+            command.Validate();
+
+            await _resumeWriteService.AddCareerRecord(command, UserId);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        #endregion
     }
 }
