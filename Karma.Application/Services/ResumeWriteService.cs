@@ -122,5 +122,16 @@ namespace Karma.Application.Services
 
             await _unitOfWork.CommitAsync();
         }
+
+        public async Task RemoveEducationalRecord(Guid id)
+        {
+            var educationalRecord = await _unitOfWork.EducationalRepository.GetByIdAsync(id);
+            if (educationalRecord is null)
+                throw new ManagedException("سابقه تحصیلی مورد نظر یافت نشد.");
+            
+            _unitOfWork.EducationalRepository.Remove(educationalRecord);
+
+            await _unitOfWork.CommitAsync();
+        }
     }
 }
