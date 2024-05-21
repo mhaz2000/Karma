@@ -133,5 +133,10 @@ namespace Karma.Application.Services
 
             await _unitOfWork.CommitAsync();
         }
+
+        public Task AddCareerRecord(AddCareerRecordCommand command, Guid userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
