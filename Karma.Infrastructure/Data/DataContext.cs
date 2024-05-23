@@ -23,6 +23,8 @@ namespace Karma.Infrastructure.Data
         public virtual DbSet<Major> Majors { get; set; }
         public virtual DbSet<University> Universities { get; set; }
         public virtual DbSet<SocialMedia> SocialMedias { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

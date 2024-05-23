@@ -10,12 +10,12 @@ using System.Linq.Expressions;
 
 namespace Karma.Tests.Services.Resumes.EducationalRecords
 {
-    public class AddEducationalRecordServiceTests
+    public class AddEducationalRecordTests
     {
         private readonly ResumeWriteService _resumeService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public AddEducationalRecordServiceTests()
+        public AddEducationalRecordTests()
         {
             _mapper = A.Fake<IMapper>();
             _unitOfWork = A.Fake<IUnitOfWork>();
@@ -41,7 +41,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.ResumeRepository.AddAsync(A<Resume>._)).MustNotHaveHappened();
-            A.CallTo(() => _unitOfWork.EducationalRepository.AddAsync(A<EducationalRecord>._)).MustNotHaveHappened();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.AddAsync(A<EducationalRecord>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustNotHaveHappened();
 
             await act.Should().ThrowAsync<ManagedException>().WithMessage("کاربر مورد نظر یافت نشد.");
@@ -67,7 +67,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.ResumeRepository.AddAsync(A<Resume>._)).MustNotHaveHappened();
-            A.CallTo(() => _unitOfWork.EducationalRepository.AddAsync(A<EducationalRecord>._)).MustNotHaveHappened();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.AddAsync(A<EducationalRecord>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustNotHaveHappened();
 
             await act.Should().ThrowAsync<ManagedException>().WithMessage("مقدار وارد شده برای رشته دانشگاهی صحیح نمی‌باشد.");
@@ -95,7 +95,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.ResumeRepository.AddAsync(A<Resume>._)).MustNotHaveHappened();
-            A.CallTo(() => _unitOfWork.EducationalRepository.AddAsync(A<EducationalRecord>._)).MustNotHaveHappened();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.AddAsync(A<EducationalRecord>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustNotHaveHappened();
 
             await act.Should().ThrowAsync<ManagedException>().WithMessage("مقدار وارد شده برای دانشگاه صحیح نمی‌باشد.");
@@ -148,7 +148,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.ResumeRepository.AddAsync(A<Resume>._)).MustNotHaveHappened();
-            A.CallTo(() => _unitOfWork.EducationalRepository.AddAsync(A<EducationalRecord>._)).MustNotHaveHappened();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.AddAsync(A<EducationalRecord>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustNotHaveHappened();
 
             await act.Should().ThrowAsync<ApplicationException>().WithMessage("سال های تدریس دانشگاه نمی‌تواند با هم تداخل زمانی داشته باشد.");
@@ -179,7 +179,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.ResumeRepository.AddAsync(A<Resume>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _unitOfWork.EducationalRepository.AddAsync(A<EducationalRecord>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.AddAsync(A<EducationalRecord>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustHaveHappenedOnceExactly();
 
             await act.Should().NotThrowAsync<ManagedException>();
@@ -210,7 +210,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.ResumeRepository.AddAsync(A<Resume>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _unitOfWork.EducationalRepository.AddAsync(A<EducationalRecord>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.AddAsync(A<EducationalRecord>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustHaveHappenedOnceExactly();
 
             await act.Should().NotThrowAsync<ManagedException>();

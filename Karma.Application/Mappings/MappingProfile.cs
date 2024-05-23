@@ -13,6 +13,7 @@ namespace Karma.Application.Mappings
 
             CreateMap<SocialMediaCommand, SocialMedia>();
             CreateMap<AddEducationalRecordCommand, EducationalRecord>();
+            CreateMap<AddCareerRecordCommand, CareerRecord>();
         }
 
         private void ApplyMappingFromAssembly(Assembly assembly)

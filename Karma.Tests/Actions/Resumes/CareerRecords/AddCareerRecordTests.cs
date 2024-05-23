@@ -29,38 +29,12 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
         }
 
         [Fact]
-        public async Task Should_Throw_Exception_When_City_Is_Empty()
-        {
-            //Arrange
-            var command = new AddCareerRecordCommand()
-            {
-                City = string.Empty,
-                CompanyName = "Fake Company Name",
-                Country = "Fake Country",
-                JobTitle = "Fake Job Title",
-                CurrentJob = true,
-                FromYear = 1400,
-                FromMonth = 5,
-                SeniorityLevel = SeniorityLevel.Employee
-            };
-
-            //Act
-            var act = async () => await _resumesController.AddCareerRecord(command);
-
-            //Assert
-            await act.Should().ThrowAsync<ValidationException>().WithMessage("شهر الزامی است.");
-            A.CallTo(() => _resumeWriteService.AddCareerRecord(command, A<Guid>._)).MustNotHaveHappened();
-        }
-
-        [Fact]
         public async Task Should_Throw_Exception_When_CompanyName_Is_Empty()
         {
             //Arrange
             var command = new AddCareerRecordCommand()
             {
-                City = "Fake City",
                 CompanyName = string.Empty,
-                Country = "Fake Country",
                 JobTitle = "Fake Job Title",
                 CurrentJob = true,
                 FromYear = 1400,
@@ -77,38 +51,12 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
         }
 
         [Fact]
-        public async Task Should_Throw_Exception_When_Country_Is_Empty()
-        {
-            //Arrange
-            var command = new AddCareerRecordCommand()
-            {
-                City = "Fake City",
-                CompanyName = "Fake Company Name",
-                Country = string.Empty,
-                JobTitle = "Fake Job Title",
-                CurrentJob = true,
-                FromYear = 1400,
-                FromMonth = 5,
-                SeniorityLevel = SeniorityLevel.Employee
-            };
-
-            //Act
-            var act = async () => await _resumesController.AddCareerRecord(command);
-
-            //Assert
-            await act.Should().ThrowAsync<ValidationException>().WithMessage("کشور الزامی است.");
-            A.CallTo(() => _resumeWriteService.AddCareerRecord(command, A<Guid>._)).MustNotHaveHappened();
-        }
-
-        [Fact]
         public async Task Should_Throw_Exception_When_Jobe_Title_Is_Empty()
         {
             //Arrange
             var command = new AddCareerRecordCommand()
             {
-                City = "Fake City",
                 CompanyName = "Fake Company Name",
-                Country = "Fake Country",
                 JobTitle = string.Empty,
                 CurrentJob = true,
                 FromYear = 1400,
@@ -134,9 +82,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
             //Arrange
             var command = new AddCareerRecordCommand()
             {
-                City = "Fake City",
                 CompanyName = "Fake Company Name",
-                Country = "Fake Country",
                 JobTitle = "Fake Job Title",
                 CurrentJob = true,
                 FromYear = fromYear,
@@ -158,9 +104,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
             //Arrange
             var command = new AddCareerRecordCommand()
             {
-                City = "Fake City",
                 CompanyName = "Fake Company Name",
-                Country = "Fake Country",
                 JobTitle = "Fake Job Title",
                 CurrentJob = false,
                 FromYear = 1400,
@@ -184,9 +128,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
             //Arrange
             var command = new AddCareerRecordCommand()
             {
-                City = "Fake City",
                 CompanyName = "Fake Company Name",
-                Country = "Fake Country",
                 JobTitle = "Fake Job Title",
                 CurrentJob = false,
                 FromYear = 1400,
@@ -210,9 +152,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
             //Arrange
             var command = new AddCareerRecordCommand()
             {
-                City = "Fake City",
                 CompanyName = "Fake Company Name",
-                Country = "Fake Country",
                 JobTitle = "Fake Job Title",
                 CurrentJob = false,
                 FromYear = 1400,
@@ -236,9 +176,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
             //Arrange
             var command = new AddCareerRecordCommand()
             {
-                City = "Fake City",
                 CompanyName = "Fake Company Name",
-                Country = "Fake Country",
                 JobTitle = "Fake Job Title",
                 CurrentJob = true,
                 FromYear = 1400,
@@ -262,9 +200,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
             //Arrange
             var command = new AddCareerRecordCommand()
             {
-                City = "Fake City",
                 CompanyName = "Fake Company Name",
-                Country = "Fake Country",
                 JobTitle = "Fake Job Title",
                 CurrentJob = true,
                 FromYear = 1400,
@@ -288,9 +224,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
             //Arrange
             var command = new AddCareerRecordCommand()
             {
-                City = "Fake City",
                 CompanyName = "Fake Company Name",
-                Country = "Fake Country",
                 JobTitle = "Fake Job Title",
                 CurrentJob = true,
                 FromYear = 1400,
