@@ -8,16 +8,16 @@ using Karma.Core.Entities;
 using Karma.Core.Repositories.Base;
 using System.Linq.Expressions;
 
-namespace Karma.Tests.Services.Resumes.EducationalRecords
+namespace Karma.Tests.Services.Resumes.CareerRecords
 {
-    public class GetEducationalRecordsTests
+    public class GetCareerRecordsTests
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         private readonly ResumeReadService _resumeReadService;
 
-        public GetEducationalRecordsTests()
+        public GetCareerRecordsTests()
         {
             _unitOfWork = A.Fake<IUnitOfWork>();
             _mapper = A.Fake<IMapper>();
@@ -35,7 +35,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
 
             //Act
-            var act = async () => await _resumeReadService.GetEducationalRecords(userId);
+            var act = async () => await _resumeReadService.GetCareerRecords(userId);
             act.Invoke();
 
             //Assert
@@ -56,7 +56,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
 
             //Act
-            var act = async () => await _resumeReadService.GetEducationalRecords(userId);
+            var act = async () => await _resumeReadService.GetCareerRecords(userId);
             act.Invoke();
 
             //Assert
@@ -67,7 +67,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
         }
 
         [Fact]
-        public async Task Should_Return_Educational_Records()
+        public async Task Should_Return_Career_Records()
         {
             var userId = Guid.NewGuid();
             User user = new User();
@@ -75,9 +75,9 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
-            A.CallTo(() => _mapper.Map<IEnumerable<EducationalRecordDTO>>(A<IQueryable<EducationalRecord>>._)).Returns(new List<EducationalRecordDTO>());
+            A.CallTo(() => _mapper.Map<IEnumerable<CareerRecordDTO>>(A<IQueryable<CareerRecordDTO>>._)).Returns(new List<CareerRecordDTO>());
             //Act
-            var act = async () => await _resumeReadService.GetEducationalRecords(userId);
+            var act = async () => await _resumeReadService.GetCareerRecords(userId);
             var result = await act.Invoke();
 
             //Assert

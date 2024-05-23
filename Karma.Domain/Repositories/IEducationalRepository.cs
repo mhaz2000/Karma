@@ -3,7 +3,7 @@ using Karma.Core.Repositories.Base;
 
 namespace Karma.Core.Repositories
 {
-    public interface IEducationalRepository : IRepository<EducationalRecord>
+    public interface IEducationalRecordRepository : IRepository<EducationalRecord>
     {
     }
 }

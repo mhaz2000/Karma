@@ -10,7 +10,7 @@
         ICountryRepository CountryRepository { get; }
         ICareerRecordRepository CareerRecordRepository { get; }
         IJobCategoryRepository JobCategoryRepository { get; }
-        IEducationalRepository EducationalRepository { get; }
+        IEducationalRecordRepository EducationalRecordRepository { get; }
         IUniversityRepository UniversityRepository { get; }
         ISocialMediaRepository SocialMediaRepository { get; }
 

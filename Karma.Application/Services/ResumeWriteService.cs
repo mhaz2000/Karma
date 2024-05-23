@@ -87,7 +87,7 @@ namespace Karma.Application.Services
             if (existingResume is null)
                 await _unitOfWork.ResumeRepository.AddAsync(resume);
 
-            await _unitOfWork.EducationalRepository.AddAsync(educationalRecord);
+            await _unitOfWork.EducationalRecordRepository.AddAsync(educationalRecord);
 
             await _unitOfWork.CommitAsync();
         }
@@ -97,7 +97,7 @@ namespace Karma.Application.Services
             var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
                 throw new ManagedException("کاربر مورد نظر یافت نشد.");
 
-            var educationalRecord = await _unitOfWork.EducationalRepository.GetByIdAsync(id) ??
+            var educationalRecord = await _unitOfWork.EducationalRecordRepository.GetByIdAsync(id) ??
                 throw new ManagedException("رکورد تحصیلی مورد نظر یافت نشد.");
 
             var resume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user) ??
@@ -125,11 +125,11 @@ namespace Karma.Application.Services
 
         public async Task RemoveEducationalRecord(Guid id)
         {
-            var educationalRecord = await _unitOfWork.EducationalRepository.GetByIdAsync(id);
+            var educationalRecord = await _unitOfWork.EducationalRecordRepository.GetByIdAsync(id);
             if (educationalRecord is null)
                 throw new ManagedException("سابقه تحصیلی مورد نظر یافت نشد.");
 
-            _unitOfWork.EducationalRepository.Remove(educationalRecord);
+            _unitOfWork.EducationalRecordRepository.Remove(educationalRecord);
 
             await _unitOfWork.CommitAsync();
         }
@@ -197,6 +197,17 @@ namespace Karma.Application.Services
             careerRecord.JobTitle = command.JobTitle;
             careerRecord.FromYear = command.FromYear;
             careerRecord.JobCategory = jobCategory;
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task RemoveCareerRecord(Guid id)
+        {
+            var careerRecord = await _unitOfWork.CareerRecordRepository.GetByIdAsync(id);
+            if (careerRecord is null)
+                throw new ManagedException("سابقه کاری مورد نظر یافت نشد.");
+
+            _unitOfWork.CareerRecordRepository.Remove(careerRecord);
 
             await _unitOfWork.CommitAsync();
         }
