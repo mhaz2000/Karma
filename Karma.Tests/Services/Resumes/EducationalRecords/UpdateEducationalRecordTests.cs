@@ -38,7 +38,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.ResumeRepository.GetByIdAsync(A<Guid>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
@@ -56,7 +56,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             EducationalRecord educationalRecord = null;
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
 
             //Act
             var act = async () => await _resumeService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
@@ -64,7 +64,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
@@ -85,7 +85,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             Resume resume = null;
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
 
             //Act
@@ -94,7 +94,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
@@ -116,7 +116,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             Major newMajor = null;
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).Returns(newMajor);
 
@@ -126,7 +126,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
@@ -148,7 +148,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             University newUniversity = null;
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).Returns(major);
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).Returns(newUniversity);
@@ -159,7 +159,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
@@ -206,7 +206,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             };
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
 
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).Returns(major);
@@ -218,7 +218,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
@@ -239,7 +239,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             Resume resume = new Resume() { User = user };
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).Returns(major);
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).Returns(university);
@@ -250,7 +250,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();

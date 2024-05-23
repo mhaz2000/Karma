@@ -44,6 +44,11 @@ namespace Karma.Infrastructure.DbMigration
 
             await SeedMajors(_dataContext);
             await SeedUniversities(_dataContext);
+
+            await SeedCities(_dataContext);
+            await SeedCountries(_dataContext);
+
+            await SeedJobCategories(_dataContext);
         }
 
         private static async Task CreateAdminSeed(DataContext context, UserManager<User> userManager)
@@ -118,6 +123,45 @@ namespace Karma.Infrastructure.DbMigration
                 var universities = await JsonSerializer.DeserializeAsync<ICollection<string>>(stream);
 
                 await context.Universities.AddRangeAsync(universities!.Select(s => new University() { Title = s }));
+                await context.SaveChangesAsync();
+            }
+        }
+
+        private static async Task SeedCountries(DataContext context)
+        {
+            if (!context.Countries.Any())
+            {
+                var filePath = Directory.GetCurrentDirectory() + "/StaticFiles/countries.json";
+                using FileStream stream = File.OpenRead(filePath);
+                var countries = await JsonSerializer.DeserializeAsync<ICollection<string>>(stream);
+
+                await context.Countries.AddRangeAsync(countries!.Select(s => new Country() { Title = s }));
+                await context.SaveChangesAsync();
+            }
+        }
+
+        private static async Task SeedCities(DataContext context)
+        {
+            if (!context.Cities.Any())
+            {
+                var filePath = Directory.GetCurrentDirectory() + "/StaticFiles/cities.json";
+                using FileStream stream = File.OpenRead(filePath);
+                var cities = await JsonSerializer.DeserializeAsync<ICollection<string>>(stream);
+
+                await context.Cities.AddRangeAsync(cities!.Select(s => new City() { Title = s }));
+                await context.SaveChangesAsync();
+            }
+        }
+
+        private static async Task SeedJobCategories(DataContext context)
+        {
+            if (!context.JobCategories.Any())
+            {
+                var filePath = Directory.GetCurrentDirectory() + "/StaticFiles/job-categories.json";
+                using FileStream stream = File.OpenRead(filePath);
+                var jobCategories = await JsonSerializer.DeserializeAsync<ICollection<string>>(stream);
+
+                await context.JobCategories.AddRangeAsync(jobCategories!.Select(s => new JobCategory() { Title = s }));
                 await context.SaveChangesAsync();
             }
         }

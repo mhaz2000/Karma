@@ -4,16 +4,14 @@
     {
         public JobCategory()
         {
-            Id = Guid.NewGuid();
         }
 
         public JobCategory(string title)
         {
-            Id = Guid.NewGuid();
             Title = title;
         }
 
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public required string Title { get; set; }
     }
 }

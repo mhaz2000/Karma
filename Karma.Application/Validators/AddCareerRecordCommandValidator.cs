@@ -12,8 +12,6 @@ namespace Karma.Application.Validators
 
             RuleFor(c => c.JobTitle).NotEmpty().WithMessage("عنوان شغلی الزامی است.");
             RuleFor(c => c.CompanyName).NotEmpty().WithMessage("نام سازمان الزامی است.");
-            RuleFor(c => c.Country).NotEmpty().WithMessage("کشور الزامی است.");
-            RuleFor(c => c.City).NotEmpty().WithMessage("شهر الزامی است.");
 
             RuleFor(c => c.FromYear).GreaterThan(0).WithMessage("مقدار وارد شده برای سال شروع صحیح نیست.");
 

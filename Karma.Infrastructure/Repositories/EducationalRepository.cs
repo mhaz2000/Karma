@@ -5,9 +5,9 @@ using Karma.Infrastructure.Repositories.Base;
 
 namespace Karma.Infrastructure.Repositories
 {
-    public class EducationalRepository : Repository<EducationalRecord>, IEducationalRepository
+    public class EducationalRecordRepository : Repository<EducationalRecord>, IEducationalRecordRepository
     {
-        public EducationalRepository(DataContext context) : base(context)
+        public EducationalRecordRepository(DataContext context) : base(context)
         {
         }
     }

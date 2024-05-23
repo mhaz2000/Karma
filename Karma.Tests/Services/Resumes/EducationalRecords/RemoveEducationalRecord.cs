@@ -29,7 +29,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             var id = Guid.NewGuid();
             EducationalRecord? educationalRecord = null;
 
-            A.CallTo(() => _unitOfWork.EducationalRepository.GetByIdAsync(id)).Returns(educationalRecord);
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(id)).Returns(educationalRecord);
 
             //Act
             var act = async () => await _resumeService.RemoveEducationalRecord(id);
@@ -37,7 +37,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             //Assert
             await act.Should().ThrowAsync<ManagedException>().WithMessage("سابقه تحصیلی مورد نظر یافت نشد.");
 
-            A.CallTo(() => _unitOfWork.EducationalRepository.Remove(A<EducationalRecord>._)).MustNotHaveHappened();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.Remove(A<EducationalRecord>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustNotHaveHappened();
         }
 
@@ -58,7 +58,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             //Assert
             await act.Should().NotThrowAsync();
 
-            A.CallTo(() => _unitOfWork.EducationalRepository.Remove(A<EducationalRecord>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _unitOfWork.EducationalRecordRepository.Remove(A<EducationalRecord>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustHaveHappenedOnceExactly();
 
         }

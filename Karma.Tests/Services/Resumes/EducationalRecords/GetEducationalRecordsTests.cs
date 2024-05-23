@@ -6,12 +6,7 @@ using Karma.Application.DTOs;
 using Karma.Application.Services;
 using Karma.Core.Entities;
 using Karma.Core.Repositories.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Karma.Tests.Services.Resumes.EducationalRecords
 {

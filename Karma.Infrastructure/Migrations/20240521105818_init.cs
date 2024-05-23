@@ -60,10 +60,37 @@ namespace Karma.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cities", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Countries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Countries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "JobCategories",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -250,11 +277,11 @@ namespace Karma.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    JobCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    JobCategoryId = table.Column<int>(type: "int", nullable: false),
                     SeniorityLevel = table.Column<int>(type: "int", nullable: false),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CountryId = table.Column<int>(type: "int", nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: true),
                     FromMonth = table.Column<int>(type: "int", nullable: false),
                     FromYear = table.Column<int>(type: "int", nullable: false),
                     ToMonth = table.Column<int>(type: "int", nullable: false),
@@ -265,6 +292,17 @@ namespace Karma.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CareerRecords", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CareerRecords_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CareerRecords_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CareerRecords_JobCategories_JobCategoryId",
                         column: x => x.JobCategoryId,
@@ -420,6 +458,16 @@ namespace Karma.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CareerRecords_CityId",
+                table: "CareerRecords",
+                column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CareerRecords_CountryId",
+                table: "CareerRecords",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CareerRecords_JobCategoryId",
                 table: "CareerRecords",
                 column: "JobCategoryId");
@@ -503,6 +551,12 @@ namespace Karma.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Cities");
+
+            migrationBuilder.DropTable(
+                name: "Countries");
 
             migrationBuilder.DropTable(
                 name: "JobCategories");

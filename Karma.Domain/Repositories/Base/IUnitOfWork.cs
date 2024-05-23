@@ -3,10 +3,14 @@
     public interface IUnitOfWork : IDisposable
     {
         IRoleRepository RoleRepository { get; }
+        ICityRepository CityRepository { get; }
         IMajorRepository MajorRepository { get; }
         IUserRepository UserRepository { get; }
         IResumeRepository ResumeRepository { get; }
-        IEducationalRepository EducationalRepository { get; }
+        ICountryRepository CountryRepository { get; }
+        ICareerRecordRepository CareerRecordRepository { get; }
+        IJobCategoryRepository JobCategoryRepository { get; }
+        IEducationalRecordRepository EducationalRecordRepository { get; }
         IUniversityRepository UniversityRepository { get; }
         ISocialMediaRepository SocialMediaRepository { get; }
 

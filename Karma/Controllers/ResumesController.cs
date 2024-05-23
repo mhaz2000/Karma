@@ -31,7 +31,6 @@ namespace Karma.API.Controllers
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
 
-        [AllowAnonymous]
         [HttpGet("AboutMe")]
         public async Task<IActionResult> AboutMe()
         {
@@ -54,7 +53,6 @@ namespace Karma.API.Controllers
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
 
-        [AllowAnonymous]
         [HttpGet("BasicInfo")]
         public async Task<IActionResult> BasicInfo()
         {
@@ -95,7 +93,6 @@ namespace Karma.API.Controllers
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
 
-        [AllowAnonymous]
         [HttpGet("EducationalRecords")]
         public async Task<IActionResult> EducationalRecords()
         {
@@ -114,6 +111,32 @@ namespace Karma.API.Controllers
             command.Validate();
 
             await _resumeWriteService.AddCareerRecord(command, UserId);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        [HttpPut("UpdateCareerRecord/{id}")]
+        public async Task<IActionResult> UpdateCareerRecord(Guid id, [FromBody] UpdateCareerRecordCommand command)
+        {
+            command.Validate();
+
+            await _resumeWriteService.UpdateCareerRecord(command, id);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        [HttpGet("CareerRecords")]
+        public async Task<IActionResult> CareerRecords()
+        {
+            var result = await _resumeReadService.GetCareerRecords(UserId);
+
+            return Ok(result);
+        }
+
+        [HttpDelete("RemoveCareerRecord/{id}")]
+        public async Task<IActionResult> RemoveCareerRecord(Guid id)
+        {
+            await _resumeWriteService.RemoveCareerRecord(id);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
