@@ -145,7 +145,7 @@ namespace Karma.API.Controllers
 
         #region Languages
 
-        [HttpPut("AddLanguage")]
+        [HttpPost("AddLanguage")]
         public async Task<IActionResult> AddLanguage([FromBody] AddLanguageCommand command)
         {
             command.Validate();
