@@ -142,5 +142,45 @@ namespace Karma.API.Controllers
         }
 
         #endregion
+
+        #region Languages
+
+        [HttpPut("AddLanguage")]
+        public async Task<IActionResult> AddLanguage([FromBody] AddLanguageCommand command)
+        {
+            command.Validate();
+
+            await _resumeWriteService.AddLanguage(command, UserId);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        [HttpPut("UpdateLanguage/{id}")]
+        public async Task<IActionResult> UpdateLanguage(Guid id, [FromBody] UpdateLanguageCommand command)
+        {
+            command.Validate();
+
+            await _resumeWriteService.UpdateLanguage(command, id);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        [HttpGet("Languages")]
+        public async Task<IActionResult> Languages()
+        {
+            var result = await _resumeReadService.GetLanguages(UserId);
+
+            return Ok(result);
+        }
+
+        [HttpDelete("RemoveLanguage/{id}")]
+        public async Task<IActionResult> RemoveLanguage(Guid id)
+        {
+            await _resumeWriteService.RemoveLanguage(id);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        #endregion
     }
 }

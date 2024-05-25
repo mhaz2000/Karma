@@ -13,7 +13,7 @@ namespace Karma.Core.Entities
             SocialMedias = new HashSet<SocialMedia>();
             EducationalRecords = new List<EducationalRecord>();
             CareerRecords = new List<CareerRecord>();
-            Languages = new HashSet<Language>();
+            Languages = new List<Language>();
             SoftwareSkills = new HashSet<SoftwareSkill>();
             AdditionalSkills = new HashSet<AdditionalSkill>();
         }
@@ -33,7 +33,7 @@ namespace Karma.Core.Entities
         public virtual IEnumerable<SocialMedia> SocialMedias { get; set; }
         public virtual IList<EducationalRecord> EducationalRecords { get; set; }
         public virtual IList<CareerRecord> CareerRecords { get; set; }
-        public virtual IEnumerable<Language> Languages { get; set; }
+        public virtual IList<Language> Languages { get; set; }
         public virtual IEnumerable<SoftwareSkill> SoftwareSkills { get; set; }
         public virtual IEnumerable<AdditionalSkill> AdditionalSkills { get; set; }
 

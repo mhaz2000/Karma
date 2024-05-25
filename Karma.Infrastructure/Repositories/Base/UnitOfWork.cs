@@ -17,11 +17,13 @@ namespace Karma.Infrastructure.Repositories.Base
         private MajorRepository _majorRepository;
         private RoleRepository _roleRepository;
         private ResumeRepository _resumeRepository;
+        private LanguageRepository _languageRepository;
         private UniversityRepository _universityRepository;
         private JobCategoryRepository _jobCategoryRepository;
         private SocialMediaRepository _socialMediaRepository;
-        private EducationalRecordRepository _educationalRecordRepository;
         private CareerRecordRepository _careerRecordRepository;
+        private SystemLanguageRepository _systemLanguageRepository;
+        private EducationalRecordRepository _educationalRecordRepository;
 
         public UnitOfWork(DataContext context, UserManager<User> userManager)
         {
@@ -29,16 +31,18 @@ namespace Karma.Infrastructure.Repositories.Base
             _userManager = userManager;
         }
 
-        public IUserRepository UserRepository => _userRepository ?? new UserRepository(_context, _userManager);
-        public ICountryRepository CountryRepository => _countryRepository ?? new CountryRepository(_context);
         public ICityRepository CityRepository => _cityRepository ?? new CityRepository(_context);
         public IRoleRepository RoleRepository => _roleRepository ?? new RoleRepository(_context);
         public IMajorRepository MajorRepository => _majorRepository ?? new MajorRepository(_context);
         public IResumeRepository ResumeRepository => _resumeRepository ?? new ResumeRepository(_context);
+        public ICountryRepository CountryRepository => _countryRepository ?? new CountryRepository(_context);
+        public IUserRepository UserRepository => _userRepository ?? new UserRepository(_context, _userManager);
+        public ILanguageRepository LanguageRepository => _languageRepository ?? new LanguageRepository(_context);
         public IUniversityRepository UniversityRepository => _universityRepository ?? new UniversityRepository(_context);
         public IJobCategoryRepository JobCategoryRepository => _jobCategoryRepository ?? new JobCategoryRepository(_context);
         public ISocialMediaRepository SocialMediaRepository => _socialMediaRepository ?? new SocialMediaRepository(_context);
         public ICareerRecordRepository CareerRecordRepository => _careerRecordRepository ?? new CareerRecordRepository(_context);
+        public ISystemLanguageRepository SystemLanguageRepository => _systemLanguageRepository ?? new SystemLanguageRepository(_context);
         public IEducationalRecordRepository EducationalRecordRepository => _educationalRecordRepository ?? new EducationalRecordRepository(_context);
 
         public async Task<int> CommitAsync()

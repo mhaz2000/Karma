@@ -18,6 +18,7 @@ namespace Karma.Infrastructure.Data
         public virtual DbSet<SoftwareSkill> SoftwareSkills { get; set; }
         public virtual DbSet<CareerRecord> CareerRecords { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
+        public virtual DbSet<SystemLanguage> SystemLanguages { get; set; }
         public virtual DbSet<EducationalRecord> EducationalRecords { get; set; }
         public virtual DbSet<JobCategory> JobCategories { get; set; }
         public virtual DbSet<Major> Majors { get; set; }

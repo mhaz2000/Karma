@@ -34,11 +34,10 @@ namespace Karma.Infrastructure.DbMigration
 
             await SeedMajors(_dataContext);
             await SeedUniversities(_dataContext);
-
             await SeedCities(_dataContext);
             await SeedCountries(_dataContext);
-
             await SeedJobCategories(_dataContext);
+            await SeedLanguages(_dataContext);
         }
 
         private static async Task CreateAdminSeed(DataContext context, UserManager<User> userManager)
@@ -152,6 +151,19 @@ namespace Karma.Infrastructure.DbMigration
                 var jobCategories = await JsonSerializer.DeserializeAsync<ICollection<string>>(stream);
 
                 await context.JobCategories.AddRangeAsync(jobCategories!.Select(s => new JobCategory() { Title = s }));
+                await context.SaveChangesAsync();
+            }
+        }
+
+        private static async Task SeedLanguages(DataContext context)
+        {
+            if (!context.SystemLanguages.Any())
+            {
+                var filePath = Directory.GetCurrentDirectory() + "/StaticFiles/languages.json";
+                using FileStream stream = File.OpenRead(filePath);
+                var languages = await JsonSerializer.DeserializeAsync<ICollection<string>>(stream);
+
+                await context.SystemLanguages.AddRangeAsync(languages!.Select(s => new SystemLanguage() { Title = s }));
                 await context.SaveChangesAsync();
             }
         }
