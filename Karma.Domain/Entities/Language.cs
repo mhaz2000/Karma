@@ -13,7 +13,7 @@ namespace Karma.Core.Entities
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public required string Title { get; set; }
+        public virtual required SystemLanguage SystemLanguage { get; set; }
         public LanguageLevel LanguageLevel { get; set; }
     }
 }

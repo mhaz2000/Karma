@@ -47,9 +47,9 @@ namespace Karma.Core.EntityBuilders
             return this;
         }
 
-        public ResumeBuilder WithLanguages(IEnumerable<Language> languages)
+        public ResumeBuilder WithLanguages(Language language)
         {
-            _resume.Languages = languages.ToList();
+            _resume.Languages.Add(language);
             return this;
         }
 
