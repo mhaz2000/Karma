@@ -211,5 +211,51 @@ namespace Karma.Application.Services
 
             await _unitOfWork.CommitAsync();
         }
+
+        public async Task RemoveLanguage(Guid id)
+        {
+            var language = await _unitOfWork.LanguageRepository.GetByIdAsync(id) ??
+                throw new ManagedException("زبان مورد نظر یافت نشد.");
+
+            _unitOfWork.LanguageRepository.Remove(language);
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task UpdateLanguage(UpdateLanguageCommand command, Guid id)
+        {
+            var language = await _unitOfWork.LanguageRepository.GetByIdAsync(id) ??
+                throw new ManagedException("زبان مورد نظر یافت نشد.");
+
+            var systemLanguage = await _unitOfWork.SystemLanguageRepository.GetByIdAsync(command.LanguageId) ??
+                throw new ManagedException("مقدار وارد شده برای زبان صحیح نمی‌باشد.");
+
+            language.LanguageLevel = command.Level;
+            language.SystemLanguage = systemLanguage;
+            
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task AddLanguage(AddLanguageCommand command, Guid userId)
+        {
+            var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
+                throw new ManagedException("کاربر مورد نظر یافت نشد.");
+
+            var systemLanguage = await _unitOfWork.SystemLanguageRepository.GetByIdAsync(command.LanguageId) ??
+                throw new ManagedException("مقدار وارد شده برای زبان صحیح نمی‌باشد.");
+
+            var existingResume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user);
+            var language = new Language() { SystemLanguage = systemLanguage, LanguageLevel = command.Level };
+
+            var resume = new ResumeBuilder(existingResume, user)
+                .WithLanguages(language)
+                .Build();
+
+            if (existingResume is null)
+                await _unitOfWork.ResumeRepository.AddAsync(resume);
+
+            await _unitOfWork.LanguageRepository.AddAsync(language);
+
+            await _unitOfWork.CommitAsync();
+        }
     }
 }

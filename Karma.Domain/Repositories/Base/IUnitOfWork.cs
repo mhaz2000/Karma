@@ -8,11 +8,13 @@
         IUserRepository UserRepository { get; }
         IResumeRepository ResumeRepository { get; }
         ICountryRepository CountryRepository { get; }
-        ICareerRecordRepository CareerRecordRepository { get; }
-        IJobCategoryRepository JobCategoryRepository { get; }
-        IEducationalRecordRepository EducationalRecordRepository { get; }
+        ILanguageRepository LanguageRepository { get; }
         IUniversityRepository UniversityRepository { get; }
+        IJobCategoryRepository JobCategoryRepository { get; }
         ISocialMediaRepository SocialMediaRepository { get; }
+        ICareerRecordRepository CareerRecordRepository { get; }
+        ISystemLanguageRepository SystemLanguageRepository { get; }
+        IEducationalRecordRepository EducationalRecordRepository { get; }
 
         Task<int> CommitAsync();
     }
