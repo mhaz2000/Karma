@@ -12,11 +12,11 @@ namespace Karma.Infrastructure.Repositories.Base
         private readonly UserManager<User> _userManager;
 
         private CityRepository _cityRepository;
-        private CountryRepository _countryRepository;
         private UserRepository _userRepository;
         private MajorRepository _majorRepository;
         private RoleRepository _roleRepository;
         private ResumeRepository _resumeRepository;
+        private CountryRepository _countryRepository;
         private LanguageRepository _languageRepository;
         private UniversityRepository _universityRepository;
         private JobCategoryRepository _jobCategoryRepository;
@@ -24,6 +24,7 @@ namespace Karma.Infrastructure.Repositories.Base
         private CareerRecordRepository _careerRecordRepository;
         private SystemLanguageRepository _systemLanguageRepository;
         private EducationalRecordRepository _educationalRecordRepository;
+        private SystemSoftwareSkillRepository _systemSoftwareSkillRepository;
 
         public UnitOfWork(DataContext context, UserManager<User> userManager)
         {
@@ -44,6 +45,7 @@ namespace Karma.Infrastructure.Repositories.Base
         public ICareerRecordRepository CareerRecordRepository => _careerRecordRepository ?? new CareerRecordRepository(_context);
         public ISystemLanguageRepository SystemLanguageRepository => _systemLanguageRepository ?? new SystemLanguageRepository(_context);
         public IEducationalRecordRepository EducationalRecordRepository => _educationalRecordRepository ?? new EducationalRecordRepository(_context);
+        public ISystemSoftwareSkillRepository SystemSoftwareSkillRepository => _systemSoftwareSkillRepository ?? new SystemSoftwareSkillRepository(_context);
 
         public async Task<int> CommitAsync()
         {

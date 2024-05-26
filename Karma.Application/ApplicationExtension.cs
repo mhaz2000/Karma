@@ -34,14 +34,15 @@ namespace Karma.Application
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFileService, FileService>();
-            services.AddScoped<IResumeWriteService, ResumeWriteService>();
-            services.AddScoped<IResumeReadService, ResumeReadService>();
-            services.AddScoped<IMajorService, MajorService>();
-            services.AddScoped<IUniversityService, UniversityService>();
-            services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICityService, CityService>();
+            services.AddScoped<IMajorService, MajorService>();
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IResumeReadService, ResumeReadService>();
+            services.AddScoped<IUniversityService, UniversityService>();
+            services.AddScoped<IResumeWriteService, ResumeWriteService>();
             services.AddScoped<IJobCategoryService, JobCategoryService>();
             services.AddScoped<ISystemLanguageService, SystemLanguageService>();
+            services.AddScoped<ISystemSoftwareSkillService, SystemSoftwareSkillService>();
 
             var path = Directory.GetCurrentDirectory() + "/FileStorage";
             if (!Directory.Exists(path))

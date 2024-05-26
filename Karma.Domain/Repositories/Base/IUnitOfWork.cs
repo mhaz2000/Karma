@@ -15,6 +15,7 @@
         ICareerRecordRepository CareerRecordRepository { get; }
         ISystemLanguageRepository SystemLanguageRepository { get; }
         IEducationalRecordRepository EducationalRecordRepository { get; }
+        ISystemSoftwareSkillRepository SystemSoftwareSkillRepository { get; }
 
         Task<int> CommitAsync();
     }
