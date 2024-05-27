@@ -2,7 +2,7 @@
 
 namespace Karma.Core.Enums
 {
-    public enum SofwareSkillLevel
+    public enum SoftwareSkillLevel
     {
         [Description("مقدماتی")]
         Basic,

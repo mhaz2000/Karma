@@ -14,7 +14,7 @@ namespace Karma.Core.Entities
             EducationalRecords = new List<EducationalRecord>();
             CareerRecords = new List<CareerRecord>();
             Languages = new List<Language>();
-            SoftwareSkills = new HashSet<SoftwareSkill>();
+            SoftwareSkills = new List<SoftwareSkill>();
             AdditionalSkills = new HashSet<AdditionalSkill>();
         }
 
@@ -34,7 +34,7 @@ namespace Karma.Core.Entities
         public virtual IList<EducationalRecord> EducationalRecords { get; set; }
         public virtual IList<CareerRecord> CareerRecords { get; set; }
         public virtual IList<Language> Languages { get; set; }
-        public virtual IEnumerable<SoftwareSkill> SoftwareSkills { get; set; }
+        public virtual IList<SoftwareSkill> SoftwareSkills { get; set; }
         public virtual IEnumerable<AdditionalSkill> AdditionalSkills { get; set; }
 
         internal void Validate()

@@ -5,11 +5,6 @@ using Karma.Application.Base;
 using Karma.Application.Services;
 using Karma.Core.Entities;
 using Karma.Core.Repositories.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Karma.Tests.Services.Resumes.Languages
 {
@@ -43,7 +38,7 @@ namespace Karma.Tests.Services.Resumes.Languages
             await act.Should().ThrowAsync<ManagedException>().WithMessage("زبان مورد نظر یافت نشد.");
 
             A.CallTo(() => _unitOfWork.LanguageRepository.GetByIdAsync(id)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _unitOfWork.EducationalRecordRepository.Remove(A<EducationalRecord>._)).MustNotHaveHappened();
+            A.CallTo(() => _unitOfWork.LanguageRepository.Remove(A<Language>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustNotHaveHappened();
         }
 

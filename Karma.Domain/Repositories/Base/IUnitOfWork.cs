@@ -13,8 +13,10 @@
         IJobCategoryRepository JobCategoryRepository { get; }
         ISocialMediaRepository SocialMediaRepository { get; }
         ICareerRecordRepository CareerRecordRepository { get; }
+        ISoftwareSkillRepository SoftwareSkillRepository { get; }
         ISystemLanguageRepository SystemLanguageRepository { get; }
         IEducationalRecordRepository EducationalRecordRepository { get; }
+        ISystemSoftwareSkillRepository SystemSoftwareSkillRepository { get; }
 
         Task<int> CommitAsync();
     }

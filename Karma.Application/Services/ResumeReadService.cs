@@ -83,5 +83,18 @@ namespace Karma.Application.Services
 
             return _mapper.Map<IEnumerable<LanguageDTO>>(resume.Languages);
         }
+
+        public async Task<IEnumerable<SoftwareSkillDTO>> GetSoftwareSkills(Guid userId)
+        {
+            var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId);
+            if (user is null)
+                throw new ManagedException("کاربر مورد نظر یافت نشد.");
+
+            var resume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user);
+            if (resume is null)
+                throw new ManagedException("رزومه شما یافت نشد.");
+
+            return _mapper.Map<IEnumerable<SoftwareSkillDTO>>(resume.SoftwareSkills);
+        }
     }
 }

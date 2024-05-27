@@ -5,16 +5,16 @@ using Karma.Application.DTOs;
 using Karma.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Karma.Tests.Actions.Resumes.Languages
+namespace Karma.Tests.Actions.Resumes.SoftwareSkills
 {
-    public class GetLanguagesTests
+    public class GetSoftwareSkills
     {
         private readonly IResumeReadService _resumeReadService;
         private readonly IResumeWriteService _resumeWriteService;
 
         private readonly ResumesController _resumesController;
 
-        public GetLanguagesTests()
+        public GetSoftwareSkills()
         {
             _resumeReadService = A.Fake<IResumeReadService>();
             _resumeWriteService = A.Fake<IResumeWriteService>();
@@ -26,21 +26,21 @@ namespace Karma.Tests.Actions.Resumes.Languages
         }
 
         [Fact]
-        public async Task Should_Get_Languages()
+        public async Task Should_Get_Software_Skills()
         {
             //Arrange
-            var expectedResult = new List<LanguageDTO>()
+            var expectedResult = new List<SoftwareSkillDTO>()
             {
-                new LanguageDTO()
+                new SoftwareSkillDTO()
                 {
-                    SystemLanguage = new SystemLanguageDTO(){Title = "Fake Language"}
+                    SystemSoftwareSkill = new SystemSoftwareSkillDTO(){Title = "Fake Software skill"}
                 }
             };
 
-            A.CallTo(() => _resumeReadService.GetLanguages(A<Guid>._)).Returns(expectedResult);
+            A.CallTo(() => _resumeReadService.GetSoftwareSkills(A<Guid>._)).Returns(expectedResult);
 
             //Act
-            var response = await _resumesController.Languages();
+            var response = await _resumesController.SoftwareSkills();
             var result = (OkObjectResult)response;
 
             //Assert
