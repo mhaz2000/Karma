@@ -14,6 +14,6 @@ namespace Karma.Core.Entities
         public DateTime CreatedAt { get; set; }
 
         public virtual required SystemSoftwareSkill SystemSoftwareSkill { get; set; }
-        public SofwareSkillLevel SofwareSkillLevel { get; set; }
+        public SoftwareSkillLevel SoftwareSkillLevel { get; set; }
     }
 }

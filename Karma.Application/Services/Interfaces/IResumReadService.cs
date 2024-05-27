@@ -1,5 +1,4 @@
 ﻿using Karma.Application.DTOs;
-using Karma.Core.Entities;
 
 namespace Karma.Application.Services.Interfaces
 {
@@ -10,5 +9,6 @@ namespace Karma.Application.Services.Interfaces
         Task<IEnumerable<CareerRecordDTO>> GetCareerRecords(Guid userId);
         Task<IEnumerable<EducationalRecordDTO>> GetEducationalRecords(Guid userId);
         Task<IEnumerable<LanguageDTO>> GetLanguages(Guid userId);
+        Task<IEnumerable<SoftwareSkillDTO>> GetSoftwareSkills(Guid userId);
     }
 }

@@ -65,7 +65,7 @@ namespace Karma.API.Controllers
 
         #region Educational Records
 
-        [HttpPut("AddEducationalRecord")]
+        [HttpPost("AddEducationalRecord")]
         public async Task<IActionResult> AddEducationalRecord([FromBody] AddEducationalRecordCommand command)
         {
             command.Validate();
@@ -105,7 +105,7 @@ namespace Karma.API.Controllers
 
         #region Career Records
 
-        [HttpPut("AddCareerRecord")]
+        [HttpPost("AddCareerRecord")]
         public async Task<IActionResult> AddCareerRecord([FromBody] AddCareerRecordCommand command)
         {
             command.Validate();
@@ -155,16 +155,6 @@ namespace Karma.API.Controllers
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
 
-        [HttpPut("UpdateLanguage/{id}")]
-        public async Task<IActionResult> UpdateLanguage(Guid id, [FromBody] UpdateLanguageCommand command)
-        {
-            command.Validate();
-
-            await _resumeWriteService.UpdateLanguage(command, id);
-
-            return Ok("تغییرات با موفقیت ثبت شد.");
-        }
-
         [HttpGet("Languages")]
         public async Task<IActionResult> Languages()
         {
@@ -177,6 +167,36 @@ namespace Karma.API.Controllers
         public async Task<IActionResult> RemoveLanguage(Guid id)
         {
             await _resumeWriteService.RemoveLanguage(id);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        #endregion
+
+        #region Software skills
+
+        [HttpPost("AddSoftwareSkill")]
+        public async Task<IActionResult> AddSoftwareSkill([FromBody] AddSoftwareSkillCommand command)
+        {
+            command.Validate();
+
+            await _resumeWriteService.AddSoftwareSkill(command, UserId);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        [HttpGet("SoftwareSkills")]
+        public async Task<IActionResult> SoftwareSkills()
+        {
+            var result = await _resumeReadService.GetSoftwareSkills(UserId);
+
+            return Ok(result);
+        }
+
+        [HttpDelete("RemoveSoftwareSkill/{id}")]
+        public async Task<IActionResult> RemoveSoftwareSkill(Guid id)
+        {
+            await _resumeWriteService.RemoveSoftwareSkill(id);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }

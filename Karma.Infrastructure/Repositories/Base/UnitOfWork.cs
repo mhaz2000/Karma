@@ -13,8 +13,8 @@ namespace Karma.Infrastructure.Repositories.Base
 
         private CityRepository _cityRepository;
         private UserRepository _userRepository;
-        private MajorRepository _majorRepository;
         private RoleRepository _roleRepository;
+        private MajorRepository _majorRepository;
         private ResumeRepository _resumeRepository;
         private CountryRepository _countryRepository;
         private LanguageRepository _languageRepository;
@@ -22,6 +22,7 @@ namespace Karma.Infrastructure.Repositories.Base
         private JobCategoryRepository _jobCategoryRepository;
         private SocialMediaRepository _socialMediaRepository;
         private CareerRecordRepository _careerRecordRepository;
+        private SoftwareSkillRepository _softwareSkillRepository;
         private SystemLanguageRepository _systemLanguageRepository;
         private EducationalRecordRepository _educationalRecordRepository;
         private SystemSoftwareSkillRepository _systemSoftwareSkillRepository;
@@ -43,9 +44,11 @@ namespace Karma.Infrastructure.Repositories.Base
         public IJobCategoryRepository JobCategoryRepository => _jobCategoryRepository ?? new JobCategoryRepository(_context);
         public ISocialMediaRepository SocialMediaRepository => _socialMediaRepository ?? new SocialMediaRepository(_context);
         public ICareerRecordRepository CareerRecordRepository => _careerRecordRepository ?? new CareerRecordRepository(_context);
+        public ISoftwareSkillRepository SoftwareSkillRepository => _softwareSkillRepository ?? new SoftwareSkillRepository(_context);
         public ISystemLanguageRepository SystemLanguageRepository => _systemLanguageRepository ?? new SystemLanguageRepository(_context);
         public IEducationalRecordRepository EducationalRecordRepository => _educationalRecordRepository ?? new EducationalRecordRepository(_context);
         public ISystemSoftwareSkillRepository SystemSoftwareSkillRepository => _systemSoftwareSkillRepository ?? new SystemSoftwareSkillRepository(_context);
+
 
         public async Task<int> CommitAsync()
         {

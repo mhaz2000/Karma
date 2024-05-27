@@ -9,7 +9,7 @@ namespace Karma.Application.DTOs
     {
         public Guid Id { get; set; }
         [JsonPropertyName("Language")]
-        public required SystemLanguageDTO Language { get; set; }
+        public required SystemLanguageDTO SystemLanguage { get; set; }
         public LanguageLevel LanguageLevel { get; set; }
     }
 }
