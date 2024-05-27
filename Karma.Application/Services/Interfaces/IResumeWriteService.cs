@@ -13,7 +13,8 @@ namespace Karma.Application.Services.Interfaces
         Task UpdateCareerRecord(UpdateCareerRecordCommand command, Guid id);
         Task RemoveCareerRecord(Guid id);
         Task RemoveLanguage(Guid id);
-        Task UpdateLanguage(UpdateLanguageCommand command, Guid id);
         Task AddLanguage(AddLanguageCommand command, Guid userId);
+        Task AddSoftwareSkill(AddSoftwareSkillCommand command, Guid userId);
+        Task RemoveSoftwareSkill(Guid id);
     }
 }

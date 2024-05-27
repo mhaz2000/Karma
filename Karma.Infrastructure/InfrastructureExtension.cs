@@ -8,7 +8,6 @@ using Karma.Infrastructure.DbMigration;
 using Karma.Infrastructure.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.Text.Json;
 
 namespace Karma.Infrastructure
 {

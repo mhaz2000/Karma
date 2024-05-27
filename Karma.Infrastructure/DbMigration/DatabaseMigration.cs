@@ -48,6 +48,7 @@ namespace Karma.Infrastructure.DbMigration
             await SeedCountries(_dataContext);
             await SeedJobCategories(_dataContext);
             await SeedLanguages(_dataContext);
+            await SeedSoftwareSkills(_dataContext);
         }
 
         private static async Task CreateAdminSeed(DataContext context, UserManager<User> userManager)
@@ -174,6 +175,19 @@ namespace Karma.Infrastructure.DbMigration
                 var languages = await JsonSerializer.DeserializeAsync<ICollection<string>>(stream);
 
                 await context.SystemLanguages.AddRangeAsync(languages!.Select(s => new SystemLanguage() { Title = s }));
+                await context.SaveChangesAsync();
+            }
+        }
+        
+        private static async Task SeedSoftwareSkills(DataContext context)
+        {
+            if (!context.SystemSoftwareSkills.Any())
+            {
+                var filePath = Directory.GetCurrentDirectory() + "/StaticFiles/software-skills.json";
+                using FileStream stream = File.OpenRead(filePath);
+                var softwareSkills = await JsonSerializer.DeserializeAsync<ICollection<string>>(stream);
+
+                await context.SystemSoftwareSkills.AddRangeAsync(softwareSkills!.Select(s => new SystemSoftwareSkill() { Title = s }));
                 await context.SaveChangesAsync();
             }
         }

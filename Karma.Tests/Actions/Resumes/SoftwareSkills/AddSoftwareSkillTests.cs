@@ -4,20 +4,15 @@ using Karma.API.Controllers;
 using Karma.Application.Commands;
 using Karma.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Karma.Tests.Actions.Resumes.Languages
+namespace Karma.Tests.Actions.Resumes.SoftwareSkills
 {
-    public class UpdateLanguageTests
+    public class AddSoftwareSkillTests
     {
         private readonly IResumeWriteService _resumeWriteService;
         private readonly ResumesController _resumesController;
 
-        public UpdateLanguageTests()
+        public AddSoftwareSkillTests()
         {
             _resumeWriteService = A.Fake<IResumeWriteService>();
             _resumesController = new ResumesController(_resumeWriteService, A.Fake<IResumeReadService>());
@@ -26,19 +21,19 @@ namespace Karma.Tests.Actions.Resumes.Languages
         }
 
         [Fact]
-        public async Task Should_Update_Language_When_Data_Is_Valid()
+        public async Task Should_Add_Software_skill_When_Data_Is_Valid()
         {
             //Arrange
-            var command = new UpdateLanguageCommand();
+            var command = new AddSoftwareSkillCommand();
 
             //Act
-            var act = async () => await _resumesController.UpdateLanguage(Guid.NewGuid(), command);
+            var act = async () => await _resumesController.AddSoftwareSkill(command);
             var result = await act.Invoke();
             var response = (OkObjectResult)result;
 
             //Assert
             await act.Should().NotThrowAsync();
-            A.CallTo(() => _resumeWriteService.UpdateLanguage(command, A<Guid>._)).MustHaveHappened();
+            A.CallTo(() => _resumeWriteService.AddSoftwareSkill(command, A<Guid>._)).MustHaveHappened();
 
             response.StatusCode.Should().Be(200);
         }

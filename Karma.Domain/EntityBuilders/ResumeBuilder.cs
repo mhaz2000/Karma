@@ -53,9 +53,9 @@ namespace Karma.Core.EntityBuilders
             return this;
         }
 
-        public ResumeBuilder WithSoftwareSkills(IEnumerable<SoftwareSkill> softwareSkills)
+        public ResumeBuilder WithSoftwareSkills(SoftwareSkill softwareSkill)
         {
-            _resume.SoftwareSkills = softwareSkills.ToList();
+            _resume.SoftwareSkills.Add(softwareSkill);
             return this;
         }
 

@@ -221,20 +221,6 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task UpdateLanguage(UpdateLanguageCommand command, Guid id)
-        {
-            var language = await _unitOfWork.LanguageRepository.GetByIdAsync(id) ??
-                throw new ManagedException("زبان مورد نظر یافت نشد.");
-
-            var systemLanguage = await _unitOfWork.SystemLanguageRepository.GetByIdAsync(command.LanguageId) ??
-                throw new ManagedException("مقدار وارد شده برای زبان صحیح نمی‌باشد.");
-
-            language.LanguageLevel = command.Level;
-            language.SystemLanguage = systemLanguage;
-            
-            await _unitOfWork.CommitAsync();
-        }
-
         public async Task AddLanguage(AddLanguageCommand command, Guid userId)
         {
             var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
@@ -255,6 +241,38 @@ namespace Karma.Application.Services
 
             await _unitOfWork.LanguageRepository.AddAsync(language);
 
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task AddSoftwareSkill(AddSoftwareSkillCommand command, Guid userId)
+        {
+            var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
+                throw new ManagedException("کاربر مورد نظر یافت نشد.");
+
+            var systemSofwareSkill = await _unitOfWork.SystemSoftwareSkillRepository.GetByIdAsync(command.SoftwareSkillId) ??
+                throw new ManagedException("مقدار وارد شده برای مهارت نرم افزاری صحیح نمی‌باشد.");
+
+            var existingResume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user);
+            var softwareSkill = new SoftwareSkill() { SystemSoftwareSkill = systemSofwareSkill, SoftwareSkillLevel = command.Level };
+
+            var resume = new ResumeBuilder(existingResume, user)
+                .WithSoftwareSkills(softwareSkill)
+                .Build();
+
+            if (existingResume is null)
+                await _unitOfWork.ResumeRepository.AddAsync(resume);
+
+            await _unitOfWork.SoftwareSkillRepository.AddAsync(softwareSkill);
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task RemoveSoftwareSkill(Guid id)
+        {
+            var softwareSkill = await _unitOfWork.SoftwareSkillRepository.GetByIdAsync(id) ??
+                throw new ManagedException("مهارت نرم افزاری مورد نظر یافت نشد.");
+
+            _unitOfWork.SoftwareSkillRepository.Remove(softwareSkill);
             await _unitOfWork.CommitAsync();
         }
     }

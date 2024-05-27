@@ -13,7 +13,7 @@ namespace Karma.Core.Entities
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public required string Title { get; set; }
-        public SofwareSkillLevel SofwareSkillLevel { get; set; }
+        public virtual required SystemSoftwareSkill SystemSoftwareSkill { get; set; }
+        public SoftwareSkillLevel SoftwareSkillLevel { get; set; }
     }
 }
