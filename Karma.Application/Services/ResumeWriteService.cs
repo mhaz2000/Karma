@@ -275,5 +275,34 @@ namespace Karma.Application.Services
             _unitOfWork.SoftwareSkillRepository.Remove(softwareSkill);
             await _unitOfWork.CommitAsync();
         }
+
+        public async Task AddAdditionalSkill(AddAdditionalSkillCommand command, Guid userId)
+        {
+            var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
+                throw new ManagedException("کاربر مورد نظر یافت نشد.");
+
+            var existingResume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user);
+            var additionalSkill = new AdditionalSkill() { Title = command.Title};
+
+            var resume = new ResumeBuilder(existingResume, user)
+                .WithAdditionalSkills(additionalSkill)
+                .Build();
+
+            if (existingResume is null)
+                await _unitOfWork.ResumeRepository.AddAsync(resume);
+
+            await _unitOfWork.AdditionalSkillRepository.AddAsync(additionalSkill);
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task RemoveAdditionalSkill(Guid id)
+        {
+            var additionalSkill = await _unitOfWork.AdditionalSkillRepository.GetByIdAsync(id) ??
+                throw new ManagedException("مهارت نرم افزاری مورد نظر یافت نشد.");
+
+            _unitOfWork.AdditionalSkillRepository.Remove(additionalSkill);
+            await _unitOfWork.CommitAsync();
+        }
     }
 }

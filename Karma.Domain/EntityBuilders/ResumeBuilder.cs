@@ -59,9 +59,9 @@ namespace Karma.Core.EntityBuilders
             return this;
         }
 
-        public ResumeBuilder WithAdditionalSkills(IEnumerable<AdditionalSkill> additionalSkills)
+        public ResumeBuilder WithAdditionalSkills(AdditionalSkill additionalSkill)
         {
-            _resume.AdditionalSkills = additionalSkills.ToList();
+            _resume.AdditionalSkills.Add(additionalSkill);
             return this;
         }
 
