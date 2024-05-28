@@ -1,8 +1,5 @@
 ﻿using FakeItEasy;
-using FluentAssertions;
-using FluentValidation;
 using Karma.API.Controllers;
-using Karma.Application.Commands;
 using Karma.Application.Services.Interfaces;
 
 namespace Karma.Tests.Actions.Users
@@ -15,6 +12,8 @@ namespace Karma.Tests.Actions.Users
         {
             _userService = A.Fake<IUserService>();
             _controller = new UsersController(_userService);
+
+            _controller.ControllerContext = Fixture.FakeControllerContext();
         }
     }
 }

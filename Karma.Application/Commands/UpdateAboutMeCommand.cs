@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Karma.Application.Commands.Base;
+﻿using Karma.Application.Commands.Base;
 using Karma.Application.Mappings;
 using Karma.Application.Validators;
 using Karma.Application.Validators.Extensions;

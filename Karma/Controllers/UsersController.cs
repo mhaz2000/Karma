@@ -71,5 +71,31 @@ namespace Karma.API.Controllers
 
             return Ok(new { Message = "با موفقیت وارد شدید.", Value = result });
         }
+
+        [HttpPost("SetPassword")]
+        public async Task<IActionResult> SetPassword(SetPasswordCommand command)
+        {
+            command.Validate();
+
+            await _userService.SetPasswordAsync(command, UserId);
+
+            return Ok("رمز عبور با موفقیت ثبت شد.");
+        }
+
+        [HttpGet("PasswordInitialized")]
+        public async Task<IActionResult> CheckIfPasswordInitialized()
+        {
+            return Ok(await _userService.CheckIfPasswordInitializedAsync(UserId));
+        }
+
+        [HttpPut("UpdatePassword")]
+        public async Task<IActionResult> UpdatePassword(UpdatePasswordCommand command)
+        {
+            command.Validate();
+
+            await _userService.UpdatePasswordAsync(command, UserId);
+
+            return Ok("رمز عبور با موفقیت ویرایش شد.");
+        }
     }
 }

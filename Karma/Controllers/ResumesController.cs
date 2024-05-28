@@ -202,5 +202,36 @@ namespace Karma.API.Controllers
         }
 
         #endregion
+
+
+        #region AdditionalSkills
+
+        [HttpPost("AddAdditionalSkill")]
+        public async Task<IActionResult> AddAdditionalSkill([FromBody] AddAdditionalSkillCommand command)
+        {
+            command.Validate();
+
+            await _resumeWriteService.AddAdditionalSkill(command, UserId);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        [HttpGet("AdditionalSkills")]
+        public async Task<IActionResult> AdditionalSkills()
+        {
+            var result = await _resumeReadService.GetAdditionalSkills(UserId);
+
+            return Ok(result);
+        }
+
+        [HttpDelete("RemoveAdditionalSkill/{id}")]
+        public async Task<IActionResult> RemoveAdditionalSkill(Guid id)
+        {
+            await _resumeWriteService.RemoveAdditionalSkill(id);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        #endregion
     }
 }

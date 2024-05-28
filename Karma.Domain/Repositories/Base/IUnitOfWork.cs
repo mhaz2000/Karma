@@ -4,8 +4,8 @@
     {
         IRoleRepository RoleRepository { get; }
         ICityRepository CityRepository { get; }
-        IMajorRepository MajorRepository { get; }
         IUserRepository UserRepository { get; }
+        IMajorRepository MajorRepository { get; }
         IResumeRepository ResumeRepository { get; }
         ICountryRepository CountryRepository { get; }
         ILanguageRepository LanguageRepository { get; }
@@ -15,6 +15,7 @@
         ICareerRecordRepository CareerRecordRepository { get; }
         ISoftwareSkillRepository SoftwareSkillRepository { get; }
         ISystemLanguageRepository SystemLanguageRepository { get; }
+        IAdditionalSkillRepository AdditionalSkillRepository { get; }
         IEducationalRecordRepository EducationalRecordRepository { get; }
         ISystemSoftwareSkillRepository SystemSoftwareSkillRepository { get; }
 
