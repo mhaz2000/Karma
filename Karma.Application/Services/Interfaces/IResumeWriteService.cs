@@ -16,5 +16,7 @@ namespace Karma.Application.Services.Interfaces
         Task AddLanguage(AddLanguageCommand command, Guid userId);
         Task AddSoftwareSkill(AddSoftwareSkillCommand command, Guid userId);
         Task RemoveSoftwareSkill(Guid id);
+        Task AddAdditionalSkill(AddAdditionalSkillCommand command, Guid userId);
+        Task RemoveAdditionalSkill(Guid id);
     }
 }

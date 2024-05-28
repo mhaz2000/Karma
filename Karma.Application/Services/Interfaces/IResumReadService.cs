@@ -10,5 +10,6 @@ namespace Karma.Application.Services.Interfaces
         Task<IEnumerable<EducationalRecordDTO>> GetEducationalRecords(Guid userId);
         Task<IEnumerable<LanguageDTO>> GetLanguages(Guid userId);
         Task<IEnumerable<SoftwareSkillDTO>> GetSoftwareSkills(Guid userId);
+        Task<IEnumerable<AdditionalSkillDTO>> GetAdditionalSkills(Guid userId);
     }
 }

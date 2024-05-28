@@ -24,6 +24,7 @@ namespace Karma.Infrastructure.Repositories.Base
         private CareerRecordRepository _careerRecordRepository;
         private SoftwareSkillRepository _softwareSkillRepository;
         private SystemLanguageRepository _systemLanguageRepository;
+        private AdditionalSkillRepository _additionalSkillRepository;
         private EducationalRecordRepository _educationalRecordRepository;
         private SystemSoftwareSkillRepository _systemSoftwareSkillRepository;
 
@@ -46,6 +47,7 @@ namespace Karma.Infrastructure.Repositories.Base
         public ICareerRecordRepository CareerRecordRepository => _careerRecordRepository ?? new CareerRecordRepository(_context);
         public ISoftwareSkillRepository SoftwareSkillRepository => _softwareSkillRepository ?? new SoftwareSkillRepository(_context);
         public ISystemLanguageRepository SystemLanguageRepository => _systemLanguageRepository ?? new SystemLanguageRepository(_context);
+        public IAdditionalSkillRepository AdditionalSkillRepository => _additionalSkillRepository ?? new AdditionalSkillRepository(_context);
         public IEducationalRecordRepository EducationalRecordRepository => _educationalRecordRepository ?? new EducationalRecordRepository(_context);
         public ISystemSoftwareSkillRepository SystemSoftwareSkillRepository => _systemSoftwareSkillRepository ?? new SystemSoftwareSkillRepository(_context);
 
