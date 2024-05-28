@@ -4,10 +4,9 @@ using Karma.Application.Validators.Extensions;
 
 namespace Karma.Application.Commands
 {
-    public class LoginCommand : IBaseCommand
-    {
-        public required string Username { get; set; }
+    public class SetPasswordCommand : IBaseCommand {
         public required string Password { get; set; }
-        public void Validate() => new LoginCommandValidator().Validate(this).RaiseExceptionIfRequired();
+
+        public void Validate() => new SetPasswordCommandValidator().Validate(this).RaiseExceptionIfRequired();
     }
 }
