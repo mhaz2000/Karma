@@ -15,10 +15,11 @@ namespace Karma.Core.Entities
         public DateTime CreatedAt { get; set; }
 
         public DegreeLevel DegreeLevel { get; set; }
-        public virtual required Major Major { get; set; }
-        public virtual required University University { get; set; }
+        public string? DiplomaMajor { get; set; }
+        public virtual Major? Major { get; set; }
+        public virtual University? University { get; set; }
         public float? GPA { get; set; }
-        public int FromYear { get; set; }
+        public int? FromYear { get; set; }
         public int? ToYear { get; set; }
         public bool StillEducating { get; set; }
 
