@@ -46,7 +46,7 @@ namespace Karma.Tests.Actions.Users
         public async Task Should_Set_Password_When_Data_Is_Valid()
         {
             //Arragne
-            var command = new SetPasswordCommand() { Password = "Fake Password" };
+            var command = new SetPasswordCommand() { Password = "FakePassword" };
 
             // Act
             var response = await _controller.SetPassword(command);

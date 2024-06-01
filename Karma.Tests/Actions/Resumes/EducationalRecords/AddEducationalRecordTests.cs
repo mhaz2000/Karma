@@ -4,6 +4,7 @@ using FluentValidation;
 using Karma.API.Controllers;
 using Karma.Application.Commands;
 using Karma.Application.Services.Interfaces;
+using Karma.Core.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 
@@ -34,7 +35,7 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
             {
                 GPA = gpa,
                 FromYear = 1399,
-                ToYear = 1403
+                ToYear = 1403,
             };
 
             //Act
@@ -113,7 +114,10 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
             var command = new AddEducationalRecordCommand()
             {
                 GPA = 19,
-                FromYear = 1399
+                FromYear = 1399,
+                MajorId = 1,
+                UniversityId = 1,
+                DegreeLevel = DegreeLevel.Master
             };
 
             //Act
@@ -133,6 +137,9 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
                 GPA = 19,
                 FromYear = 1399,
                 ToYear = 1400,
+                MajorId = 1,
+                UniversityId = 1,
+                DegreeLevel = DegreeLevel.Master,
                 StillEducating = true
             };
 
@@ -141,6 +148,26 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("سال پایان در حین تحصیل نمی‌تواند مقدار داشته باشد.");
+            A.CallTo(() => _resumeWriteService.AddEducationalRecord(command, A<Guid>._)).MustNotHaveHappened();
+        }
+
+        [Fact]
+        public async Task Should_Throw_Exception_When_Degree_Level_Is_Diploma_But_Diploma_Major_Is_Empty()
+        {
+            //Arrange
+            var command = new AddEducationalRecordCommand()
+            {
+                GPA = 19,
+                FromYear = 1399,
+                ToYear = 1400,
+                DegreeLevel = DegreeLevel.Diploma,
+            };
+
+            //Act
+            var act = async () => await _resumesController.AddEducationalRecord(command);
+
+            //Assert
+            await act.Should().ThrowAsync<ValidationException>().WithMessage("نام رشته تحصیلی الزامی است.");
             A.CallTo(() => _resumeWriteService.AddEducationalRecord(command, A<Guid>._)).MustNotHaveHappened();
         }
 
