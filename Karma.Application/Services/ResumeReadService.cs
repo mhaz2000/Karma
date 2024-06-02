@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Karma.Application.Base;
+using Karma.Application.Commands;
 using Karma.Application.DTOs;
 using Karma.Application.Services.Interfaces;
+using Karma.Core.EntityBuilders;
 using Karma.Core.Repositories.Base;
 
 namespace Karma.Application.Services
@@ -108,6 +110,28 @@ namespace Karma.Application.Services
                 throw new ManagedException("رزومه شما یافت نشد.");
 
             return _mapper.Map<IEnumerable<AdditionalSkillDTO>>(resume.AdditionalSkills);
+        }
+
+        public async Task<IEnumerable<ResumeQueryDTO>> GetResumes(PageQuery pageQuery, ResumeFilterCommand command)
+        {
+            var resumes = await _unitOfWork.ExpandedResumeViewRepository.GetExpandedResumes();
+            
+            var filtredResumes = new ResumeQueryBuilder(resumes)
+                .WithCareerExperienceLength(command.CareerExperienceLength)
+                .WithCity(command.City)
+                .WithMilitaryServiceStatuses(command.MilitaryServiceStatuses)
+                .WithMaritalStatus(command.MaritalStatus)
+                .WithCode(command.Code)
+                .WithGender(command.Gender)
+                .WithDegreeLevels(command.DegreeLevels)
+                .WithJobCategories(command.JobCategoryIds)
+                .WithLanguages(command.LanguageIds)
+                .WithOlderThan(command.OlderThan)
+                .WithYoungerThan(command.YoungerThan)
+                .WithSoftwareSkill(command.SoftwareSkillIds)
+                .Build();
+
+            return _mapper.Map<IEnumerable<ResumeQueryDTO>>(filtredResumes).Distinct();
         }
     }
 }

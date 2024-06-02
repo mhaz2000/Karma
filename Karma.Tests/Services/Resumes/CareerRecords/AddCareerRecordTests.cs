@@ -206,7 +206,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
 
             User? user = new User();
             JobCategory? jobCategory = new JobCategory() { Title = "Fake Job Category" };
-            Resume? resume = new Resume() { User = user};
+            Resume? resume = new Resume() { User = user, Code = string.Empty };
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
             A.CallTo(() => _unitOfWork.JobCategoryRepository.GetByIdAsync(A<int>._)).Returns(jobCategory);

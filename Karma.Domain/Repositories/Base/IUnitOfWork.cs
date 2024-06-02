@@ -19,6 +19,8 @@
         IEducationalRecordRepository EducationalRecordRepository { get; }
         ISystemSoftwareSkillRepository SystemSoftwareSkillRepository { get; }
 
+        IExpandedResumeViewRepository ExpandedResumeViewRepository { get; }
+
         Task<int> CommitAsync();
     }
 }

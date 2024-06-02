@@ -49,7 +49,7 @@ namespace Karma.Tests.Services.Resumes.BasicInfo
         {
             var userId = Guid.NewGuid();
             User user = new User();
-            Resume? resume = new Resume() { User = user };
+            Resume? resume = new Resume() { User = user, Code = string.Empty };
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
 

@@ -126,6 +126,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
 
             Resume? resume = new Resume()
             {
+                Code = string.Empty,
                 User = user,
                 EducationalRecords = new List<EducationalRecord>()
                 {
@@ -193,7 +194,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             //Arrange
             var command = new AddEducationalRecordCommand() { MajorId = 1, UniversityId = 2 };
             User? user = new User();
-            Resume? resume = new Resume() { User = user };
+            Resume? resume = new Resume() { User = user, Code = string.Empty };
             Major major = new Major() { Title = "Fake Title" };
             University university = new University() { Title = "Fake Title" };
 

@@ -5,5 +5,6 @@ namespace Karma.Core.Repositories
 {
     public interface IResumeRepository : IRepository<Resume>
     {
+        Task CreateAsync(Resume entity);
     }
 }

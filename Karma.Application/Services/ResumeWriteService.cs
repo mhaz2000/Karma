@@ -38,7 +38,7 @@ namespace Karma.Application.Services
                 .Build();
 
             if (existingResume is null)
-                await _unitOfWork.ResumeRepository.AddAsync(resume);
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
             else
                 await _unitOfWork.SocialMediaRepository.AddRangeAsync(resume.SocialMedias);
 
@@ -85,7 +85,7 @@ namespace Karma.Application.Services
                 .Build();
 
             if (existingResume is null)
-                await _unitOfWork.ResumeRepository.AddAsync(resume);
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
 
             await _unitOfWork.EducationalRecordRepository.AddAsync(educationalRecord);
 
@@ -162,7 +162,7 @@ namespace Karma.Application.Services
                 .Build();
 
             if (existingResume is null)
-                await _unitOfWork.ResumeRepository.AddAsync(resume);
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
 
             await _unitOfWork.CareerRecordRepository.AddAsync(careerRecord);
 
@@ -237,7 +237,7 @@ namespace Karma.Application.Services
                 .Build();
 
             if (existingResume is null)
-                await _unitOfWork.ResumeRepository.AddAsync(resume);
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
 
             await _unitOfWork.LanguageRepository.AddAsync(language);
 
@@ -260,7 +260,7 @@ namespace Karma.Application.Services
                 .Build();
 
             if (existingResume is null)
-                await _unitOfWork.ResumeRepository.AddAsync(resume);
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
 
             await _unitOfWork.SoftwareSkillRepository.AddAsync(softwareSkill);
 
@@ -289,7 +289,7 @@ namespace Karma.Application.Services
                 .Build();
 
             if (existingResume is null)
-                await _unitOfWork.ResumeRepository.AddAsync(resume);
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
 
             await _unitOfWork.AdditionalSkillRepository.AddAsync(additionalSkill);
 

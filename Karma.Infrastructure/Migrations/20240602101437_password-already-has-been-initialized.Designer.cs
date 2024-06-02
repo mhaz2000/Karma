@@ -4,6 +4,7 @@ using Karma.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Karma.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240602101437_password-already-has-been-initialized")]
+    partial class passwordalreadyhasbeeninitialized
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,10 +259,6 @@ namespace Karma.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -482,140 +481,6 @@ namespace Karma.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("Karma.Core.ViewModels.ExpandedResume", b =>
-                {
-                    b.Property<string>("AdditionalSkill")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("CareerRecordFromMonth")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CareerRecordFromYear")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CareerRecordToMonth")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CareerRecordToYear")
-                        .HasColumnType("int");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CurrentJob")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DegreeLevel")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DiplomaMajor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("GPA")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("JobCategory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("JobCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("JobTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LanguageLevel")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MainJobTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("MajorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MajorTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("MaritalStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MilitaryServiceStatus")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SeniorityLevel")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SoftwareSkill")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SoftwareSkillId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SoftwareSkillLevel")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("StillEducating")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Telephone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UniversityFromYear")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UniversityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UniversityTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UniversityToYear")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("resumes_info", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>

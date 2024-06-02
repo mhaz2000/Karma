@@ -4,6 +4,7 @@ using Karma.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Karma.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240602130350_code-added-in-resume")]
+    partial class codeaddedinresume
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -489,7 +492,7 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<string>("AdditionalSkill")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("BirthDate")
+                    b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("CareerRecordFromMonth")
@@ -506,9 +509,6 @@ namespace Karma.Infrastructure.Migrations
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CityId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -544,17 +544,11 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<string>("JobCategory")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("JobCategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("JobTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Language")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("LanguageLevel")
                         .HasColumnType("int");
@@ -564,9 +558,6 @@ namespace Karma.Infrastructure.Migrations
 
                     b.Property<string>("MainJobTitle")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("MajorId")
-                        .HasColumnType("int");
 
                     b.Property<string>("MajorTitle")
                         .HasColumnType("nvarchar(max)");
@@ -586,9 +577,6 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<string>("SoftwareSkill")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SoftwareSkillId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("SoftwareSkillLevel")
                         .HasColumnType("int");
 
@@ -599,9 +587,6 @@ namespace Karma.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UniversityFromYear")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UniversityId")
                         .HasColumnType("int");
 
                     b.Property<string>("UniversityTitle")

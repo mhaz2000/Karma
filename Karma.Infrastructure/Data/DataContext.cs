@@ -1,7 +1,9 @@
 ﻿using Karma.Core.Entities;
+using Karma.Core.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace Karma.Infrastructure.Data
 {
@@ -28,9 +30,16 @@ namespace Karma.Infrastructure.Data
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
 
+        public virtual DbSet<ExpandedResume> ExpandedResumesView { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder
+                .Entity<ExpandedResume>()
+                .ToView("resumes_info")
+                .HasNoKey();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

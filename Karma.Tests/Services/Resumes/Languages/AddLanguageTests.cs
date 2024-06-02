@@ -114,7 +114,7 @@ namespace Karma.Tests.Services.Resumes.Languages
             var command = new AddLanguageCommand();
             User? user = new User();
             SystemLanguage? systemLanguage = new SystemLanguage() { Title = "Fake Language" };
-            Resume? resume = new Resume() { User = user};
+            Resume? resume = new Resume() { User = user, Code = string.Empty };
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
             A.CallTo(() => _unitOfWork.SystemLanguageRepository.GetByIdAsync(A<int>._)).Returns(systemLanguage);

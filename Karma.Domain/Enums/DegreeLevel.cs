@@ -4,7 +4,7 @@ namespace Karma.Core.Enums
 {
     public enum DegreeLevel
     {
-        [Description]
+        [Description("زیر دیپلم")]
         HighSchool,
         [Description("دیپلم")]
         Diploma,

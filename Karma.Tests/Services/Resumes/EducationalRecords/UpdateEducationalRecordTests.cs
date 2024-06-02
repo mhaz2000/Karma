@@ -116,7 +116,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             Major major = new Major() { Title = "Fake Title" };
             University university = new University() { Title = "Fake Title" };
             EducationalRecord educationalRecord = new EducationalRecord() { Major = major, University = university };
-            Resume resume = new Resume() { User = user };
+            Resume resume = new Resume() { User = user, Code = string.Empty };
             Major newMajor = null;
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
@@ -152,7 +152,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             Major major = new Major() { Title = "Fake Title" };
             University university = new University() { Title = "Fake Title" };
             EducationalRecord educationalRecord = new EducationalRecord() { Major = major, University = university };
-            Resume resume = new Resume() { User = user };
+            Resume resume = new Resume() { User = user, Code = string.Empty };
             University newUniversity = null;
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
@@ -202,6 +202,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             Resume? resume = new Resume()
             {
                 User = user,
+                Code = string.Empty,
                 EducationalRecords = new List<EducationalRecord>()
                 {
                     educationalRecord,
@@ -251,7 +252,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             Major major = new Major() { Title = "Fake Title" };
             University university = new University() { Title = "Fake Title" };
             EducationalRecord educationalRecord = new EducationalRecord() { Major = major, University = university };
-            Resume resume = new Resume() { User = user };
+            Resume resume = new Resume() { User = user, Code = string.Empty };
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
             A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
