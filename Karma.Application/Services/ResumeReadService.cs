@@ -2,6 +2,7 @@
 using Karma.Application.Base;
 using Karma.Application.Commands;
 using Karma.Application.DTOs;
+using Karma.Application.Extensions;
 using Karma.Application.Services.Interfaces;
 using Karma.Core.EntityBuilders;
 using Karma.Core.Repositories.Base;
@@ -115,7 +116,7 @@ namespace Karma.Application.Services
         public async Task<IEnumerable<ResumeQueryDTO>> GetResumes(PageQuery pageQuery, ResumeFilterCommand command)
         {
             var resumes = await _unitOfWork.ExpandedResumeViewRepository.GetExpandedResumes();
-            
+
             var filtredResumes = new ResumeQueryBuilder(resumes)
                 .WithCareerExperienceLength(command.CareerExperienceLength)
                 .WithCity(command.City)
@@ -131,7 +132,9 @@ namespace Karma.Application.Services
                 .WithSoftwareSkill(command.SoftwareSkillIds)
                 .Build();
 
-            return _mapper.Map<IEnumerable<ResumeQueryDTO>>(filtredResumes).Distinct();
+            return _mapper.Map<IEnumerable<ResumeQueryDTO>>(filtredResumes)
+                .OrderByDescending(c=>c.DegreeLevel)
+                .DistinctBy(c => c.Id).ToPagingAndSorting(pageQuery);
         }
     }
 }

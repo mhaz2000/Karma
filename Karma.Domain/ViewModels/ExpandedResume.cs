@@ -21,7 +21,7 @@ namespace Karma.Core.ViewModels
         public string? Telephone {get; set;}
         public DegreeLevel? DegreeLevel {get; set;}
         public string? DiplomaMajor {get; set;}
-        public double GPA {get; set;}
+        public float? GPA {get; set;}
         public int? UniversityFromYear {get; set;}
         public int? UniversityToYear {get; set;}
         public bool StillEducating {get; set;}
@@ -32,11 +32,12 @@ namespace Karma.Core.ViewModels
         public string? JobTitle {get; set;}
         public SeniorityLevel? SeniorityLevel {get; set;}
         public string? CompanyName {get; set;}
+        public Guid? CareerRecordId { get; set; }
         public int? CareerRecordFromMonth {get; set;}
         public int? CareerRecordFromYear {get; set;}
         public int? CareerRecordToMonth {get; set;}
         public int? CareerRecordToYear {get; set;}
-        public string? CurrentJob {get; set;}
+        public bool? CurrentJob {get; set;}
         public int? JobCategoryId { get; set;}
         public string? JobCategory { get; set;}
         public LanguageLevel? LanguageLevel {get; set;}

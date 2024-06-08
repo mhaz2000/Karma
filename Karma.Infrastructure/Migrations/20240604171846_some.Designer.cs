@@ -4,6 +4,7 @@ using Karma.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Karma.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240604171846_some")]
+    partial class some
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -498,9 +501,6 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<int?>("CareerRecordFromYear")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("CareerRecordId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int?>("CareerRecordToMonth")
                         .HasColumnType("int");
 
@@ -517,8 +517,8 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("CurrentJob")
-                        .HasColumnType("bit");
+                    b.Property<string>("CurrentJob")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("DegreeLevel")
                         .HasColumnType("int");
@@ -532,8 +532,8 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float?>("GPA")
-                        .HasColumnType("real");
+                    b.Property<double>("GPA")
+                        .HasColumnType("float");
 
                     b.Property<int?>("Gender")
                         .HasColumnType("int");

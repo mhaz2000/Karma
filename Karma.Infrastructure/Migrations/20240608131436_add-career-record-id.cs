@@ -5,7 +5,7 @@
 namespace Karma.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class fixresumeview : Migration
+    public partial class addcareerrecordid : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,12 +40,14 @@ namespace Karma.Infrastructure.Migrations
 					cr.JobTitle,
 					cr.SeniorityLevel,
 					cr.CompanyName,
+					cr.Id as CareerRecordId,
 					cr.FromMonth as CareerRecordFromMonth,
 					cr.FromYear as CareerRecordFromYear,
 					cr.ToMonth as CareerRecordToMonth,
 					cr.ToYear as CareerRecordToYear,
 					cr.CurrentJob,
 					jc.Title as JobCategory,
+					jc.Id as JobCategoryId,
 					l.LanguageLevel,
 					sl.Title as [Language],
 					sl.Id as LanguageId,
@@ -69,9 +71,7 @@ namespace Karma.Infrastructure.Migrations
 				left join AdditionalSkills ads on ads.ResumeId = r.Id
 				where u.PhoneNumberConfirmed = 1
 ");
-
         }
-
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)

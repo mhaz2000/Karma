@@ -22,13 +22,13 @@ namespace Karma.Core.EntityBuilders
 
         public ResumeQueryBuilder WithYoungerThan(DateTime? youngerThan)
         {
-            _resumes = youngerThan is null ? _resumes : _resumes.Where(c => c.BirthDate is not null && c.BirthDate <= youngerThan);
+            _resumes = youngerThan is null ? _resumes : _resumes.Where(c => c.BirthDate is not null && c.BirthDate >= youngerThan);
             return this;
         }
 
         public ResumeQueryBuilder WithOlderThan(DateTime? olderThan)
         {
-            _resumes = olderThan is null ? _resumes : _resumes.Where(c => c.BirthDate is not null && c.BirthDate >= olderThan);
+            _resumes = olderThan is null ? _resumes : _resumes.Where(c => c.BirthDate is not null && c.BirthDate <= olderThan);
             return this;
         }
 
@@ -86,7 +86,7 @@ namespace Karma.Core.EntityBuilders
                 return this;
 
             PersianCalendar pc = new PersianCalendar();
-            _resumes.Where(c => c.CareerRecordFromYear is not null).GroupBy(c => c.UserId).Where(c =>
+            var usersId = _resumes.Where(c => c.CareerRecordFromYear is not null).GroupBy(c => new { c.UserId , c.CareerRecordId}).Where(c =>
             {
                 var workingDays = c.Where(t => t.CareerRecordToYear is not null)
                     .Sum(t => (new DateTime(t.CareerRecordToYear!.Value, t.CareerRecordToMonth!.Value, 1, pc)
@@ -99,7 +99,9 @@ namespace Karma.Core.EntityBuilders
                        (careerExperienceLength == CareerExperienceLength.BetweenOneAndThreeYears && workingDays >= 365 && workingDays < 3 * 365) ||
                        (careerExperienceLength == CareerExperienceLength.BetweenFiveAndTenYears && workingDays >= 3 * 365 && workingDays <= 10 * 365) ||
                        (careerExperienceLength == CareerExperienceLength.MoreThanTenYears && workingDays >= 10 * 365);
-            });
+            }).Select(c=> c.Key.UserId);
+
+            _resumes = _resumes.Where(c => usersId.Contains(c.UserId));
 
             return this;
         }

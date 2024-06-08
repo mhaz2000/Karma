@@ -234,7 +234,8 @@ namespace Karma.API.Controllers
 
         #endregion
 
-        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("Query")]
         public async Task<IActionResult> GetResumes([FromQuery] PageQuery pageQuery, [FromBody] ResumeFilterCommand command)
         {
             command.Validate();
