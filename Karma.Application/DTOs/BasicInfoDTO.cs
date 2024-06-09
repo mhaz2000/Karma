@@ -9,6 +9,7 @@ namespace Karma.Application.DTOs
         public string LastName { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string Telephone { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public DateTime? BirthDate { get; set; }
         public required string MaritalStatus { get; set; }
         public required string MilitaryServiceStatus { get; set; }

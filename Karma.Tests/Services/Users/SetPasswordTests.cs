@@ -57,13 +57,11 @@ namespace Karma.Tests.Services.Users
 
             //Act
             var act = async () => await _userService.SetPasswordAsync(command, Guid.NewGuid());
-            act.Invoke();
+            await act.Invoke();
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustHaveHappenedOnceExactly();
-
-            await act.Should().NotThrowAsync();
         }
     }
 }

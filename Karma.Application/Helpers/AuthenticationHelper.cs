@@ -27,7 +27,8 @@ namespace Karma.Application.Helpers
             return new AuthenticatedUserDTO()
             {
                 RefreshToken = token.RefreshToken,
-                AuthToken = token.AuthToken
+                AuthToken = token.AuthToken,
+                IsAdmin = await _unitOfWork.RoleRepository.CheckIfUserIsAdminAsync(user)
             };
         }
     }

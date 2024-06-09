@@ -47,7 +47,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.CountryRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CityRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume,bool>>>._)).MustNotHaveHappened();
-            A.CallTo(() => _unitOfWork.ResumeRepository.AddAsync(A<Resume>._)).MustNotHaveHappened();
+            A.CallTo(() => _unitOfWork.ResumeRepository.CreateAsync(A<Resume>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CareerRecordRepository.AddAsync(A<CareerRecord>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustNotHaveHappened();
 
@@ -80,7 +80,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.CountryRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CityRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustNotHaveHappened();
-            A.CallTo(() => _unitOfWork.ResumeRepository.AddAsync(A<Resume>._)).MustNotHaveHappened();
+            A.CallTo(() => _unitOfWork.ResumeRepository.CreateAsync(A<Resume>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CareerRecordRepository.AddAsync(A<CareerRecord>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustNotHaveHappened();
 
@@ -115,7 +115,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.CountryRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.CityRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustNotHaveHappened();
-            A.CallTo(() => _unitOfWork.ResumeRepository.AddAsync(A<Resume>._)).MustNotHaveHappened();
+            A.CallTo(() => _unitOfWork.ResumeRepository.CreateAsync(A<Resume>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CareerRecordRepository.AddAsync(A<CareerRecord>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustNotHaveHappened();
 
@@ -153,7 +153,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.CountryRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.CityRepository.GetByIdAsync(A<int>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustNotHaveHappened();
-            A.CallTo(() => _unitOfWork.ResumeRepository.AddAsync(A<Resume>._)).MustNotHaveHappened();
+            A.CallTo(() => _unitOfWork.ResumeRepository.CreateAsync(A<Resume>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CareerRecordRepository.AddAsync(A<CareerRecord>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustNotHaveHappened();
 
@@ -187,7 +187,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.JobCategoryRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _unitOfWork.ResumeRepository.AddAsync(A<Resume>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _unitOfWork.ResumeRepository.CreateAsync(A<Resume>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.CareerRecordRepository.AddAsync(A<CareerRecord>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustHaveHappenedOnceExactly();
 
@@ -221,7 +221,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.JobCategoryRepository.GetByIdAsync(A<int>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _unitOfWork.ResumeRepository.AddAsync(A<Resume>._)).MustNotHaveHappened();
+            A.CallTo(() => _unitOfWork.ResumeRepository.CreateAsync(A<Resume>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CareerRecordRepository.AddAsync(A<CareerRecord>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustHaveHappenedOnceExactly();
 
