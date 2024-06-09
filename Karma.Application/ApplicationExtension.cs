@@ -1,6 +1,7 @@
 ﻿using Karma.Application.Base;
 using Karma.Application.Helpers;
 using Karma.Application.Helpers.TokenHelper;
+using Karma.Application.Notifications;
 using Karma.Application.Services;
 using Karma.Application.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +16,7 @@ namespace Karma.Application
         public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtIusserOptionsModel = new JwtIssuerOptionsModel();
+            var kavenegarConfigurationModel = new KavenegarConfigurationModel();
 
             jwtIusserOptionsModel.Issuer = configuration.GetSection("JwtIssuerOptions").GetSection("Issuer").Value!;
             jwtIusserOptionsModel.SecretKey = configuration.GetSection("JwtIssuerOptions").GetSection("SecretKey").Value!;
@@ -22,10 +24,16 @@ namespace Karma.Application
             jwtIusserOptionsModel.ValidTimeInMinute = int.Parse(configuration.GetSection("JwtIssuerOptions").GetSection("ValidTimeInMinute").Value!);
             jwtIusserOptionsModel.ExpireTimeTokenInMinute = int.Parse(configuration.GetSection("JwtIssuerOptions").GetSection("ExpireTimeTokenInMinute").Value!);
 
+
+            kavenegarConfigurationModel.Template = configuration.GetSection("KavenegarConfiguration").GetSection("Template").Value!;
+            kavenegarConfigurationModel.Key = configuration.GetSection("KavenegarConfiguration").GetSection("Key").Value!;
+
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-            services.AddSingleton<JwtIssuerOptionsModel>(jwtIusserOptionsModel);
+            services.AddSingleton(jwtIusserOptionsModel);
+            services.AddSingleton(kavenegarConfigurationModel);
 
+            services.AddScoped<KavenegarFactory>();
             services.AddScoped<JwtSecurityTokenHandler>();
             services.AddScoped<ITokenFactory, TokenFactory>();
             services.AddScoped<IJwtFactory, JwtFactory>();

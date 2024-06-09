@@ -3,6 +3,8 @@ using Karma.Application.Commands;
 using Karma.Application.DTOs;
 using Karma.Application.Extensions;
 using Karma.Application.Helpers;
+using Karma.Application.Notifications;
+using Karma.Application.Notifications.Base;
 using Karma.Application.Services.Interfaces;
 using Karma.Core.Caching;
 using Karma.Core.Entities;
@@ -17,15 +19,18 @@ namespace Karma.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICacheProvider _cacheProvider;
         private readonly IAuthenticationHelper _authenticationHelper;
+        private readonly ISmsProvider _smsProvider;
 
         private readonly Random _random;
         private readonly int _optExpirationTime;
-        public UserService(IUnitOfWork unitOfWork, IConfiguration configuration, ICacheProvider cacheProvider, IAuthenticationHelper authenticationHelper)
+        public UserService(IUnitOfWork unitOfWork, IConfiguration configuration, ICacheProvider cacheProvider,
+            IAuthenticationHelper authenticationHelper, KavenegarFactory kavenegarFactory)
         {
             _unitOfWork = unitOfWork;
             _random = new Random();
             _cacheProvider = cacheProvider;
             _authenticationHelper = authenticationHelper;
+            _smsProvider = kavenegarFactory.Create();
 
             _optExpirationTime = int.TryParse(configuration["InMemoryCaching:OptExpirationTime"]?.ToString(), out int expirationTime)
                 ? expirationTime : throw new Exception("Opt expiration time cannot be found.");
@@ -62,6 +67,7 @@ namespace Karma.Application.Services
             if (command.OtpCode != await _cacheProvider.Get(command.Phone))
                 throw new ManagedException("کد وارد شده صحیح نمی‌باشد.");
 
+            await _cacheProvider.Clear(command.Phone);
             return await _authenticationHelper.GetToken(user);
         }
 
@@ -75,8 +81,7 @@ namespace Karma.Application.Services
                 throw new ManagedException("از مدت زمان درخواست کد تایید شما کمتر از 2 دقیقه گذشته است.");
 
             var otpCode = _random.Next(100000, 1000000);
-            Console.WriteLine(otpCode); //while we don't have sms panel
-            //Send Notification - Todo
+            await _smsProvider.SendOtp(otpCode.ToString(), user.PhoneNumber);
 
             await _cacheProvider.Set(command.Phone, otpCode.ToString(), _optExpirationTime);
         }
