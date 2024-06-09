@@ -13,6 +13,13 @@ namespace Karma.Infrastructure.Repositories
         {
             
         }
+
+        public async Task<bool> CheckIfUserIsAdminAsync(User user)
+        {
+            var rolesId = Context.UserRoles.Where(c => c.UserId == user.Id).Select(s=>s.RoleId);
+            return await Task.FromResult(Context.Roles.Where(c => rolesId.Contains(c.Id)).Any(c => c.Name == "admin"));
+        }
+
         public async Task<IList<IdentityRole<Guid>>> GetUserRolesAsync(User user)
         {
             var roles = Context.UserRoles.Where(c => c.UserId == user.Id).Select(s => s.RoleId);

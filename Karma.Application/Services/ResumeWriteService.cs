@@ -53,6 +53,7 @@ namespace Karma.Application.Services
 
             user.BirthDate = command.BirthDate;
             user.FirstName = command.FirstName;
+            user.Email = command.Email;
             user.LastName = command.LastName;
             user.City = command.City;
             user.Telephone = command.Telephone;

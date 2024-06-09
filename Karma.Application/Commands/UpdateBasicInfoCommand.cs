@@ -16,6 +16,7 @@ namespace Karma.Application.Commands
         public required string City { get; set; }
         public DateTime BirthDate { get; set; }
         public string Telephone { get; set; } = string.Empty;
+        public string? Email { get; set; }
 
         public void Validate() => new UpdateBasicInfoCommandValidator().Validate(this).RaiseExceptionIfRequired();
 

@@ -63,7 +63,7 @@ namespace Karma.Tests.Services.Resumes.AboutMe
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _unitOfWork.ResumeRepository.AddAsync(A<Resume>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _unitOfWork.ResumeRepository.CreateAsync(A<Resume>._)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.SocialMediaRepository.AddRangeAsync(A<IEnumerable<SocialMedia>>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.SocialMediaRepository.RemoveRange(A<IEnumerable<SocialMedia>>._)).MustNotHaveHappened();
             A.CallTo(() => _unitOfWork.CommitAsync()).MustHaveHappenedOnceExactly();

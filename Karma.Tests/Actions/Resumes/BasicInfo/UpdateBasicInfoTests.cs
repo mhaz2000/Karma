@@ -75,7 +75,35 @@ namespace Karma.Tests.Actions.Resumes.BasicInfo
             await act.Should().ThrowAsync<ValidationException>().WithMessage("تاریخ تولد صحیح نیست.");
             A.CallTo(() => _resumeWriteService.UpdateBasicInfo(command, A<Guid>._)).MustNotHaveHappened();
         }
-        
+
+        [Theory]
+        [InlineData("dsfds")]
+        [InlineData("")]
+        [InlineData("eiot.coawsdfj")]
+        [InlineData("eifds@")]
+        [InlineData("eifds@.")]
+        [InlineData("eifds@.com")]
+        [InlineData("eifds@.df.com")]
+        public async Task Should_Throw_Exception_When_Email_Is_Invalid(string email)
+        {
+            //Arrange
+            var command = new UpdateBasicInfoCommand()
+            {
+                City = "Fake City",
+                FirstName = "Fake First Name",
+                LastName = "Fake Last Name",
+                BirthDate = DateTime.UtcNow.AddDays(-1),
+                Email = email
+            };
+
+            //Act
+            var act = async () => await _resumesController.UpdateBasicInfo(command);
+
+            //Assert
+            await act.Should().ThrowAsync<ValidationException>().WithMessage("تاریخ تولد صحیح نیست.");
+            A.CallTo(() => _resumeWriteService.UpdateBasicInfo(command, A<Guid>._)).MustNotHaveHappened();
+        }
+
         [Fact]
         public async Task Should_Update_Basic_Info_When_Inputs_Are_Correct()
         {

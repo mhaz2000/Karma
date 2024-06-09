@@ -7,6 +7,7 @@ namespace Karma.Core.Repositories
     public interface IRoleRepository : IRepository<IdentityRole<Guid>>
     {
         Task<IList<IdentityRole<Guid>>> GetUserRolesAsync(User user);
+        Task<bool> CheckIfUserIsAdminAsync(User user);
 
     }
 }
