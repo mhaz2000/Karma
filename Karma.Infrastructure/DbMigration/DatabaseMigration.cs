@@ -4,27 +4,35 @@ using Karma.Infrastructure.Factories.ContextsFactories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
 
 namespace Karma.Infrastructure.DbMigration
 {
     public class DatabaseMigration : IDatabaseMigration
     {
-        private readonly DataContext _dataContext;
-        private readonly LogContext _logContext;
+        private DataContext _dataContext;
+        private LogContext _logContext;
 
-        public DatabaseMigration(IConfiguration configuration)
+        public DatabaseMigration()
         {
-            _dataContext = new DateContextFactory().CreateDbContext(configuration);
-            _logContext = new LogContextFactory().CreateDbContext(configuration);
-
         }
-        public async Task MigrateDatabase()
+        public async Task MigrateDatabase(string dbConnectionString, string logConnectionString)
         {
-            _dataContext.Database.Migrate();
-            _logContext.Database.Migrate();
+            _dataContext = new DateContextFactory().CreateDbContext(dbConnectionString);
+            _logContext = new LogContextFactory().CreateDbContext(logConnectionString);
+
+            try
+            {
+
+                _dataContext.Database.Migrate();
+                _logContext.Database.Migrate();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("exception");
+                throw;
+            }
 
             var userStore = new UserStore<User, IdentityRole<Guid>, DataContext, Guid>(_dataContext);
             var userManager = new UserManager<User>(userStore, null, new PasswordHasher<User>(), null, null, null, null, null, null);
@@ -99,7 +107,7 @@ namespace Karma.Infrastructure.DbMigration
                 using FileStream stream = File.OpenRead(filePath);
                 var majors = await JsonSerializer.DeserializeAsync<ICollection<string>>(stream);
 
-                await context.Majors.AddRangeAsync(majors!.Select(s=> new Major() { Title = s}));
+                await context.Majors.AddRangeAsync(majors!.Select(s => new Major() { Title = s }));
                 await context.SaveChangesAsync();
             }
         }
@@ -168,7 +176,7 @@ namespace Karma.Infrastructure.DbMigration
                 await context.SaveChangesAsync();
             }
         }
-        
+
         private static async Task SeedSoftwareSkills(DataContext context)
         {
             if (!context.SystemSoftwareSkills.Any())

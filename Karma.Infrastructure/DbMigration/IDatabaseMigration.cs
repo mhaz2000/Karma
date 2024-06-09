@@ -2,6 +2,6 @@
 {
     public interface IDatabaseMigration
     {
-        Task MigrateDatabase();
+        Task MigrateDatabase(string dbConnectionString, string logConnectionString);
     }
 }

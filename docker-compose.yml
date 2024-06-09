@@ -1,0 +1,36 @@
+version: '3.4'
+
+networks:
+  karma-network:
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "M0h@mm@d"
+    ports:
+      - "1434:1433"
+    volumes:
+      - ./data:/var/opt/mssql/data
+    networks:
+      - karma-network
+
+  karma.api:
+    image: ${DOCKER_REGISTRY-}karmaapi
+    build:
+      context: .
+      dockerfile: Karma/Dockerfile
+    ports:
+      - "4030:80"
+    volumes:
+      - ./files:/app/FileStorage
+    environment:
+      SQL_Host: "mssql"
+      SQL_Username: "sa"
+      SQL_Password: "M0h@mm@d"
+    networks:
+      - karma-network
+    depends_on:
+      - mssql
