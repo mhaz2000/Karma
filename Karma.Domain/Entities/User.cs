@@ -1,7 +1,7 @@
 ﻿using Karma.Core.Entities.Base;
 using Karma.Core.Enums;
 using Microsoft.AspNetCore.Identity;
-
+using System;
 namespace Karma.Core.Entities
 {
     public class User : IdentityUser<Guid>, IBaseEntity
@@ -28,12 +28,15 @@ namespace Karma.Core.Entities
 
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public MaritalStatus MaritalStatus { get; set; }
-        public Gender Gender { get; set; } = Gender.Male;
+        public MaritalStatus? MaritalStatus { get; set; }
+        public Gender? Gender { get; set; }
         public MilitaryServiceStatus MilitaryServiceStatus { get; set; }
         public string City { get; set; } = string.Empty;
         public DateTime? BirthDate { get; set; }
         public string Telephone { get; set; } = string.Empty;
         public Guid? ImageId { get; set; }
+        public bool PasswordInitialized { get; set; }
+
+
     }
 }

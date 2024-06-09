@@ -38,7 +38,7 @@ namespace Karma.Application.Services
                 .Build();
 
             if (existingResume is null)
-                await _unitOfWork.ResumeRepository.AddAsync(resume);
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
             else
                 await _unitOfWork.SocialMediaRepository.AddRangeAsync(resume.SocialMedias);
 
@@ -68,11 +68,11 @@ namespace Karma.Application.Services
             var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
                 throw new ManagedException("کاربر مورد نظر یافت نشد.");
 
-            var major = await _unitOfWork.MajorRepository.GetByIdAsync(command.MajorId) ??
-                throw new ManagedException("مقدار وارد شده برای رشته دانشگاهی صحیح نمی‌باشد.");
+            var major = command.MajorId is not null ? (await _unitOfWork.MajorRepository.GetByIdAsync(command.MajorId) ??
+                throw new ManagedException("مقدار وارد شده برای رشته دانشگاهی صحیح نمی‌باشد.")) : null;
 
-            var university = await _unitOfWork.UniversityRepository.GetByIdAsync(command.UniversityId) ??
-                throw new ManagedException("مقدار وارد شده برای دانشگاه صحیح نمی‌باشد.");
+            var university = command.UniversityId is not null ? (await _unitOfWork.UniversityRepository.GetByIdAsync(command.UniversityId) ??
+                throw new ManagedException("مقدار وارد شده برای دانشگاه صحیح نمی‌باشد.")) : null;
 
             var existingResume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user);
 
@@ -85,7 +85,7 @@ namespace Karma.Application.Services
                 .Build();
 
             if (existingResume is null)
-                await _unitOfWork.ResumeRepository.AddAsync(resume);
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
 
             await _unitOfWork.EducationalRecordRepository.AddAsync(educationalRecord);
 
@@ -103,11 +103,11 @@ namespace Karma.Application.Services
             var resume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user) ??
                 throw new ManagedException("رزومه شما یافت نشد.");
 
-            var major = await _unitOfWork.MajorRepository.GetByIdAsync(command.MajorId) ??
-                throw new ManagedException("مقدار وارد شده برای رشته دانشگاهی صحیح نمی‌باشد.");
+            var major = command.MajorId is not null ? (await _unitOfWork.MajorRepository.GetByIdAsync(command.MajorId) ??
+                throw new ManagedException("مقدار وارد شده برای رشته دانشگاهی صحیح نمی‌باشد.")) : null;
 
-            var university = await _unitOfWork.UniversityRepository.GetByIdAsync(command.UniversityId) ??
-                throw new ManagedException("مقدار وارد شده برای دانشگاه صحیح نمی‌باشد.");
+            var university = command.UniversityId is not null ? (await _unitOfWork.UniversityRepository.GetByIdAsync(command.UniversityId) ??
+                throw new ManagedException("مقدار وارد شده برای دانشگاه صحیح نمی‌باشد.")) : null;
 
             educationalRecord.DegreeLevel = command.DegreeLevel;
             educationalRecord.ToYear = command.ToYear;
@@ -162,7 +162,7 @@ namespace Karma.Application.Services
                 .Build();
 
             if (existingResume is null)
-                await _unitOfWork.ResumeRepository.AddAsync(resume);
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
 
             await _unitOfWork.CareerRecordRepository.AddAsync(careerRecord);
 
@@ -237,7 +237,7 @@ namespace Karma.Application.Services
                 .Build();
 
             if (existingResume is null)
-                await _unitOfWork.ResumeRepository.AddAsync(resume);
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
 
             await _unitOfWork.LanguageRepository.AddAsync(language);
 
@@ -260,7 +260,7 @@ namespace Karma.Application.Services
                 .Build();
 
             if (existingResume is null)
-                await _unitOfWork.ResumeRepository.AddAsync(resume);
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
 
             await _unitOfWork.SoftwareSkillRepository.AddAsync(softwareSkill);
 
@@ -289,7 +289,7 @@ namespace Karma.Application.Services
                 .Build();
 
             if (existingResume is null)
-                await _unitOfWork.ResumeRepository.AddAsync(resume);
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
 
             await _unitOfWork.AdditionalSkillRepository.AddAsync(additionalSkill);
 

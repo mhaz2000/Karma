@@ -45,7 +45,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("ResumeId");
 
-                    b.ToTable("AdditionalSkills");
+                    b.ToTable("AdditionalSkills", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.CareerRecord", b =>
@@ -105,7 +105,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("ResumeId");
 
-                    b.ToTable("CareerRecords");
+                    b.ToTable("CareerRecords", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.City", b =>
@@ -122,7 +122,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.Country", b =>
@@ -139,7 +139,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.EducationalRecord", b =>
@@ -154,13 +154,16 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<int>("DegreeLevel")
                         .HasColumnType("int");
 
-                    b.Property<int>("FromYear")
+                    b.Property<string>("DiplomaMajor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FromYear")
                         .HasColumnType("int");
 
                     b.Property<float?>("GPA")
                         .HasColumnType("real");
 
-                    b.Property<int>("MajorId")
+                    b.Property<int?>("MajorId")
                         .HasColumnType("int");
 
                     b.Property<Guid?>("ResumeId")
@@ -172,7 +175,7 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<int?>("ToYear")
                         .HasColumnType("int");
 
-                    b.Property<int>("UniversityId")
+                    b.Property<int?>("UniversityId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -183,7 +186,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("EducationalRecords");
+                    b.ToTable("EducationalRecords", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.JobCategory", b =>
@@ -200,7 +203,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JobCategories");
+                    b.ToTable("JobCategories", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.Language", b =>
@@ -227,7 +230,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("SystemLanguageId");
 
-                    b.ToTable("Languages");
+                    b.ToTable("Languages", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.Major", b =>
@@ -244,7 +247,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Majors");
+                    b.ToTable("Majors", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.Resume", b =>
@@ -252,6 +255,10 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -270,7 +277,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Resumes");
+                    b.ToTable("Resumes", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.SocialMedia", b =>
@@ -296,7 +303,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("ResumeId");
 
-                    b.ToTable("SocialMedias");
+                    b.ToTable("SocialMedias", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.SoftwareSkill", b =>
@@ -323,7 +330,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("SystemSoftwareSkillId");
 
-                    b.ToTable("SoftwareSkills");
+                    b.ToTable("SoftwareSkills", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.SystemLanguage", b =>
@@ -340,7 +347,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SystemLanguages");
+                    b.ToTable("SystemLanguages", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.SystemSoftwareSkill", b =>
@@ -357,7 +364,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SystemSoftwareSkills");
+                    b.ToTable("SystemSoftwareSkills", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.University", b =>
@@ -374,7 +381,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Universities");
+                    b.ToTable("Universities", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.User", b =>
@@ -408,7 +415,7 @@ namespace Karma.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
                     b.Property<Guid?>("ImageId")
@@ -424,7 +431,7 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("MaritalStatus")
+                    b.Property<int?>("MaritalStatus")
                         .HasColumnType("int");
 
                     b.Property<int>("MilitaryServiceStatus")
@@ -440,6 +447,9 @@ namespace Karma.Infrastructure.Migrations
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PasswordInitialized")
+                        .HasColumnType("bit");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
@@ -472,6 +482,140 @@ namespace Karma.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Karma.Core.ViewModels.ExpandedResume", b =>
+                {
+                    b.Property<string>("AdditionalSkill")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CareerRecordFromMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CareerRecordFromYear")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("CareerRecordId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("CareerRecordToMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CareerRecordToYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("CurrentJob")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("DegreeLevel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DiplomaMajor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float?>("GPA")
+                        .HasColumnType("real");
+
+                    b.Property<int?>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("JobCategory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("JobCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("JobTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LanguageLevel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MainJobTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MajorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MajorTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MaritalStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MilitaryServiceStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SeniorityLevel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SoftwareSkill")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SoftwareSkillId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SoftwareSkillLevel")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("StillEducating")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Telephone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UniversityFromYear")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UniversityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UniversityTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UniversityToYear")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("resumes_info", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -645,9 +789,7 @@ namespace Karma.Infrastructure.Migrations
                 {
                     b.HasOne("Karma.Core.Entities.Major", "Major")
                         .WithMany()
-                        .HasForeignKey("MajorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MajorId");
 
                     b.HasOne("Karma.Core.Entities.Resume", null)
                         .WithMany("EducationalRecords")
@@ -655,9 +797,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasOne("Karma.Core.Entities.University", "University")
                         .WithMany()
-                        .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UniversityId");
 
                     b.Navigation("Major");
 

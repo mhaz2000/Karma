@@ -24,6 +24,8 @@ namespace Karma.Application.Helpers.TokenHelper
         {
             identity.AddClaim(new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(),
                 ClaimValueTypes.Integer64));
+            identity.AddClaim(new Claim(ClaimTypes.Role, userRoles != null ? string.Join(',', userRoles) : ""));
+
 
             // Create the JWT security token and encode it.
             var jwt = new JwtSecurityToken(

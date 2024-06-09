@@ -71,7 +71,7 @@ namespace Karma.Tests.Services.Resumes.SoftwareSkills
         {
             var userId = Guid.NewGuid();
             User user = new User();
-            Resume? resume = new Resume() { User = user };
+            Resume? resume = new Resume() { User = user, Code = string.Empty };
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);

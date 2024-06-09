@@ -116,8 +116,11 @@ namespace Karma.Application.Services
             var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
                 throw new ManagedException("کاربر مورد نظر یافت نشد.");
 
-            user.PasswordHash = new PasswordHasher<User>().HashPassword(user, command.Password);
+            if (user.PasswordInitialized)
+                throw new ManagedException("رمز عبور قبلا برای شما تنظیم شده است، لطفا از بخش تغییر رمز عبور اقدام فرمایید.");
 
+            user.PasswordHash = new PasswordHasher<User>().HashPassword(user, command.Password);
+            user.PasswordInitialized = true;
             await _unitOfWork.CommitAsync();
         }
 

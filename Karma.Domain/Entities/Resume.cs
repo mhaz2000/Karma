@@ -26,6 +26,7 @@ namespace Karma.Core.Entities
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
 
+        public required string Code { get; set; }
         public string MainJobTitle { get; set; } = string.Empty;
         public string? Description { get; set; }
 
