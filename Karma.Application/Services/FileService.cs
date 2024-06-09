@@ -16,7 +16,7 @@ namespace Karma.Application.Services
         public async Task<(FileStream stream, string filename)> GetFileAsync(Guid id)
         {
             string filename = "Image";
-            var path = Directory.GetCurrentDirectory() + "\\FileStorage";
+            var path = Directory.GetCurrentDirectory() + "/FileStorage";
             var filePath = Path.Combine(path, $"{id}.dat");
 
             if (!File.Exists(filePath))
@@ -35,7 +35,7 @@ namespace Karma.Application.Services
             if (user is null)
                 throw new ManagedException("کاربر مورد نظر یافت نشد.");
 
-            var path = Directory.GetCurrentDirectory() + "\\FileStorage";
+            var path = Directory.GetCurrentDirectory() + "/FileStorage";
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
