@@ -28,6 +28,8 @@ namespace Karma.Infrastructure.Repositories.Base
         private EducationalRecordRepository _educationalRecordRepository;
         private SystemSoftwareSkillRepository _systemSoftwareSkillRepository;
 
+        private ExpandedResumeViewRepository _expandedResumeViewRepository;
+
         public UnitOfWork(DataContext context, UserManager<User> userManager)
         {
             _context = context;
@@ -51,6 +53,7 @@ namespace Karma.Infrastructure.Repositories.Base
         public IEducationalRecordRepository EducationalRecordRepository => _educationalRecordRepository ?? new EducationalRecordRepository(_context);
         public ISystemSoftwareSkillRepository SystemSoftwareSkillRepository => _systemSoftwareSkillRepository ?? new SystemSoftwareSkillRepository(_context);
 
+        public IExpandedResumeViewRepository ExpandedResumeViewRepository => _expandedResumeViewRepository ?? new ExpandedResumeViewRepository(_context);
 
         public async Task<int> CommitAsync()
         {

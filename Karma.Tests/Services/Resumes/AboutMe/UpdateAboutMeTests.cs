@@ -77,7 +77,7 @@ namespace Karma.Tests.Services.Resumes.AboutMe
             //Arrange
             var command = new UpdateAboutMeCommand() { MainJobTitle = "Test" };
             User? user = new User();
-            Resume? resume = new Resume() { User = user };
+            Resume? resume = new Resume() { User = user, Code = string.Empty };
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);

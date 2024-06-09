@@ -109,7 +109,7 @@ namespace Karma.Tests.Services.Resumes.SoftwareSkills
             var command = new AddSoftwareSkillCommand();
             User? user = new User();
             SystemSoftwareSkill? systemSoftwareSkill = new SystemSoftwareSkill() { Title = "Fake Software Skill" };
-            Resume? resume = new Resume() { User = user };
+            Resume? resume = new Resume() { User = user, Code = string.Empty };
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
             A.CallTo(() => _unitOfWork.SystemSoftwareSkillRepository.GetByIdAsync(A<int>._)).Returns(systemSoftwareSkill);

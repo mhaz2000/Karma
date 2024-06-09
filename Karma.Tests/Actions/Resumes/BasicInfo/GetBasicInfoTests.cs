@@ -37,8 +37,8 @@ namespace Karma.Tests.Actions.Resumes.BasicInfo
                 City = "Fake City",
                 FirstName = "Fake First Name",
                 LastName = "Fake Last Name",
-                MaritalStatus= MaritalStatus.Unknown.GetDescription(),
-                MilitaryServiceStatus = MilitaryServiceStatus.Unknown.GetDescription(),
+                MaritalStatus= MaritalStatus.Single.GetDescription(),
+                MilitaryServiceStatus = MilitaryServiceStatus.InProgress.GetDescription(),
                 Telephone = "Fake Telephoe",
                 Gender = Gender.Male.GetDescription(),
             };

@@ -1,4 +1,5 @@
 ﻿using Karma.API.Controllers.Base;
+using Karma.Application.Base;
 using Karma.Application.Commands;
 using Karma.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -203,7 +204,6 @@ namespace Karma.API.Controllers
 
         #endregion
 
-
         #region AdditionalSkills
 
         [HttpPost("AddAdditionalSkill")]
@@ -233,5 +233,15 @@ namespace Karma.API.Controllers
         }
 
         #endregion
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut("Query")]
+        public async Task<IActionResult> GetResumes([FromQuery] PageQuery pageQuery, [FromBody] ResumeFilterCommand command)
+        {
+            command.Validate();
+
+            var result = await _resumeReadService.GetResumes(pageQuery, command);
+            return Ok(result);
+        }
     }
 }

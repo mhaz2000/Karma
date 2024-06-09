@@ -1,4 +1,6 @@
-﻿using Karma.Application.DTOs;
+﻿using Karma.Application.Base;
+using Karma.Application.Commands;
+using Karma.Application.DTOs;
 
 namespace Karma.Application.Services.Interfaces
 {
@@ -11,5 +13,6 @@ namespace Karma.Application.Services.Interfaces
         Task<IEnumerable<LanguageDTO>> GetLanguages(Guid userId);
         Task<IEnumerable<SoftwareSkillDTO>> GetSoftwareSkills(Guid userId);
         Task<IEnumerable<AdditionalSkillDTO>> GetAdditionalSkills(Guid userId);
+        Task<IEnumerable<ResumeQueryDTO>> GetResumes(PageQuery pageQuery, ResumeFilterCommand command);
     }
 }

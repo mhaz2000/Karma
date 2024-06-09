@@ -8,7 +8,7 @@ namespace Karma.Core.EntityBuilders
 
         public ResumeBuilder(Resume? resume, User user)
         {
-            _resume = resume ?? new Resume() { User = user };
+            _resume = resume ?? new Resume() { User = user, Code = string.Empty };
         }
 
         public ResumeBuilder WithMainJobTitle(string mainJobTitle)
