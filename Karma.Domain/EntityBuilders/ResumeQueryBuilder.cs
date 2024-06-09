@@ -86,20 +86,32 @@ namespace Karma.Core.EntityBuilders
                 return this;
 
             PersianCalendar pc = new PersianCalendar();
-            var usersId = _resumes.Where(c => c.CareerRecordFromYear is not null).GroupBy(c => new { c.UserId , c.CareerRecordId}).Where(c =>
+            var usersId = _resumes.Where(c => c.CareerRecordFromYear is not null).Select(s => new
             {
-                var workingDays = c.Where(t => t.CareerRecordToYear is not null)
-                    .Sum(t => (new DateTime(t.CareerRecordToYear!.Value, t.CareerRecordToMonth!.Value, 1, pc)
-                    - new DateTime(t.CareerRecordFromYear!.Value, t.CareerRecordFromMonth!.Value, 1, pc)).TotalDays);
+                s.UserId,
+                s.CareerRecordId,
+                s.CareerRecordFromMonth,
+                s.CareerRecordFromYear,
+                s.CareerRecordToMonth,
+                s.CareerRecordToYear,
+                s.CurrentJob
+            }).Distinct().AsEnumerable().Where(c =>
+                {
+                    double workingDays = 0;
+                    if (c.CareerRecordToYear is not null)
+                        workingDays = (new DateTime(c.CareerRecordToYear!.Value, c.CareerRecordToMonth!.Value, 1, pc)
+                            - new DateTime(c.CareerRecordFromYear!.Value, c.CareerRecordFromMonth!.Value, 1, pc)).TotalDays;
 
-                workingDays += c.Where(t => t.StillEducating).Sum(t => (DateTime.Now - new DateTime(t.CareerRecordFromYear!.Value, t.CareerRecordFromMonth!.Value, 1, pc)).TotalDays);
+                    if (c.CurrentJob is not null && c.CurrentJob.Value)
+                        workingDays += (DateTime.Now - new DateTime(c.CareerRecordFromYear!.Value, c.CareerRecordFromMonth!.Value, 1, pc)).TotalDays;
 
-                return (careerExperienceLength == CareerExperienceLength.WithoutExperience && workingDays == 0) ||
-                       (careerExperienceLength == CareerExperienceLength.LessThanOneYear && workingDays < 365) ||
-                       (careerExperienceLength == CareerExperienceLength.BetweenOneAndThreeYears && workingDays >= 365 && workingDays < 3 * 365) ||
-                       (careerExperienceLength == CareerExperienceLength.BetweenFiveAndTenYears && workingDays >= 3 * 365 && workingDays <= 10 * 365) ||
-                       (careerExperienceLength == CareerExperienceLength.MoreThanTenYears && workingDays >= 10 * 365);
-            }).Select(c=> c.Key.UserId);
+                    return (careerExperienceLength == CareerExperienceLength.WithoutExperience && workingDays == 0) ||
+                           (careerExperienceLength == CareerExperienceLength.LessThanOneYear && workingDays < 365) ||
+                           (careerExperienceLength == CareerExperienceLength.BetweenOneAndThreeYears && workingDays >= 365 && workingDays < 3 * 365) ||
+                           (careerExperienceLength == CareerExperienceLength.BetweenThreeAndFiveYears && workingDays >= 3* 365 && workingDays < 5 * 365) ||
+                           (careerExperienceLength == CareerExperienceLength.BetweenFiveAndTenYears && workingDays >= 5 * 365 && workingDays <= 10 * 365) ||
+                           (careerExperienceLength == CareerExperienceLength.MoreThanTenYears && workingDays >= 10 * 365);
+                }).Select(c => c.UserId);
 
             _resumes = _resumes.Where(c => usersId.Contains(c.UserId));
 

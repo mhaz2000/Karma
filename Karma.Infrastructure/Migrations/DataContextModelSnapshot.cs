@@ -45,7 +45,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("ResumeId");
 
-                    b.ToTable("AdditionalSkills");
+                    b.ToTable("AdditionalSkills", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.CareerRecord", b =>
@@ -105,7 +105,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("ResumeId");
 
-                    b.ToTable("CareerRecords");
+                    b.ToTable("CareerRecords", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.City", b =>
@@ -122,7 +122,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.Country", b =>
@@ -139,7 +139,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.EducationalRecord", b =>
@@ -186,7 +186,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("EducationalRecords");
+                    b.ToTable("EducationalRecords", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.JobCategory", b =>
@@ -203,7 +203,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JobCategories");
+                    b.ToTable("JobCategories", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.Language", b =>
@@ -230,7 +230,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("SystemLanguageId");
 
-                    b.ToTable("Languages");
+                    b.ToTable("Languages", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.Major", b =>
@@ -247,7 +247,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Majors");
+                    b.ToTable("Majors", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.Resume", b =>
@@ -277,7 +277,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Resumes");
+                    b.ToTable("Resumes", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.SocialMedia", b =>
@@ -303,7 +303,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("ResumeId");
 
-                    b.ToTable("SocialMedias");
+                    b.ToTable("SocialMedias", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.SoftwareSkill", b =>
@@ -330,7 +330,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasIndex("SystemSoftwareSkillId");
 
-                    b.ToTable("SoftwareSkills");
+                    b.ToTable("SoftwareSkills", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.SystemLanguage", b =>
@@ -347,7 +347,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SystemLanguages");
+                    b.ToTable("SystemLanguages", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.SystemSoftwareSkill", b =>
@@ -364,7 +364,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SystemSoftwareSkills");
+                    b.ToTable("SystemSoftwareSkills", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.University", b =>
@@ -381,7 +381,7 @@ namespace Karma.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Universities");
+                    b.ToTable("Universities", (string)null);
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.User", b =>
