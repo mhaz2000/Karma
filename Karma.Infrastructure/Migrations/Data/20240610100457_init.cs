@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Karma.Infrastructure.Migrations
+namespace Karma.Infrastructure.Migrations.Data
 {
     /// <inheritdoc />
     public partial class init : Migration
@@ -32,13 +32,14 @@ namespace Karma.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MaritalStatus = table.Column<int>(type: "int", nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false),
+                    MaritalStatus = table.Column<int>(type: "int", nullable: true),
+                    Gender = table.Column<int>(type: "int", nullable: true),
                     MilitaryServiceStatus = table.Column<int>(type: "int", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Telephone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    PasswordInitialized = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -109,6 +110,32 @@ namespace Karma.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Majors", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SystemLanguages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SystemLanguages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SystemSoftwareSkills",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SystemSoftwareSkills", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,6 +263,7 @@ namespace Karma.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MainJobTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -284,8 +312,8 @@ namespace Karma.Infrastructure.Migrations
                     CityId = table.Column<int>(type: "int", nullable: true),
                     FromMonth = table.Column<int>(type: "int", nullable: false),
                     FromYear = table.Column<int>(type: "int", nullable: false),
-                    ToMonth = table.Column<int>(type: "int", nullable: false),
-                    ToYear = table.Column<int>(type: "int", nullable: false),
+                    ToMonth = table.Column<int>(type: "int", nullable: true),
+                    ToYear = table.Column<int>(type: "int", nullable: true),
                     CurrentJob = table.Column<bool>(type: "bit", nullable: false),
                     ResumeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -323,10 +351,11 @@ namespace Karma.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DegreeLevel = table.Column<int>(type: "int", nullable: false),
-                    MajorId = table.Column<int>(type: "int", nullable: false),
-                    UniversityId = table.Column<int>(type: "int", nullable: false),
+                    DiplomaMajor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MajorId = table.Column<int>(type: "int", nullable: true),
+                    UniversityId = table.Column<int>(type: "int", nullable: true),
                     GPA = table.Column<float>(type: "real", nullable: true),
-                    FromYear = table.Column<int>(type: "int", nullable: false),
+                    FromYear = table.Column<int>(type: "int", nullable: true),
                     ToYear = table.Column<int>(type: "int", nullable: true),
                     StillEducating = table.Column<bool>(type: "bit", nullable: false),
                     ResumeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
@@ -338,8 +367,7 @@ namespace Karma.Infrastructure.Migrations
                         name: "FK_EducationalRecords_Majors_MajorId",
                         column: x => x.MajorId,
                         principalTable: "Majors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_EducationalRecords_Resumes_ResumeId",
                         column: x => x.ResumeId,
@@ -349,8 +377,7 @@ namespace Karma.Infrastructure.Migrations
                         name: "FK_EducationalRecords_Universities_UniversityId",
                         column: x => x.UniversityId,
                         principalTable: "Universities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -359,7 +386,7 @@ namespace Karma.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SystemLanguageId = table.Column<int>(type: "int", nullable: false),
                     LanguageLevel = table.Column<int>(type: "int", nullable: false),
                     ResumeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -371,6 +398,12 @@ namespace Karma.Infrastructure.Migrations
                         column: x => x.ResumeId,
                         principalTable: "Resumes",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Languages_SystemLanguages_SystemLanguageId",
+                        column: x => x.SystemLanguageId,
+                        principalTable: "SystemLanguages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -399,8 +432,8 @@ namespace Karma.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SofwareSkillLevel = table.Column<int>(type: "int", nullable: false),
+                    SystemSoftwareSkillId = table.Column<int>(type: "int", nullable: false),
+                    SoftwareSkillLevel = table.Column<int>(type: "int", nullable: false),
                     ResumeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -411,6 +444,12 @@ namespace Karma.Infrastructure.Migrations
                         column: x => x.ResumeId,
                         principalTable: "Resumes",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_SoftwareSkills_SystemSoftwareSkills_SystemSoftwareSkillId",
+                        column: x => x.SystemSoftwareSkillId,
+                        principalTable: "SystemSoftwareSkills",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -498,6 +537,11 @@ namespace Karma.Infrastructure.Migrations
                 column: "ResumeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Languages_SystemLanguageId",
+                table: "Languages",
+                column: "SystemLanguageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Resumes_UserId",
                 table: "Resumes",
                 column: "UserId");
@@ -511,6 +555,11 @@ namespace Karma.Infrastructure.Migrations
                 name: "IX_SoftwareSkills_ResumeId",
                 table: "SoftwareSkills",
                 column: "ResumeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SoftwareSkills_SystemSoftwareSkillId",
+                table: "SoftwareSkills",
+                column: "SystemSoftwareSkillId");
         }
 
         /// <inheritdoc />
@@ -568,7 +617,13 @@ namespace Karma.Infrastructure.Migrations
                 name: "Universities");
 
             migrationBuilder.DropTable(
+                name: "SystemLanguages");
+
+            migrationBuilder.DropTable(
                 name: "Resumes");
+
+            migrationBuilder.DropTable(
+                name: "SystemSoftwareSkills");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

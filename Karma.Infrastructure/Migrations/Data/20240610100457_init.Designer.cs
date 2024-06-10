@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Karma.Infrastructure.Migrations
+namespace Karma.Infrastructure.Migrations.Data
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240604171846_some")]
-    partial class some
+    [Migration("20240610100457_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -501,6 +501,9 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<int?>("CareerRecordFromYear")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("CareerRecordId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("CareerRecordToMonth")
                         .HasColumnType("int");
 
@@ -517,8 +520,8 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CurrentJob")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool?>("CurrentJob")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("DegreeLevel")
                         .HasColumnType("int");
@@ -532,8 +535,8 @@ namespace Karma.Infrastructure.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("GPA")
-                        .HasColumnType("float");
+                    b.Property<float?>("GPA")
+                        .HasColumnType("real");
 
                     b.Property<int?>("Gender")
                         .HasColumnType("int");
