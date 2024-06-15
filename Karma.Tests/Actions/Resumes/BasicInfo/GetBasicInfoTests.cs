@@ -43,7 +43,7 @@ namespace Karma.Tests.Actions.Resumes.BasicInfo
                 Gender = Gender.Male.GetDescription(),
             };
 
-            A.CallTo(() => _resumeReadService.GetBasicInfo(A<Guid>._)).Returns(expectedResult);
+            A.CallTo(() => _resumeReadService.GetBasicInfoAsync(A<Guid>._)).Returns(expectedResult);
 
             //Act
             var response = await _resumesController.BasicInfo();

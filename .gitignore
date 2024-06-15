@@ -365,3 +365,4 @@ FodyWeavers.xsd
 /Karma/FileStorage
 /data
 /files
+*.tar

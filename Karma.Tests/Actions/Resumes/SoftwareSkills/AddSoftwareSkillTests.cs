@@ -33,7 +33,7 @@ namespace Karma.Tests.Actions.Resumes.SoftwareSkills
 
             //Assert
             await act.Should().NotThrowAsync();
-            A.CallTo(() => _resumeWriteService.AddSoftwareSkill(command, A<Guid>._)).MustHaveHappened();
+            A.CallTo(() => _resumeWriteService.AddSoftwareSkillAsync(command, A<Guid>._)).MustHaveHappened();
 
             response.StatusCode.Should().Be(200);
         }

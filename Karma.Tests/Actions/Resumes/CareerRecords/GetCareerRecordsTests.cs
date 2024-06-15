@@ -41,7 +41,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
                 }
             };
 
-            A.CallTo(() => _resumeReadService.GetCareerRecords(A<Guid>._)).Returns(expectedResult);
+            A.CallTo(() => _resumeReadService.GetCareerRecordsAsync(A<Guid>._)).Returns(expectedResult);
 
             //Act
             var response = await _resumesController.CareerRecords();

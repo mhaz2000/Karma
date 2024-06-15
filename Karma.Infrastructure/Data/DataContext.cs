@@ -11,7 +11,7 @@ namespace Karma.Infrastructure.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-            
+
         }
 
         public virtual DbSet<User> Users { get; set; }
@@ -27,8 +27,10 @@ namespace Karma.Infrastructure.Data
         public virtual DbSet<Major> Majors { get; set; }
         public virtual DbSet<University> Universities { get; set; }
         public virtual DbSet<SocialMedia> SocialMedias { get; set; }
+        public virtual DbSet<WorkSample> WorkSamples { get; set; }
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<UploadedFile> Files { get; set; }
 
         public virtual DbSet<ExpandedResume> ExpandedResumesView { get; set; }
 

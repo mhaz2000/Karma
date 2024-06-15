@@ -4,6 +4,7 @@ using Karma.Application.Commands;
 using Karma.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace Karma.API.Controllers
 {
@@ -35,21 +36,21 @@ namespace Karma.API.Controllers
         [HttpGet("AboutMe")]
         public async Task<IActionResult> AboutMe()
         {
-            var result = await _resumeReadService.GetAboutMe(UserId);
+            var result = await _resumeReadService.GetAboutMeAsync(UserId);
 
             return Ok(result);
         }
 
         #endregion
 
-        #region Basic Info
+        #region Basic Infom
 
         [HttpPut("BasicInfo")]
         public async Task<IActionResult> UpdateBasicInfo([FromBody] UpdateBasicInfoCommand command)
         {
             command.Validate();
 
-            await _resumeWriteService.UpdateBasicInfo(command, UserId);
+            await _resumeWriteService.UpdateBasicInfoAsync(command, UserId);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
@@ -57,7 +58,7 @@ namespace Karma.API.Controllers
         [HttpGet("BasicInfo")]
         public async Task<IActionResult> BasicInfo()
         {
-            var result = await _resumeReadService.GetBasicInfo(UserId);
+            var result = await _resumeReadService.GetBasicInfoAsync(UserId);
 
             return Ok(result);
         }
@@ -71,7 +72,7 @@ namespace Karma.API.Controllers
         {
             command.Validate();
 
-            await _resumeWriteService.AddEducationalRecord(command, UserId);
+            await _resumeWriteService.AddEducationalRecordAsync(command, UserId);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
@@ -81,7 +82,7 @@ namespace Karma.API.Controllers
         {
             command.Validate();
 
-            await _resumeWriteService.UpdateEducationalRecord(id, command, UserId);
+            await _resumeWriteService.UpdateEducationalRecordAsync(id, command, UserId);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
@@ -89,7 +90,7 @@ namespace Karma.API.Controllers
         [HttpDelete("RemoveEducationalRecord/{id}")]
         public async Task<IActionResult> RemoveEducationanlRecord(Guid id)
         {
-            await _resumeWriteService.RemoveEducationalRecord(id);
+            await _resumeWriteService.RemoveEducationalRecordAsync(id);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
@@ -97,7 +98,7 @@ namespace Karma.API.Controllers
         [HttpGet("EducationalRecords")]
         public async Task<IActionResult> EducationalRecords()
         {
-            var result = await _resumeReadService.GetEducationalRecords(UserId);
+            var result = await _resumeReadService.GetEducationalRecordsAsync(UserId);
 
             return Ok(result);
         }
@@ -111,7 +112,7 @@ namespace Karma.API.Controllers
         {
             command.Validate();
 
-            await _resumeWriteService.AddCareerRecord(command, UserId);
+            await _resumeWriteService.AddCareerRecordAsync(command, UserId);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
@@ -121,7 +122,7 @@ namespace Karma.API.Controllers
         {
             command.Validate();
 
-            await _resumeWriteService.UpdateCareerRecord(command, id);
+            await _resumeWriteService.UpdateCareerRecordAsync(command, id);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
@@ -129,7 +130,7 @@ namespace Karma.API.Controllers
         [HttpGet("CareerRecords")]
         public async Task<IActionResult> CareerRecords()
         {
-            var result = await _resumeReadService.GetCareerRecords(UserId);
+            var result = await _resumeReadService.GetCareerRecordsAsync(UserId);
 
             return Ok(result);
         }
@@ -137,7 +138,7 @@ namespace Karma.API.Controllers
         [HttpDelete("RemoveCareerRecord/{id}")]
         public async Task<IActionResult> RemoveCareerRecord(Guid id)
         {
-            await _resumeWriteService.RemoveCareerRecord(id);
+            await _resumeWriteService.RemoveCareerRecordAsync(id);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
@@ -151,7 +152,7 @@ namespace Karma.API.Controllers
         {
             command.Validate();
 
-            await _resumeWriteService.AddLanguage(command, UserId);
+            await _resumeWriteService.AddLanguageAsync(command, UserId);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
@@ -159,7 +160,7 @@ namespace Karma.API.Controllers
         [HttpGet("Languages")]
         public async Task<IActionResult> Languages()
         {
-            var result = await _resumeReadService.GetLanguages(UserId);
+            var result = await _resumeReadService.GetLanguagesAsync(UserId);
 
             return Ok(result);
         }
@@ -167,7 +168,7 @@ namespace Karma.API.Controllers
         [HttpDelete("RemoveLanguage/{id}")]
         public async Task<IActionResult> RemoveLanguage(Guid id)
         {
-            await _resumeWriteService.RemoveLanguage(id);
+            await _resumeWriteService.RemoveLanguageAsync(id);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
@@ -181,7 +182,7 @@ namespace Karma.API.Controllers
         {
             command.Validate();
 
-            await _resumeWriteService.AddSoftwareSkill(command, UserId);
+            await _resumeWriteService.AddSoftwareSkillAsync(command, UserId);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
@@ -189,7 +190,7 @@ namespace Karma.API.Controllers
         [HttpGet("SoftwareSkills")]
         public async Task<IActionResult> SoftwareSkills()
         {
-            var result = await _resumeReadService.GetSoftwareSkills(UserId);
+            var result = await _resumeReadService.GetSoftwareSkillsAsync(UserId);
 
             return Ok(result);
         }
@@ -197,21 +198,21 @@ namespace Karma.API.Controllers
         [HttpDelete("RemoveSoftwareSkill/{id}")]
         public async Task<IActionResult> RemoveSoftwareSkill(Guid id)
         {
-            await _resumeWriteService.RemoveSoftwareSkill(id);
+            await _resumeWriteService.RemoveSoftwareSkillAsync(id);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
 
         #endregion
 
-        #region AdditionalSkills
+        #region Additional Skills
 
         [HttpPost("AddAdditionalSkill")]
         public async Task<IActionResult> AddAdditionalSkill([FromBody] AddAdditionalSkillCommand command)
         {
             command.Validate();
 
-            await _resumeWriteService.AddAdditionalSkill(command, UserId);
+            await _resumeWriteService.AddAdditionalSkillAsync(command, UserId);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
@@ -219,7 +220,7 @@ namespace Karma.API.Controllers
         [HttpGet("AdditionalSkills")]
         public async Task<IActionResult> AdditionalSkills()
         {
-            var result = await _resumeReadService.GetAdditionalSkills(UserId);
+            var result = await _resumeReadService.GetAdditionalSkillsAsync(UserId);
 
             return Ok(result);
         }
@@ -227,7 +228,76 @@ namespace Karma.API.Controllers
         [HttpDelete("RemoveAdditionalSkill/{id}")]
         public async Task<IActionResult> RemoveAdditionalSkill(Guid id)
         {
-            await _resumeWriteService.RemoveAdditionalSkill(id);
+            await _resumeWriteService.RemoveAdditionalSkillAsync(id);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        #endregion
+
+        #region Personal Resume
+
+        [HttpPut("UploadPersonalResume")]
+        public async Task<IActionResult> UploadPersonalResume([FromBody] UploadPersonalResumeCommand command)
+        {
+            await _resumeWriteService.UploadPersonalResumeAsync(command, UserId);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        [HttpGet("DownloadPersonalResume")]
+        public async Task<IActionResult> DownloadPersonalResume()
+        {
+            var file = await _resumeReadService.DownloadPersonalResumeAsync(UserId);
+            var provider = new FileExtensionContentTypeProvider();
+
+            if (!provider.TryGetContentType(file.filename, out var contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+
+            Response.Headers.Append("Access-Control-Allow-Headers", "Content-Disposition");
+            Response.Headers.Append("X-Content-Type-Options", "nosniff");
+
+            return File(file.stream, contentType, file.filename);
+        }
+
+        #endregion
+
+        #region Work Samples
+
+        [HttpPost("AddWorkSample")]
+        public async Task<IActionResult> AddWorkSample([FromBody] AddWorkSampleCommand command)
+        {
+            command.Validate();
+
+            await _resumeWriteService.AddWorkSampleAsync(command, UserId);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        [HttpPut("UpdateWorkSample/{id}")]
+        public async Task<IActionResult> UpdateWorkSample(Guid id, [FromBody] UpdateWorkSampleCommand command)
+        {
+            command.Validate();
+
+            await _resumeWriteService.UpdateWorkSampleAsync(command, id);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        [HttpGet("WorkSamples")]
+        public async Task<IActionResult> WorkSamples()
+        {
+            var result = await _resumeReadService.GetWorkSamplesAsync(UserId);
+
+            return Ok(result);
+        }
+
+        [HttpDelete("RemoveWorkSample/{id}")]
+        public async Task<IActionResult> RemoveWorkSample(Guid id)
+        {
+            await _resumeWriteService.RemoveWorkSampleAsync(id);
 
             return Ok("تغییرات با موفقیت ثبت شد.");
         }
@@ -240,7 +310,7 @@ namespace Karma.API.Controllers
         {
             command.Validate();
 
-            var result = await _resumeReadService.GetResumes(pageQuery, command);
+            var result = await _resumeReadService.GetResumesAsync(pageQuery, command);
             return Ok(result);
         }
     }

@@ -46,7 +46,7 @@ namespace Karma.Tests.Actions.Files
             IFormFile file = new FormFile(stream, 0, stream.Length, "id_from_form", fileName);
 
 
-            A.CallTo(() => _fileService.StoreFileAsync(A<MemoryStream>._, A<Guid>._)).Returns(expectedId);
+            A.CallTo(() => _fileService.StoreFileAsync(A<MemoryStream>._, A<Guid>._, A<string>._)).Returns(expectedId);
 
             //Act
             var response = await _filesController.Upload(file);

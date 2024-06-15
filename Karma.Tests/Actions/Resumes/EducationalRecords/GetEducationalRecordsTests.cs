@@ -39,7 +39,7 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
                 }
             };
 
-            A.CallTo(() => _resumeReadService.GetEducationalRecords(A<Guid>._)).Returns(expectedResult);
+            A.CallTo(() => _resumeReadService.GetEducationalRecordsAsync(A<Guid>._)).Returns(expectedResult);
 
             //Act
             var response = await _resumesController.EducationalRecords();

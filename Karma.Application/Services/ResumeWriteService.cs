@@ -5,6 +5,7 @@ using Karma.Application.Services.Interfaces;
 using Karma.Core.Entities;
 using Karma.Core.EntityBuilders;
 using Karma.Core.Repositories.Base;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Karma.Application.Services
 {
@@ -45,7 +46,7 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task UpdateBasicInfo(UpdateBasicInfoCommand command, Guid userId)
+        public async Task UpdateBasicInfoAsync(UpdateBasicInfoCommand command, Guid userId)
         {
             var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId);
             if (user is null)
@@ -64,7 +65,7 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task AddEducationalRecord(AddEducationalRecordCommand command, Guid userId)
+        public async Task AddEducationalRecordAsync(AddEducationalRecordCommand command, Guid userId)
         {
             var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
                 throw new ManagedException("کاربر مورد نظر یافت نشد.");
@@ -93,7 +94,7 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task UpdateEducationalRecord(Guid id, UpdateEducationalRecordCommand command, Guid userId)
+        public async Task UpdateEducationalRecordAsync(Guid id, UpdateEducationalRecordCommand command, Guid userId)
         {
             var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
                 throw new ManagedException("کاربر مورد نظر یافت نشد.");
@@ -124,7 +125,7 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RemoveEducationalRecord(Guid id)
+        public async Task RemoveEducationalRecordAsync(Guid id)
         {
             var educationalRecord = await _unitOfWork.EducationalRecordRepository.GetByIdAsync(id);
             if (educationalRecord is null)
@@ -135,7 +136,7 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task AddCareerRecord(AddCareerRecordCommand command, Guid userId)
+        public async Task AddCareerRecordAsync(AddCareerRecordCommand command, Guid userId)
         {
             var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
                 throw new ManagedException("کاربر مورد نظر یافت نشد.");
@@ -170,7 +171,7 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task UpdateCareerRecord(UpdateCareerRecordCommand command, Guid id)
+        public async Task UpdateCareerRecordAsync(UpdateCareerRecordCommand command, Guid id)
         {
             var careerRecord = await _unitOfWork.CareerRecordRepository.GetByIdAsync(id) ??
                 throw new ManagedException("سابقه کاری مورد نظر یافت نشد.");
@@ -202,7 +203,7 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RemoveCareerRecord(Guid id)
+        public async Task RemoveCareerRecordAsync(Guid id)
         {
             var careerRecord = await _unitOfWork.CareerRecordRepository.GetByIdAsync(id);
             if (careerRecord is null)
@@ -213,7 +214,7 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RemoveLanguage(Guid id)
+        public async Task RemoveLanguageAsync(Guid id)
         {
             var language = await _unitOfWork.LanguageRepository.GetByIdAsync(id) ??
                 throw new ManagedException("زبان مورد نظر یافت نشد.");
@@ -222,7 +223,7 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task AddLanguage(AddLanguageCommand command, Guid userId)
+        public async Task AddLanguageAsync(AddLanguageCommand command, Guid userId)
         {
             var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
                 throw new ManagedException("کاربر مورد نظر یافت نشد.");
@@ -245,7 +246,7 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task AddSoftwareSkill(AddSoftwareSkillCommand command, Guid userId)
+        public async Task AddSoftwareSkillAsync(AddSoftwareSkillCommand command, Guid userId)
         {
             var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
                 throw new ManagedException("کاربر مورد نظر یافت نشد.");
@@ -268,7 +269,7 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RemoveSoftwareSkill(Guid id)
+        public async Task RemoveSoftwareSkillAsync(Guid id)
         {
             var softwareSkill = await _unitOfWork.SoftwareSkillRepository.GetByIdAsync(id) ??
                 throw new ManagedException("مهارت نرم افزاری مورد نظر یافت نشد.");
@@ -277,7 +278,7 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task AddAdditionalSkill(AddAdditionalSkillCommand command, Guid userId)
+        public async Task AddAdditionalSkillAsync(AddAdditionalSkillCommand command, Guid userId)
         {
             var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
                 throw new ManagedException("کاربر مورد نظر یافت نشد.");
@@ -297,12 +298,70 @@ namespace Karma.Application.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RemoveAdditionalSkill(Guid id)
+        public async Task RemoveAdditionalSkillAsync(Guid id)
         {
             var additionalSkill = await _unitOfWork.AdditionalSkillRepository.GetByIdAsync(id) ??
                 throw new ManagedException("مهارت نرم افزاری مورد نظر یافت نشد.");
 
             _unitOfWork.AdditionalSkillRepository.Remove(additionalSkill);
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task UploadPersonalResumeAsync(UploadPersonalResumeCommand command, Guid userId)
+        {
+            var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
+                throw new ManagedException("کاربر مورد نظر یافت نشد.");
+
+            var existingResume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user);
+
+            var resume = new ResumeBuilder(existingResume, user)
+                .WithResumeFileId(command.FileId)
+                .Build();
+
+            if (existingResume is null)
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
+
+            await _unitOfWork.CommitAsync();
+
+        }
+
+        public async Task AddWorkSampleAsync(AddWorkSampleCommand command, Guid userId)
+        {
+            var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId) ??
+               throw new ManagedException("کاربر مورد نظر یافت نشد.");
+
+            var existingResume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user);
+            var workSample = new WorkSample() { Link = command.Link };
+
+            var resume = new ResumeBuilder(existingResume, user)
+                .WithWorkSamples(workSample)
+                .Build();
+
+            if (existingResume is null)
+                await _unitOfWork.ResumeRepository.CreateAsync(resume);
+
+            await _unitOfWork.WorkSampleRepository.AddAsync(workSample);
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task UpdateWorkSampleAsync(UpdateWorkSampleCommand command, Guid id)
+        {
+            var workSample = await _unitOfWork.WorkSampleRepository.GetByIdAsync(id) ?? 
+                throw new ManagedException("نمونه کار مورد نظر یافت نشد.");
+
+            workSample.Link = command.Link;
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task RemoveWorkSampleAsync(Guid id)
+        {
+            var workSample = await _unitOfWork.WorkSampleRepository.GetByIdAsync(id) ??
+                throw new ManagedException("نمونه کار مورد نظر یافت نشد.");
+
+            _unitOfWork.WorkSampleRepository.Remove(workSample);
+
             await _unitOfWork.CommitAsync();
         }
     }

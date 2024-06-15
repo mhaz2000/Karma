@@ -1,30 +1,14 @@
-﻿using AutoMapper;
-using FakeItEasy;
+﻿using FakeItEasy;
 using FluentAssertions;
 using Karma.Application.Base;
 using Karma.Application.DTOs;
-using Karma.Application.Services;
 using Karma.Core.Entities;
-using Karma.Core.Repositories.Base;
 using System.Linq.Expressions;
 
 namespace Karma.Tests.Services.Resumes.EducationalRecords
 {
-    public class GetEducationalRecordsTests
+    public class GetEducationalRecordsTests : ResumeServiceTests
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-
-        private readonly ResumeReadService _resumeReadService;
-
-        public GetEducationalRecordsTests()
-        {
-            _unitOfWork = A.Fake<IUnitOfWork>();
-            _mapper = A.Fake<IMapper>();
-
-            _resumeReadService = new ResumeReadService(_unitOfWork, _mapper);
-        }
-
         [Fact]
         public async Task Should_Throw_Exception_When_User_Cannot_Be_Found()
         {
@@ -35,7 +19,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
 
             //Act
-            var act = async () => await _resumeReadService.GetEducationalRecords(userId);
+            var act = async () => await _resumeReadService.GetEducationalRecordsAsync(userId);
             act.Invoke();
 
             //Assert
@@ -56,7 +40,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
 
             //Act
-            var act = async () => await _resumeReadService.GetEducationalRecords(userId);
+            var act = async () => await _resumeReadService.GetEducationalRecordsAsync(userId);
             act.Invoke();
 
             //Assert
@@ -77,7 +61,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
             A.CallTo(() => _mapper.Map<IEnumerable<EducationalRecordDTO>>(A<IQueryable<EducationalRecord>>._)).Returns(new List<EducationalRecordDTO>());
             //Act
-            var act = async () => await _resumeReadService.GetEducationalRecords(userId);
+            var act = async () => await _resumeReadService.GetEducationalRecordsAsync(userId);
             var result = await act.Invoke();
 
             //Assert

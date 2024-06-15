@@ -31,7 +31,7 @@ namespace Karma.Tests.Actions.Resumes.BasicInfo
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("نام الزامی است.");
-            A.CallTo(() => _resumeWriteService.UpdateBasicInfo(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateBasicInfoAsync(command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace Karma.Tests.Actions.Resumes.BasicInfo
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("نام خانوادگی الزامی است.");
-            A.CallTo(() => _resumeWriteService.UpdateBasicInfo(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateBasicInfoAsync(command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -59,7 +59,7 @@ namespace Karma.Tests.Actions.Resumes.BasicInfo
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("شهر الزامی است.");
-            A.CallTo(() => _resumeWriteService.UpdateBasicInfo(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateBasicInfoAsync(command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -73,7 +73,7 @@ namespace Karma.Tests.Actions.Resumes.BasicInfo
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("تاریخ تولد صحیح نیست.");
-            A.CallTo(() => _resumeWriteService.UpdateBasicInfo(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateBasicInfoAsync(command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Theory]
@@ -101,7 +101,7 @@ namespace Karma.Tests.Actions.Resumes.BasicInfo
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("تاریخ تولد صحیح نیست.");
-            A.CallTo(() => _resumeWriteService.UpdateBasicInfo(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateBasicInfoAsync(command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -115,7 +115,7 @@ namespace Karma.Tests.Actions.Resumes.BasicInfo
 
             //Assert
             await act.Should().NotThrowAsync<ValidationException>();
-            A.CallTo(() => _resumeWriteService.UpdateBasicInfo(command, A<Guid>._)).MustHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateBasicInfoAsync(command, A<Guid>._)).MustHaveHappened();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Karma.Tests.Actions.Resumes.SoftwareSkills
                 }
             };
 
-            A.CallTo(() => _resumeReadService.GetSoftwareSkills(A<Guid>._)).Returns(expectedResult);
+            A.CallTo(() => _resumeReadService.GetSoftwareSkillsAsync(A<Guid>._)).Returns(expectedResult);
 
             //Act
             var response = await _resumesController.SoftwareSkills();

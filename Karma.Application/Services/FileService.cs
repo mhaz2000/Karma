@@ -1,5 +1,6 @@
 ﻿using Karma.Application.Base;
 using Karma.Application.Services.Interfaces;
+using Karma.Core.Entities;
 using Karma.Core.Repositories.Base;
 
 namespace Karma.Application.Services
@@ -15,21 +16,23 @@ namespace Karma.Application.Services
 
         public async Task<(FileStream stream, string filename)> GetFileAsync(Guid id)
         {
-            string filename = "Image";
+            string filename = "File";
             var path = Directory.GetCurrentDirectory() + "/FileStorage";
             var filePath = Path.Combine(path, $"{id}.dat");
 
             if (!File.Exists(filePath))
                 throw new ManagedException("فایل مورد نظر یافت نشد.");
 
-            var user = await _unitOfWork.UserRepository.FirstOrDefaultAsync(x => x.ImageId == id);
-            if (user is not null && string.IsNullOrEmpty(user.FirstName))
-                filename = $"{user.FirstName} {user.LastName}";
+            var file = await _unitOfWork.FileRepository.FirstOrDefaultAsync(x => x.Id == id) ??
+                throw new ManagedException("فایل مورد نظر یافت نشد.");
+
+            if (file.UploadedBy is not null && !string.IsNullOrEmpty(file.UploadedBy.FirstName))
+                filename = $"{file.UploadedBy.FirstName} {file.UploadedBy.LastName}{file.Format}";
 
             return (new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read), filename);
         }
 
-        public async Task<Guid> StoreFileAsync(MemoryStream file, Guid UserId)
+        public async Task<Guid> StoreFileAsync(MemoryStream file, Guid UserId, string filename)
         {
             var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(UserId);
             if (user is null)
@@ -40,6 +43,8 @@ namespace Karma.Application.Services
                 Directory.CreateDirectory(path);
 
             var fileId = Guid.NewGuid();
+            await _unitOfWork.FileRepository.AddAsync(new UploadedFile() { UploadedBy = user, Id = fileId, Format = Path.GetExtension(filename) });
+
             var dir = Path.Combine(path, $"{fileId}.dat");
 
             using (var fileStream = new FileStream(dir, FileMode.CreateNew, FileAccess.Write, FileShare.Write))
@@ -47,8 +52,6 @@ namespace Karma.Application.Services
                 file.Position = 0;
                 await file.CopyToAsync(fileStream);
             }
-
-            user.ImageId = fileId;
 
             await _unitOfWork.CommitAsync();
 

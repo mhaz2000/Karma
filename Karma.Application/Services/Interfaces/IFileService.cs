@@ -3,6 +3,6 @@
     public interface IFileService
     {
         Task<(FileStream stream, string filename)> GetFileAsync(Guid id);
-        Task<Guid> StoreFileAsync(MemoryStream stream, Guid userId);
+        Task<Guid> StoreFileAsync(MemoryStream stream, Guid userId, string filename);
     }
 }

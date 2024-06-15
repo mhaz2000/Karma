@@ -37,7 +37,7 @@ namespace Karma.Tests.Actions.Resumes.Languages
 
             //Assert
             await act.Should().NotThrowAsync();
-            A.CallTo(() => _resumeWriteService.RemoveLanguage(id)).MustHaveHappened();
+            A.CallTo(() => _resumeWriteService.RemoveLanguageAsync(id)).MustHaveHappened();
 
             response.StatusCode.Should().Be(200);
         }

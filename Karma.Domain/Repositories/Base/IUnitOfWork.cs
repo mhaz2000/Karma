@@ -2,6 +2,7 @@
 {
     public interface IUnitOfWork : IDisposable
     {
+        IFileRepository FileRepository { get; }
         IRoleRepository RoleRepository { get; }
         ICityRepository CityRepository { get; }
         IUserRepository UserRepository { get; }
@@ -9,6 +10,7 @@
         IResumeRepository ResumeRepository { get; }
         ICountryRepository CountryRepository { get; }
         ILanguageRepository LanguageRepository { get; }
+        IWorkSampleRepository WorkSampleRepository { get; }
         IUniversityRepository UniversityRepository { get; }
         IJobCategoryRepository JobCategoryRepository { get; }
         ISocialMediaRepository SocialMediaRepository { get; }

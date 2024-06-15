@@ -43,7 +43,7 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("مقدار وارد شده برای معدل صحیح نیست.");
-            A.CallTo(() => _resumeWriteService.UpdateEducationalRecord(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateEducationalRecordAsync(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Theory]
@@ -65,7 +65,7 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("مقدار وارد شده برای سال شروع صحیح نیست.");
-            A.CallTo(() => _resumeWriteService.UpdateEducationalRecord(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateEducationalRecordAsync(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -84,7 +84,7 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("مقدار وارد شده برای سال پایان صحیح نیست.");
-            A.CallTo(() => _resumeWriteService.UpdateEducationalRecord(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateEducationalRecordAsync(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -103,7 +103,7 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("سال شروع نمی‌تواند از سال پایان بزرگتر باشد.");
-            A.CallTo(() => _resumeWriteService.UpdateEducationalRecord(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateEducationalRecordAsync(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -125,7 +125,7 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("سال پایان الزامی است.");
-            A.CallTo(() => _resumeWriteService.UpdateEducationalRecord(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateEducationalRecordAsync(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -147,7 +147,7 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("نام رشته تحصیلی الزامی است.");
-            A.CallTo(() => _resumeWriteService.UpdateEducationalRecord(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateEducationalRecordAsync(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -170,7 +170,7 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("سال پایان در حین تحصیل نمی‌تواند مقدار داشته باشد.");
-            A.CallTo(() => _resumeWriteService.UpdateEducationalRecord(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateEducationalRecordAsync(A<Guid>._, command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -191,7 +191,7 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
 
             //Assert
             await act.Should().NotThrowAsync<ValidationException>();
-            A.CallTo(() => _resumeWriteService.UpdateEducationalRecord(A<Guid>._, command, A<Guid>._)).MustHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateEducationalRecordAsync(A<Guid>._, command, A<Guid>._)).MustHaveHappened();
 
             response.StatusCode.Should().Be(200);
         }

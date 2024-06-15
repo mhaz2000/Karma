@@ -8,20 +8,8 @@ using Karma.Core.Repositories.Base;
 
 namespace Karma.Tests.Services.Resumes.Languages
 {
-    public class RemoveLanguageTests
+    public class RemoveLanguageTests : ResumeServiceTests
     {
-
-        private readonly ResumeWriteService _resumeService;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public RemoveLanguageTests()
-        {
-            _mapper = A.Fake<IMapper>();
-            _unitOfWork = A.Fake<IUnitOfWork>();
-
-            _resumeService = new ResumeWriteService(_unitOfWork, _mapper);
-        }
-
         [Fact]
         public async Task Must_Throw_Exception_When_Language_Cannot_Be_Found()
         {
@@ -32,7 +20,7 @@ namespace Karma.Tests.Services.Resumes.Languages
             A.CallTo(() => _unitOfWork.LanguageRepository.GetByIdAsync(id)).Returns(language);
 
             //Act
-            var act = async () => await _resumeService.RemoveLanguage(id);
+            var act = async () => await _resumeWiteService.RemoveLanguageAsync(id);
 
             //Assert
             await act.Should().ThrowAsync<ManagedException>().WithMessage("زبان مورد نظر یافت نشد.");
@@ -50,7 +38,7 @@ namespace Karma.Tests.Services.Resumes.Languages
             Language language = new Language() { SystemLanguage = null} ;
 
             //Act
-            var act = async () => await _resumeService.RemoveLanguage(id);
+            var act = async () => await _resumeWiteService.RemoveLanguageAsync(id);
 
             //Assert
             await act.Should().NotThrowAsync();

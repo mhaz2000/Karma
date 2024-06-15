@@ -37,7 +37,7 @@ namespace Karma.Tests.Actions.Resumes.AdditionalSkills
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("عنوان مهارت تکمیلی الزامی است.");
-            A.CallTo(() => _resumeWriteService.AddAdditionalSkill(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.AddAdditionalSkillAsync(command, A<Guid>._)).MustNotHaveHappened();
 
         }
 
@@ -54,7 +54,7 @@ namespace Karma.Tests.Actions.Resumes.AdditionalSkills
 
             //Assert
             await act.Should().NotThrowAsync();
-            A.CallTo(() => _resumeWriteService.AddAdditionalSkill(command, A<Guid>._)).MustHaveHappened();
+            A.CallTo(() => _resumeWriteService.AddAdditionalSkillAsync(command, A<Guid>._)).MustHaveHappened();
 
             response.StatusCode.Should().Be(200);
         }

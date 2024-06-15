@@ -37,7 +37,7 @@ namespace Karma.Tests.Actions.Resumes.Languages
                 }
             };
 
-            A.CallTo(() => _resumeReadService.GetLanguages(A<Guid>._)).Returns(expectedResult);
+            A.CallTo(() => _resumeReadService.GetLanguagesAsync(A<Guid>._)).Returns(expectedResult);
 
             //Act
             var response = await _resumesController.Languages();

@@ -6,13 +6,15 @@ namespace Karma.Application.Services.Interfaces
 {
     public interface IResumeReadService
     {
-        Task<AboutMeDTO> GetAboutMe(Guid userId);
-        Task<BasicInfoDTO> GetBasicInfo(Guid userId);
-        Task<IEnumerable<CareerRecordDTO>> GetCareerRecords(Guid userId);
-        Task<IEnumerable<EducationalRecordDTO>> GetEducationalRecords(Guid userId);
-        Task<IEnumerable<LanguageDTO>> GetLanguages(Guid userId);
-        Task<IEnumerable<SoftwareSkillDTO>> GetSoftwareSkills(Guid userId);
-        Task<IEnumerable<AdditionalSkillDTO>> GetAdditionalSkills(Guid userId);
-        Task<IEnumerable<ResumeQueryDTO>> GetResumes(PageQuery pageQuery, ResumeFilterCommand command);
+        Task<AboutMeDTO> GetAboutMeAsync(Guid userId);
+        Task<BasicInfoDTO> GetBasicInfoAsync(Guid userId);
+        Task<IEnumerable<CareerRecordDTO>> GetCareerRecordsAsync(Guid userId);
+        Task<IEnumerable<EducationalRecordDTO>> GetEducationalRecordsAsync(Guid userId);
+        Task<IEnumerable<LanguageDTO>> GetLanguagesAsync(Guid userId);
+        Task<IEnumerable<SoftwareSkillDTO>> GetSoftwareSkillsAsync(Guid userId);
+        Task<IEnumerable<AdditionalSkillDTO>> GetAdditionalSkillsAsync(Guid userId);
+        Task<IEnumerable<ResumeQueryDTO>> GetResumesAsync(PageQuery pageQuery, ResumeFilterCommand command);
+        Task<(FileStream stream, string filename)> DownloadPersonalResumeAsync(Guid userId);
+        Task<IEnumerable<WorkSampleDTO>> GetWorkSamplesAsync(Guid userId);
     }
 }

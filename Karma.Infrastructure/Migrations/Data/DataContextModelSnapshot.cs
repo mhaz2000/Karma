@@ -270,6 +270,9 @@ namespace Karma.Infrastructure.Migrations.Data
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("ResumeFileId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -384,6 +387,29 @@ namespace Karma.Infrastructure.Migrations.Data
                     b.ToTable("Universities");
                 });
 
+            modelBuilder.Entity("Karma.Core.Entities.UploadedFile", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Format")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UploadedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UploadedById");
+
+                    b.ToTable("Files");
+                });
+
             modelBuilder.Entity("Karma.Core.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -482,6 +508,29 @@ namespace Karma.Infrastructure.Migrations.Data
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.WorkSample", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ResumeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResumeId");
+
+                    b.ToTable("WorkSamples");
                 });
 
             modelBuilder.Entity("Karma.Core.ViewModels.ExpandedResume", b =>
@@ -852,6 +901,24 @@ namespace Karma.Infrastructure.Migrations.Data
                     b.Navigation("SystemSoftwareSkill");
                 });
 
+            modelBuilder.Entity("Karma.Core.Entities.UploadedFile", b =>
+                {
+                    b.HasOne("Karma.Core.Entities.User", "UploadedBy")
+                        .WithMany()
+                        .HasForeignKey("UploadedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UploadedBy");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.WorkSample", b =>
+                {
+                    b.HasOne("Karma.Core.Entities.Resume", null)
+                        .WithMany("WorkSamples")
+                        .HasForeignKey("ResumeId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -916,6 +983,8 @@ namespace Karma.Infrastructure.Migrations.Data
                     b.Navigation("SocialMedias");
 
                     b.Navigation("SoftwareSkills");
+
+                    b.Navigation("WorkSamples");
                 });
 #pragma warning restore 612, 618
         }

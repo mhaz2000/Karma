@@ -42,7 +42,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("نام سازمان الزامی است.");
-            A.CallTo(() => _resumeWriteService.UpdateCareerRecord(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateCareerRecordAsync(command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("عنوان شغلی الزامی است.");
-            A.CallTo(() => _resumeWriteService.UpdateCareerRecord(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateCareerRecordAsync(command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Theory]
@@ -90,7 +90,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("مقدار وارد شده برای سال شروع صحیح نیست.");
-            A.CallTo(() => _resumeWriteService.UpdateCareerRecord(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateCareerRecordAsync(command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -114,7 +114,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("مقدار وارد شده برای سال پایان صحیح نیست.");
-            A.CallTo(() => _resumeWriteService.UpdateCareerRecord(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateCareerRecordAsync(command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -138,7 +138,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("سال پایان الزامی است.");
-            A.CallTo(() => _resumeWriteService.UpdateCareerRecord(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateCareerRecordAsync(command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -162,7 +162,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("ماه پایان الزامی است.");
-            A.CallTo(() => _resumeWriteService.UpdateCareerRecord(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateCareerRecordAsync(command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -186,7 +186,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("سال پایان نمی‌تواند مقدار داشته باشد.");
-            A.CallTo(() => _resumeWriteService.UpdateCareerRecord(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateCareerRecordAsync(command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
@@ -210,11 +210,11 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("ماه پایان نمی‌تواند مقدار داشته باشد.");
-            A.CallTo(() => _resumeWriteService.UpdateCareerRecord(command, A<Guid>._)).MustNotHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateCareerRecordAsync(command, A<Guid>._)).MustNotHaveHappened();
         }
 
         [Fact]
-        public async Task Should_Add_Career_Record_When_Inputs_Are_Valid()
+        public async Task Should_Update_Career_Record_When_Inputs_Are_Valid()
         {
             //Arrange
             var command = new UpdateCareerRecordCommand()
@@ -236,7 +236,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
 
             //Assert
             await act.Should().NotThrowAsync<ValidationException>();
-            A.CallTo(() => _resumeWriteService.UpdateCareerRecord(command, A<Guid>._)).MustHaveHappened();
+            A.CallTo(() => _resumeWriteService.UpdateCareerRecordAsync(command, A<Guid>._)).MustHaveHappened();
 
             response.StatusCode.Should().Be(200);
         }

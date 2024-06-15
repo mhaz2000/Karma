@@ -39,7 +39,7 @@ namespace Karma.Tests.Actions.Resumes
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("مقدار وارد شده برای فیلتر سن صحیح نمی‌باشد.");
-            A.CallTo(() => _resumeReadService.GetResumes(A<PageQuery>._, command)).MustNotHaveHappened();
+            A.CallTo(() => _resumeReadService.GetResumesAsync(A<PageQuery>._, command)).MustNotHaveHappened();
 
         }
 
@@ -54,7 +54,7 @@ namespace Karma.Tests.Actions.Resumes
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("مقدار وارد شده برای فیلتر سن صحیح نمی‌باشد.");
-            A.CallTo(() => _resumeReadService.GetResumes(A<PageQuery>._, command)).MustNotHaveHappened();
+            A.CallTo(() => _resumeReadService.GetResumesAsync(A<PageQuery>._, command)).MustNotHaveHappened();
 
         }
 
@@ -69,7 +69,7 @@ namespace Karma.Tests.Actions.Resumes
 
             //Assert
             await act.Should().ThrowAsync<ValidationException>().WithMessage("مقدار وارد شده برای فیلتر سن صحیح نمی‌باشد.");
-            A.CallTo(() => _resumeReadService.GetResumes(A<PageQuery>._, command)).MustNotHaveHappened();
+            A.CallTo(() => _resumeReadService.GetResumesAsync(A<PageQuery>._, command)).MustNotHaveHappened();
 
         }
 
@@ -85,7 +85,7 @@ namespace Karma.Tests.Actions.Resumes
                 }
             };
 
-            A.CallTo(() => _resumeReadService.GetResumes(A<PageQuery>._, A<ResumeFilterCommand>._)).Returns(expectedResult);
+            A.CallTo(() => _resumeReadService.GetResumesAsync(A<PageQuery>._, A<ResumeFilterCommand>._)).Returns(expectedResult);
 
             //Act
             var response = await _resumesController.GetResumes(new PageQuery(), new ResumeFilterCommand());

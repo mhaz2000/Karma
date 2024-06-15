@@ -32,7 +32,7 @@ namespace Karma.Tests.Actions.Resumes.EducationalRecord
 
             //Assert
             await act.Should().NotThrowAsync();
-            A.CallTo(() => _resumeWriteService.RemoveEducationalRecord(id)).MustHaveHappened();
+            A.CallTo(() => _resumeWriteService.RemoveEducationalRecordAsync(id)).MustHaveHappened();
 
             response.StatusCode.Should().Be(200);
         }

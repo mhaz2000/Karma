@@ -16,6 +16,7 @@ namespace Karma.Core.Entities
             Languages = new List<Language>();
             SoftwareSkills = new List<SoftwareSkill>();
             AdditionalSkills = new List<AdditionalSkill>();
+            WorkSamples = new List<WorkSample>();
         }
 
         public Resume(User user) : this()
@@ -37,6 +38,8 @@ namespace Karma.Core.Entities
         public virtual IList<Language> Languages { get; set; }
         public virtual IList<SoftwareSkill> SoftwareSkills { get; set; }
         public virtual IList<AdditionalSkill> AdditionalSkills { get; set; }
+        public virtual IList<WorkSample> WorkSamples { get; set; }
+        public Guid? ResumeFileId { get; set; }
 
         internal void Validate()
         {

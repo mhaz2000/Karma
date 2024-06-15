@@ -32,7 +32,7 @@ namespace Karma.Tests.Actions.Resumes.CareerRecords
 
             //Assert
             await act.Should().NotThrowAsync();
-            A.CallTo(() => _resumeWriteService.RemoveCareerRecord(id)).MustHaveHappened();
+            A.CallTo(() => _resumeWriteService.RemoveCareerRecordAsync(id)).MustHaveHappened();
 
             response.StatusCode.Should().Be(200);
         }

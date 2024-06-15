@@ -45,7 +45,7 @@ namespace Karma.Tests.Actions.Resumes.AboutMe
                 }
             };
 
-            A.CallTo(() => _resumeReadService.GetAboutMe(A<Guid>._)).Returns(expectedResult);
+            A.CallTo(() => _resumeReadService.GetAboutMeAsync(A<Guid>._)).Returns(expectedResult);
 
             //Act
             var response = await _resumesController.AboutMe();

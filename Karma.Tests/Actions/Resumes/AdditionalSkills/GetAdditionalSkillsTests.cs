@@ -42,7 +42,7 @@ namespace Karma.Tests.Actions.Resumes.AdditionalSkills
                 }
             };
 
-            A.CallTo(() => _resumeReadService.GetAdditionalSkills(A<Guid>._)).Returns(expectedResult);
+            A.CallTo(() => _resumeReadService.GetAdditionalSkillsAsync(A<Guid>._)).Returns(expectedResult);
 
             //Act
             var response = await _resumesController.AdditionalSkills();

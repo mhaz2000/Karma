@@ -1,28 +1,12 @@
-﻿using AutoMapper;
-using FakeItEasy;
+﻿using FakeItEasy;
 using FluentAssertions;
 using Karma.Application.Base;
-using Karma.Application.DTOs;
-using Karma.Application.Services;
 using Karma.Core.Entities;
-using Karma.Core.Repositories.Base;
 
 namespace Karma.Tests.Services.Resumes.BasicInfo
 {
-    public class GetBasicInfoServiceTests
+    public class GetBasicInfoServiceTests : ResumeServiceTests
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-
-        private readonly ResumeReadService _resumeReadService;
-
-        public GetBasicInfoServiceTests()
-        {
-            _unitOfWork = A.Fake<IUnitOfWork>();
-            _mapper = A.Fake<IMapper>();
-
-            _resumeReadService = new ResumeReadService(_unitOfWork, _mapper);
-        }
 
         [Fact]
         public async Task Should_Throw_Exception_When_User_Cannot_Be_Found()
@@ -34,7 +18,7 @@ namespace Karma.Tests.Services.Resumes.BasicInfo
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
 
             //Act
-            var act = async () => await _resumeReadService.GetBasicInfo(userId);
+            var act = async () => await _resumeReadService.GetBasicInfoAsync(userId);
             act.Invoke();
 
             //Assert
@@ -54,7 +38,7 @@ namespace Karma.Tests.Services.Resumes.BasicInfo
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
 
             //Act
-            var act = async () => await _resumeReadService.GetBasicInfo(userId);
+            var act = async () => await _resumeReadService.GetBasicInfoAsync(userId);
             var result = await act.Invoke();
 
             //Assert

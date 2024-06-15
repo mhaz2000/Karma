@@ -1,30 +1,14 @@
-﻿using AutoMapper;
-using FakeItEasy;
+﻿using FakeItEasy;
 using FluentAssertions;
 using Karma.Application.Base;
 using Karma.Application.DTOs;
-using Karma.Application.Services;
 using Karma.Core.Entities;
-using Karma.Core.Repositories.Base;
 using System.Linq.Expressions;
 
 namespace Karma.Tests.Services.Resumes.SoftwareSkills
 {
-    public class GetSoftwareSkillTests
+    public class GetSoftwareSkillTests : ResumeServiceTests
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-
-        private readonly ResumeReadService _resumeReadService;
-
-        public GetSoftwareSkillTests()
-        {
-            _unitOfWork = A.Fake<IUnitOfWork>();
-            _mapper = A.Fake<IMapper>();
-
-            _resumeReadService = new ResumeReadService(_unitOfWork, _mapper);
-        }
-
         [Fact]
         public async Task Should_Throw_Exception_When_User_Cannot_Be_Found()
         {
@@ -35,7 +19,7 @@ namespace Karma.Tests.Services.Resumes.SoftwareSkills
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
 
             //Act
-            var act = async () => await _resumeReadService.GetLanguages(userId);
+            var act = async () => await _resumeReadService.GetLanguagesAsync(userId);
             act.Invoke();
 
             //Assert
@@ -56,7 +40,7 @@ namespace Karma.Tests.Services.Resumes.SoftwareSkills
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
 
             //Act
-            var act = async () => await _resumeReadService.GetLanguages(userId);
+            var act = async () => await _resumeReadService.GetLanguagesAsync(userId);
             act.Invoke();
 
             //Assert
@@ -77,7 +61,7 @@ namespace Karma.Tests.Services.Resumes.SoftwareSkills
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
             A.CallTo(() => _mapper.Map<IEnumerable<SoftwareSkillDTO>>(A<IQueryable<SoftwareSkillDTO>>._)).Returns(new List<SoftwareSkillDTO>());
             //Act
-            var act = async () => await _resumeReadService.GetLanguages(userId);
+            var act = async () => await _resumeReadService.GetLanguagesAsync(userId);
             var result = await act.Invoke();
 
             //Assert

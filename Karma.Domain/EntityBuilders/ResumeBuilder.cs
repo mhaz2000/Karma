@@ -65,10 +65,23 @@ namespace Karma.Core.EntityBuilders
             return this;
         }
 
+        public ResumeBuilder WithWorkSamples(WorkSample workSample)
+        {
+            _resume.WorkSamples.Add(workSample);
+            return this;
+        }
+
+        public ResumeBuilder WithResumeFileId(Guid fileId)
+        {
+            _resume.ResumeFileId = fileId;
+            return this;
+        }
+
         public Resume Build()
         {
             _resume.Validate();
             return _resume;
         }
+
     }
 }
