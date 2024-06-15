@@ -18,5 +18,6 @@ namespace Karma.Application.Services.Interfaces
         Task RemoveSoftwareSkill(Guid id);
         Task AddAdditionalSkill(AddAdditionalSkillCommand command, Guid userId);
         Task RemoveAdditionalSkill(Guid id);
+        Task UploadPersonalResume(UploadPersonalResumeCommand command, Guid userId);
     }
 }

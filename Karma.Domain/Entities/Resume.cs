@@ -37,6 +37,7 @@ namespace Karma.Core.Entities
         public virtual IList<Language> Languages { get; set; }
         public virtual IList<SoftwareSkill> SoftwareSkills { get; set; }
         public virtual IList<AdditionalSkill> AdditionalSkills { get; set; }
+        public Guid? ResumeFileId { get; set; }
 
         internal void Validate()
         {

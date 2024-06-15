@@ -2,6 +2,7 @@
 {
     public interface IUnitOfWork : IDisposable
     {
+        IFileRepository FileRepository { get; }
         IRoleRepository RoleRepository { get; }
         ICityRepository CityRepository { get; }
         IUserRepository UserRepository { get; }

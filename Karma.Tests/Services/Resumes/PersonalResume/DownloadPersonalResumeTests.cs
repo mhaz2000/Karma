@@ -1,15 +1,13 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
 using Karma.Application.Base;
-using Karma.Application.DTOs;
 using Karma.Core.Entities;
 using System.Linq.Expressions;
 
-namespace Karma.Tests.Services.Resumes.AboutMe
+namespace Karma.Tests.Services.Resumes.PersonalResume
 {
-    public class GetAboutMeTests : ResumeServiceTests
+    public class DownloadPersonalResumeTests : ResumeServiceTests
     {
-
         [Fact]
         public async Task Should_Throw_Exception_When_User_Cannot_Be_Found()
         {
@@ -20,12 +18,13 @@ namespace Karma.Tests.Services.Resumes.AboutMe
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
 
             //Act
-            var act = async () => await _resumeReadService.GetAboutMe(userId);
+            var act = async () => await _resumeReadService.DownloadPersonalResume(userId);
             act.Invoke();
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustNotHaveHappened();
+            A.CallTo(() => _fileService.GetFileAsync(userId)).MustNotHaveHappened();
 
             await act.Should().ThrowAsync<ManagedException>().WithMessage("کاربر مورد نظر یافت نشد.");
         }
@@ -41,37 +40,59 @@ namespace Karma.Tests.Services.Resumes.AboutMe
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
 
             //Act
-            var act = async () => await _resumeReadService.GetAboutMe(userId);
+            var act = async () => await _resumeReadService.DownloadPersonalResume(userId);
             act.Invoke();
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _fileService.GetFileAsync(userId)).MustNotHaveHappened();
 
             await act.Should().ThrowAsync<ManagedException>().WithMessage("رزومه شما یافت نشد.");
         }
 
         [Fact]
-        public async Task Should_Return_About_Me_Data()
+        public async Task Should_Throw_Exception_When_Personal_Resume_Has_Not_Been_Uploaded()
         {
             var userId = Guid.NewGuid();
             User user = new User();
-            Resume? resume = new Resume() { User = user, Code = string.Empty };
+            Resume? resume = new Resume() { Code = string.Empty, User = user};
 
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
 
             //Act
-            var act = async () => await _resumeReadService.GetAboutMe(userId);
-            var result = await act.Invoke();
+            var act = async () => await _resumeReadService.DownloadPersonalResume(userId);
+            act.Invoke();
 
             //Assert
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).MustHaveHappenedOnceExactly();
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _fileService.GetFileAsync(userId)).MustNotHaveHappened();
 
-            await act.Should().NotThrowAsync<ManagedException>();
+            await act.Should().ThrowAsync<ManagedException>().WithMessage("رزومه شخصی بارگذاری نشده است.");
+        }
 
-            result.Should().BeOfType<AboutMeDTO>();
+        [Fact]
+        public async Task Must_Download_User_Personal_Resume()
+        {
+            var userId = Guid.NewGuid();
+            User user = new User();
+            Resume? resume = new Resume() { Code = string.Empty, User = user, ResumeFileId = Guid.NewGuid() };
+
+            A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).Returns(user);
+            A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
+
+            //Act
+            var act = async () => await _resumeReadService.DownloadPersonalResume(userId);
+            act.Invoke();
+
+            //Assert
+            A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _fileService.GetFileAsync(resume.ResumeFileId.Value)).MustHaveHappenedOnceExactly();
+
+            await act.Should().NotThrowAsync();
         }
     }
 }

@@ -10,19 +10,8 @@ using System.Linq.Expressions;
 
 namespace Karma.Tests.Services.Resumes.EducationalRecords
 {
-    public class AddEducationalRecordTests
+    public class AddEducationalRecordTests : ResumeServiceTests
     {
-        private readonly ResumeWriteService _resumeService;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public AddEducationalRecordTests()
-        {
-            _mapper = A.Fake<IMapper>();
-            _unitOfWork = A.Fake<IUnitOfWork>();
-
-            _resumeService = new ResumeWriteService(_unitOfWork, _mapper);
-        }
-
         [Fact]
         public async Task Should_Throw_Exception_When_User_Cannot_Be_Found()
         {
@@ -33,7 +22,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
 
             //Act
-            var act = async () => await _resumeService.AddEducationalRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddEducationalRecord(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -59,7 +48,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int?>._)).Returns(major);
 
             //Act
-            var act = async () => await _resumeService.AddEducationalRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddEducationalRecord(command, Guid.NewGuid());
 
             //Assert
             await act.Should().ThrowAsync<ManagedException>().WithMessage("مقدار وارد شده برای رشته دانشگاهی صحیح نمی‌باشد.");
@@ -87,7 +76,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int?>._)).Returns(university);
 
             //Act
-            var act = async () => await _resumeService.AddEducationalRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddEducationalRecord(command, Guid.NewGuid());
 
             //Assert
             await act.Should().ThrowAsync<ManagedException>().WithMessage("مقدار وارد شده برای دانشگاه صحیح نمی‌باشد.");
@@ -143,7 +132,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
 
 
             //Act
-            var act = async () => await _resumeService.AddEducationalRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddEducationalRecord(command, Guid.NewGuid());
 
             //Assert
             await act.Should().ThrowAsync<ApplicationException>().WithMessage("سال های تدریس دانشگاه نمی‌تواند با هم تداخل زمانی داشته باشد.");
@@ -174,7 +163,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int?>._)).Returns(university);
 
             //Act
-            var act = async () => await _resumeService.AddEducationalRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddEducationalRecord(command, Guid.NewGuid());
 
             //Assert
             await act.Should().NotThrowAsync<ManagedException>();
@@ -205,7 +194,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int?>._)).Returns(university);
 
             //Act
-            var act = async () => await _resumeService.AddEducationalRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddEducationalRecord(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert

@@ -29,6 +29,7 @@ namespace Karma.Infrastructure.Data
         public virtual DbSet<SocialMedia> SocialMedias { get; set; }
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<UploadedFile> Files { get; set; }
 
         public virtual DbSet<ExpandedResume> ExpandedResumesView { get; set; }
 

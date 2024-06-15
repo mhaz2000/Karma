@@ -14,5 +14,6 @@ namespace Karma.Application.Services.Interfaces
         Task<IEnumerable<SoftwareSkillDTO>> GetSoftwareSkills(Guid userId);
         Task<IEnumerable<AdditionalSkillDTO>> GetAdditionalSkills(Guid userId);
         Task<IEnumerable<ResumeQueryDTO>> GetResumes(PageQuery pageQuery, ResumeFilterCommand command);
+        Task<(FileStream stream, string filename)> DownloadPersonalResume(Guid userId);
     }
 }

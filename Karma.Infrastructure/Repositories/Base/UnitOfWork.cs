@@ -12,6 +12,7 @@ namespace Karma.Infrastructure.Repositories.Base
         private readonly UserManager<User> _userManager;
 
         private CityRepository _cityRepository;
+        private FileRepository _fileRepository;
         private UserRepository _userRepository;
         private RoleRepository _roleRepository;
         private MajorRepository _majorRepository;
@@ -36,6 +37,7 @@ namespace Karma.Infrastructure.Repositories.Base
             _userManager = userManager;
         }
 
+        public IFileRepository FileRepository => _fileRepository ?? new FileRepository(_context);
         public ICityRepository CityRepository => _cityRepository ?? new CityRepository(_context);
         public IRoleRepository RoleRepository => _roleRepository ?? new RoleRepository(_context);
         public IMajorRepository MajorRepository => _majorRepository ?? new MajorRepository(_context);
@@ -54,6 +56,7 @@ namespace Karma.Infrastructure.Repositories.Base
         public ISystemSoftwareSkillRepository SystemSoftwareSkillRepository => _systemSoftwareSkillRepository ?? new SystemSoftwareSkillRepository(_context);
 
         public IExpandedResumeViewRepository ExpandedResumeViewRepository => _expandedResumeViewRepository ?? new ExpandedResumeViewRepository(_context);
+
 
         public async Task<int> CommitAsync()
         {

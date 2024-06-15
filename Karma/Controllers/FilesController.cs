@@ -24,7 +24,7 @@ namespace Karma.API.Controllers
 
             file.CopyTo(stream);
 
-            var result = await _fileService.StoreFileAsync(stream, UserId);
+            var result = await _fileService.StoreFileAsync(stream, UserId, file.FileName);
 
             return Ok(new { Message = "فایل با موفقیت باگذاری شد.", Value = result });
         }

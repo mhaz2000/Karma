@@ -13,11 +13,13 @@ namespace Karma.Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IFileService _fileService;
 
-        public ResumeReadService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ResumeReadService(IUnitOfWork unitOfWork, IMapper mapper, IFileService fileService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _fileService = fileService;
         }
 
         public async Task<AboutMeDTO> GetAboutMe(Guid userId)
@@ -135,6 +137,23 @@ namespace Karma.Application.Services
             return _mapper.Map<IEnumerable<ResumeQueryDTO>>(filtredResumes)
                 .OrderByDescending(c=>c.DegreeLevel)
                 .DistinctBy(c => c.Id).ToPagingAndSorting(pageQuery);
+        }
+
+        public async Task<(FileStream stream, string filename)> DownloadPersonalResume(Guid userId)
+        {
+            var user = await _unitOfWork.UserRepository.GetActiveUserByIdAsync(userId);
+            if (user is null)
+                throw new ManagedException("کاربر مورد نظر یافت نشد.");
+
+            var resume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User == user);
+            if (resume is null)
+                throw new ManagedException("رزومه شما یافت نشد.");
+
+            if (resume.ResumeFileId is null)
+                throw new ManagedException("رزومه شخصی بارگذاری نشده است.");
+
+            return await _fileService.GetFileAsync(resume.ResumeFileId.Value);
+
         }
     }
 }

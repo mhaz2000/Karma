@@ -1,31 +1,12 @@
-﻿using AutoMapper;
-using FakeItEasy;
+﻿using FakeItEasy;
 using FluentAssertions;
 using Karma.Application.Base;
-using Karma.Application.Services;
 using Karma.Core.Entities;
-using Karma.Core.Repositories.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Karma.Tests.Services.Resumes.CareerRecords
 {
-    public class RemoveCareerRecordTests
+    public class RemoveCareerRecordTests : ResumeServiceTests
     {
-        private readonly ResumeWriteService _resumeService;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public RemoveCareerRecordTests()
-        {
-            _mapper = A.Fake<IMapper>();
-            _unitOfWork = A.Fake<IUnitOfWork>();
-
-            _resumeService = new ResumeWriteService(_unitOfWork, _mapper);
-        }
-
         [Fact]
         public async Task Must_Throw_Exception_When_Career_Record_Cannot_Be_Found()
         {
@@ -36,7 +17,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.CareerRecordRepository.GetByIdAsync(id)).Returns(careerRecord);
 
             //Act
-            var act = async () => await _resumeService.RemoveCareerRecord(id);
+            var act = async () => await _resumeWiteService.RemoveCareerRecord(id);
 
             //Assert
             await act.Should().ThrowAsync<ManagedException>().WithMessage("سابقه کاری مورد نظر یافت نشد.");
@@ -60,7 +41,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             };
 
             //Act
-            var act = async () => await _resumeService.RemoveCareerRecord(id);
+            var act = async () => await _resumeWiteService.RemoveCareerRecord(id);
 
             //Assert
             await act.Should().NotThrowAsync();

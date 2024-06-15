@@ -15,20 +15,8 @@ using System.Threading.Tasks;
 
 namespace Karma.Tests.Services.Resumes.Languages
 {
-    public class AddLanguageTests
+    public class AddLanguageTests : ResumeServiceTests
     {
-        private readonly ResumeWriteService _resumeService;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public AddLanguageTests()
-        {
-            _mapper = A.Fake<IMapper>();
-            _unitOfWork = A.Fake<IUnitOfWork>();
-
-            _resumeService = new ResumeWriteService(_unitOfWork, _mapper);
-        }
-
-
         [Fact]
         public async Task Should_Throw_Exception_When_User_Cannot_Be_Found()
         {
@@ -39,7 +27,7 @@ namespace Karma.Tests.Services.Resumes.Languages
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
 
             //Act
-            var act = async () => await _resumeService.AddLanguage(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddLanguage(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -65,7 +53,7 @@ namespace Karma.Tests.Services.Resumes.Languages
             A.CallTo(() => _unitOfWork.SystemLanguageRepository.GetByIdAsync(A<int>._)).Returns(systemLanguage);
 
             //Act
-            var act = async () => await _resumeService.AddLanguage(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddLanguage(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -93,7 +81,7 @@ namespace Karma.Tests.Services.Resumes.Languages
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
 
             //Act
-            var act = async () => await _resumeService.AddLanguage(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddLanguage(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -121,7 +109,7 @@ namespace Karma.Tests.Services.Resumes.Languages
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
 
             //Act
-            var act = async () => await _resumeService.AddLanguage(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddLanguage(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert

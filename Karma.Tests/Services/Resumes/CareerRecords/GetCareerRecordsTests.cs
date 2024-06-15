@@ -10,21 +10,8 @@ using System.Linq.Expressions;
 
 namespace Karma.Tests.Services.Resumes.CareerRecords
 {
-    public class GetCareerRecordsTests
+    public class GetCareerRecordsTests : ResumeServiceTests
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-
-        private readonly ResumeReadService _resumeReadService;
-
-        public GetCareerRecordsTests()
-        {
-            _unitOfWork = A.Fake<IUnitOfWork>();
-            _mapper = A.Fake<IMapper>();
-
-            _resumeReadService = new ResumeReadService(_unitOfWork, _mapper);
-        }
-
         [Fact]
         public async Task Should_Throw_Exception_When_User_Cannot_Be_Found()
         {
