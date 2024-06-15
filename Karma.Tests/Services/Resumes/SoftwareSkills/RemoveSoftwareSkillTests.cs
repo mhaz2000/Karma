@@ -1,26 +1,12 @@
-﻿using AutoMapper;
-using FakeItEasy;
+﻿using FakeItEasy;
 using FluentAssertions;
 using Karma.Application.Base;
-using Karma.Application.Services;
 using Karma.Core.Entities;
-using Karma.Core.Repositories.Base;
 
 namespace Karma.Tests.Services.Resumes.SoftwareSkills
 {
-    public class RemoveSoftwareSkillTests
+    public class RemoveSoftwareSkillTests : ResumeServiceTests
     {
-        private readonly ResumeWriteService _resumeService;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public RemoveSoftwareSkillTests()
-        {
-            _mapper = A.Fake<IMapper>();
-            _unitOfWork = A.Fake<IUnitOfWork>();
-
-            _resumeService = new ResumeWriteService(_unitOfWork, _mapper);
-        }
-
         [Fact]
         public async Task Must_Throw_Exception_When_Software_Skill_Cannot_Be_Found()
         {
@@ -31,7 +17,7 @@ namespace Karma.Tests.Services.Resumes.SoftwareSkills
             A.CallTo(() => _unitOfWork.SoftwareSkillRepository.GetByIdAsync(id)).Returns(softwareSkill);
 
             //Act
-            var act = async () => await _resumeService.RemoveSoftwareSkill(id);
+            var act = async () => await _resumeWiteService.RemoveSoftwareSkill(id);
 
             //Assert
             await act.Should().ThrowAsync<ManagedException>().WithMessage("مهارت نرم افزاری مورد نظر یافت نشد.");
@@ -49,8 +35,8 @@ namespace Karma.Tests.Services.Resumes.SoftwareSkills
             SoftwareSkill softwareSkill = new SoftwareSkill() { SystemSoftwareSkill = null };
 
             //Act
-            var act = async () => await _resumeService.RemoveSoftwareSkill(id);
-
+            var act = async () => await _resumeWiteService.RemoveSoftwareSkill(id);
+            
             //Assert
             await act.Should().NotThrowAsync();
 

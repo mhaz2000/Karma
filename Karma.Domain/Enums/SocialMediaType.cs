@@ -7,6 +7,10 @@ namespace Karma.Core.Enums
         [Description("لینکدین")]
         LinkedIn,
         [Description("گیت هاب")]
-        GitHub
+        GitHub,
+        [Description("اینستاگرام")]
+        Instagram,
+        [Description("ایکس")]
+        X,
     }
 }

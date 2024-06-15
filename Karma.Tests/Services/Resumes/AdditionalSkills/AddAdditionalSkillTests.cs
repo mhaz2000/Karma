@@ -10,20 +10,8 @@ using System.Linq.Expressions;
 
 namespace Karma.Tests.Services.Resumes.AdditionalSkills
 {
-    public class AddAdditionalSkillTests
+    public class AddAdditionalSkillTests : ResumeServiceTests
     {
-        private readonly ResumeWriteService _resumeService;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public AddAdditionalSkillTests()
-        {
-            _mapper = A.Fake<IMapper>();
-            _unitOfWork = A.Fake<IUnitOfWork>();
-
-            _resumeService = new ResumeWriteService(_unitOfWork, _mapper);
-        }
-
-
         [Fact]
         public async Task Should_Throw_Exception_When_User_Cannot_Be_Found()
         {
@@ -34,7 +22,7 @@ namespace Karma.Tests.Services.Resumes.AdditionalSkills
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
 
             //Act
-            var act = async () => await _resumeService.AddAdditionalSkill(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddAdditionalSkill(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -58,7 +46,7 @@ namespace Karma.Tests.Services.Resumes.AdditionalSkills
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
 
             //Act
-            var act = async () => await _resumeService.AddAdditionalSkill(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddAdditionalSkill(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -83,7 +71,7 @@ namespace Karma.Tests.Services.Resumes.AdditionalSkills
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
 
             //Act
-            var act = async () => await _resumeService.AddAdditionalSkill(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddAdditionalSkill(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert

@@ -10,19 +10,8 @@ using System.Linq.Expressions;
 
 namespace Karma.Tests.Services.Resumes.EducationalRecords
 {
-    public class UpdateEducationalRecordTests
+    public class UpdateEducationalRecordTests : ResumeServiceTests
     {
-        private readonly ResumeWriteService _resumeService;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public UpdateEducationalRecordTests()
-        {
-            _mapper = A.Fake<IMapper>();
-            _unitOfWork = A.Fake<IUnitOfWork>();
-
-            _resumeService = new ResumeWriteService(_unitOfWork, _mapper);
-        }
-
         [Fact]
         public async Task Should_Throw_Exception_When_User_Cannot_Be_Found()
         {
@@ -33,7 +22,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
 
             //Act
-            var act = async () => await _resumeService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -59,7 +48,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(A<Guid>._)).Returns(educationalRecord);
 
             //Act
-            var act = async () => await _resumeService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -89,7 +78,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.ResumeRepository.FirstOrDefaultAsync(A<Expression<Func<Resume, bool>>>._)).Returns(resume);
 
             //Act
-            var act = async () => await _resumeService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -125,7 +114,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.MajorRepository.GetByIdAsync(A<int?>._)).Returns(newMajor);
 
             //Act
-            var act = async () => await _resumeService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
 
             //Assert
             await act.Should().ThrowAsync<ManagedException>().WithMessage("مقدار وارد شده برای رشته دانشگاهی صحیح نمی‌باشد.");
@@ -162,7 +151,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int?>._)).Returns(newUniversity);
 
             //Act
-            var act = async () => await _resumeService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
 
             //Assert
             await act.Should().ThrowAsync<ManagedException>().WithMessage("مقدار وارد شده برای دانشگاه صحیح نمی‌باشد.");
@@ -224,7 +213,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int?>._)).Returns(university);
 
             //Act
-            var act = async () => await _resumeService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
 
             //Assert
             await act.Should().ThrowAsync<ApplicationException>().WithMessage("سال های تدریس دانشگاه نمی‌تواند با هم تداخل زمانی داشته باشد.");
@@ -261,7 +250,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.UniversityRepository.GetByIdAsync(A<int?>._)).Returns(university);
 
             //Act
-            var act = async () => await _resumeService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.UpdateEducationalRecord(Guid.NewGuid(), command, Guid.NewGuid());
 
             //Assert
             await act.Should().NotThrowAsync<ManagedException>();

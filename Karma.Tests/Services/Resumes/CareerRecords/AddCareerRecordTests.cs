@@ -10,19 +10,8 @@ using System.Linq.Expressions;
 
 namespace Karma.Tests.Services.Resumes.CareerRecords
 {
-    public class AddCareerRecordTests
+    public class AddCareerRecordTests : ResumeServiceTests
     {
-        private readonly ResumeWriteService _resumeService;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public AddCareerRecordTests()
-        {
-            _mapper = A.Fake<IMapper>();
-            _unitOfWork = A.Fake<IUnitOfWork>();
-
-            _resumeService = new ResumeWriteService(_unitOfWork, _mapper);
-        }
-
         [Fact]
         public async Task Should_Throw_Exception_When_User_Cannot_Be_Found()
         {
@@ -38,7 +27,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.UserRepository.GetActiveUserByIdAsync(A<Guid>._)).Returns(user);
 
             //Act
-            var act = async () => await _resumeService.AddCareerRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddCareerRecord(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -71,7 +60,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.JobCategoryRepository.GetByIdAsync(A<int>._)).Returns(jobCategory);
 
             //Act
-            var act = async () => await _resumeService.AddCareerRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddCareerRecord(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -106,7 +95,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.CountryRepository.GetByIdAsync(A<int>._)).Returns(country);
 
             //Act
-            var act = async () => await _resumeService.AddCareerRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddCareerRecord(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -144,7 +133,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.CityRepository.GetByIdAsync(A<int>._)).Returns(city);
 
             //Act
-            var act = async () => await _resumeService.AddCareerRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddCareerRecord(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -180,7 +169,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
 
 
             //Act
-            var act = async () => await _resumeService.AddCareerRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddCareerRecord(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -214,7 +203,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
 
 
             //Act
-            var act = async () => await _resumeService.AddCareerRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.AddCareerRecord(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert

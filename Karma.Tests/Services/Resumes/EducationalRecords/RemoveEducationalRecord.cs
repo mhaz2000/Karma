@@ -8,20 +8,8 @@ using Karma.Core.Repositories.Base;
 
 namespace Karma.Tests.Services.Resumes.EducationalRecords
 {
-    public class RemoveEducationalRecord
+    public class RemoveEducationalRecord : ResumeServiceTests
     {
-
-        private readonly ResumeWriteService _resumeService;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public RemoveEducationalRecord()
-        {
-            _mapper = A.Fake<IMapper>();
-            _unitOfWork = A.Fake<IUnitOfWork>();
-
-            _resumeService = new ResumeWriteService(_unitOfWork, _mapper);
-        }
-
         [Fact]
         public async Task Must_Throw_Exception_When_Educational_Record_Cannot_Be_Found()
         {
@@ -32,7 +20,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             A.CallTo(() => _unitOfWork.EducationalRecordRepository.GetByIdAsync(id)).Returns(educationalRecord);
 
             //Act
-            var act = async () => await _resumeService.RemoveEducationalRecord(id);
+            var act = async () => await _resumeWiteService.RemoveEducationalRecord(id);
 
             //Assert
             await act.Should().ThrowAsync<ManagedException>().WithMessage("سابقه تحصیلی مورد نظر یافت نشد.");
@@ -53,7 +41,7 @@ namespace Karma.Tests.Services.Resumes.EducationalRecords
             };
 
             //Act
-            var act = async () => await _resumeService.RemoveEducationalRecord(id);
+            var act = async () => await _resumeWiteService.RemoveEducationalRecord(id);
 
             //Assert
             await act.Should().NotThrowAsync();

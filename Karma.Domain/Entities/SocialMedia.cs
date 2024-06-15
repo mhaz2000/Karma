@@ -1,8 +1,9 @@
-﻿using Karma.Core.Enums;
+﻿using Karma.Core.Entities.Base;
+using Karma.Core.Enums;
 
 namespace Karma.Core.Entities
 {
-    public class SocialMedia
+    public class SocialMedia : IBaseEntity
     {
         public SocialMedia()
         {

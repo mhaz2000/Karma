@@ -8,6 +8,7 @@ namespace Karma.Application.Validators
         public UpdateAboutMeCommandValidator()
         {
             RuleFor(c => c.MainJobTitle).NotEmpty().WithMessage("عنوان شغلی الزامی است.");
+            RuleFor(c => c.SocialMedias).Must(c => c.DistinctBy(t => t.Type).Count() == c.Count()).WithMessage("تنها یک رکورد از هر شبکه مجازی می‌توانید ثبت کنید.");
         }
     }
     

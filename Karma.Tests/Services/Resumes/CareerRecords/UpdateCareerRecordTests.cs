@@ -14,19 +14,8 @@ using System.Threading.Tasks;
 
 namespace Karma.Tests.Services.Resumes.CareerRecords
 {
-    public class UpdateCareerRecordTests
+    public class UpdateCareerRecordTests : ResumeServiceTests
     {
-        private readonly ResumeWriteService _resumeService;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public UpdateCareerRecordTests()
-        {
-            _mapper = A.Fake<IMapper>();
-            _unitOfWork = A.Fake<IUnitOfWork>();
-
-            _resumeService = new ResumeWriteService(_unitOfWork, _mapper);
-        }
-
         [Fact]
         public async Task Should_Throw_Exception_When_Career_Record_Cannot_Be_Found()
         {
@@ -42,7 +31,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.CareerRecordRepository.GetByIdAsync(A<Guid>._)).Returns(careerRecord);
 
             //Act
-            var act = async () => await _resumeService.UpdateCareerRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.UpdateCareerRecord(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -73,7 +62,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.JobCategoryRepository.GetByIdAsync(A<int>._)).Returns(jobCategory);
 
             //Act
-            var act = async () => await _resumeService.UpdateCareerRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.UpdateCareerRecord(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -106,7 +95,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.CountryRepository.GetByIdAsync(A<int>._)).Returns(country);
 
             //Act
-            var act = async () => await _resumeService.UpdateCareerRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.UpdateCareerRecord(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
@@ -141,7 +130,7 @@ namespace Karma.Tests.Services.Resumes.CareerRecords
             A.CallTo(() => _unitOfWork.CityRepository.GetByIdAsync(command.CityId)).Returns(city);
 
             //Act
-            var act = async () => await _resumeService.UpdateCareerRecord(command, Guid.NewGuid());
+            var act = async () => await _resumeWiteService.UpdateCareerRecord(command, Guid.NewGuid());
             act.Invoke();
 
             //Assert
