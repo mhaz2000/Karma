@@ -304,6 +304,35 @@ namespace Karma.API.Controllers
 
         #endregion
 
+        #region Personal Resume
+
+        [HttpPut("UploadPersonalResume")]
+        public async Task<IActionResult> UploadPersonalResume([FromBody] UploadPersonalResumeCommand command)
+        {
+            await _resumeWriteService.UploadPersonalResume(command, UserId);
+
+            return Ok("تغییرات با موفقیت ثبت شد.");
+        }
+
+        [HttpGet("DownloadPersonalResume")]
+        public async Task<IActionResult> DownloadPersonalResume()
+        {
+            var file = await _resumeReadService.DownloadPersonalResume(UserId);
+            var provider = new FileExtensionContentTypeProvider();
+
+            if (!provider.TryGetContentType(file.filename, out var contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+
+            Response.Headers.Append("Access-Control-Allow-Headers", "Content-Disposition");
+            Response.Headers.Append("X-Content-Type-Options", "nosniff");
+
+            return File(file.stream, contentType, file.filename);
+        }
+
+        #endregion
+
         [Authorize(Roles = "Admin")]
         [HttpPut("Query")]
         public async Task<IActionResult> GetResumes([FromQuery] PageQuery pageQuery, [FromBody] ResumeFilterCommand command)
