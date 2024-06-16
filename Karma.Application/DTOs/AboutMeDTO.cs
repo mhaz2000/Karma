@@ -1,6 +1,7 @@
 ﻿using Karma.Application.Mappings;
 using Karma.Core.Entities;
 using Karma.Core.Enums;
+using System.Text.Json.Serialization;
 
 namespace Karma.Application.DTOs
 {
@@ -15,7 +16,8 @@ namespace Karma.Application.DTOs
 
     public record SocialMediaDTO : IMapFrom<SocialMedia>
     {
-        public SocialMediaType Type { get; set; }
+        [JsonPropertyName("Type")]
+        public SocialMediaType SocialMediaType { get; set; }
         public required string Link { get; set; }
     }
 }
