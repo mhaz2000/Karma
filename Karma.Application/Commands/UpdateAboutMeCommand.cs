@@ -4,6 +4,7 @@ using Karma.Application.Validators;
 using Karma.Application.Validators.Extensions;
 using Karma.Core.Entities;
 using Karma.Core.Enums;
+using System.Text.Json.Serialization;
 
 namespace Karma.Application.Commands
 {
@@ -24,7 +25,8 @@ namespace Karma.Application.Commands
 
     public class SocialMediaCommand : IBaseCommand, IMapFrom<SocialMedia>
     {
-        public SocialMediaType Type { get; set; }
+        [JsonPropertyName("Type")]
+        public SocialMediaType SocialMediaType { get; set; }
         public required string Link { get; set; }
 
         public void Validate() => new SocialMediaCommandValidator().Validate(this).RaiseExceptionIfRequired();
