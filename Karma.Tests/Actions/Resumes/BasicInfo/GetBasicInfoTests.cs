@@ -34,6 +34,7 @@ namespace Karma.Tests.Actions.Resumes.BasicInfo
             var expectedResult = new BasicInfoDTO()
             {
                 BirthDate = DateTime.Now,
+                PhoneNumber = "09109828926",
                 City = "Fake City",
                 FirstName = "Fake First Name",
                 LastName = "Fake Last Name",
