@@ -43,7 +43,7 @@ namespace Karma.API.Controllers
 
         #endregion
 
-        #region Basic Infom
+        #region Basic Information
 
         [HttpPut("BasicInfo")]
         public async Task<IActionResult> UpdateBasicInfo([FromBody] UpdateBasicInfoCommand command)
