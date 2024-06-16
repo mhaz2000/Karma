@@ -50,7 +50,7 @@ namespace Karma.Tests.Actions.Resumes.AboutMe
                 MainJobTitle = "Fake Job Title",
                 SocialMedias = new List<SocialMediaCommand>
                 {
-                    new SocialMediaCommand() { Type = SocialMediaType.GitHub, Link = string.Empty }
+                    new SocialMediaCommand() { SocialMediaType = SocialMediaType.GitHub, Link = string.Empty }
                 }
             };
 
@@ -72,8 +72,8 @@ namespace Karma.Tests.Actions.Resumes.AboutMe
                 MainJobTitle = "Fake Job Title",
                 SocialMedias = new List<SocialMediaCommand>
                 {
-                    new SocialMediaCommand() { Type = SocialMediaType.GitHub, Link = "Fake Url" },
-                    new SocialMediaCommand() { Type = SocialMediaType.GitHub, Link = "Fake Url" }
+                    new SocialMediaCommand() { SocialMediaType = SocialMediaType.GitHub, Link = "Fake Url" },
+                    new SocialMediaCommand() { SocialMediaType = SocialMediaType.GitHub, Link = "Fake Url" }
                 }
             };
 
@@ -94,7 +94,7 @@ namespace Karma.Tests.Actions.Resumes.AboutMe
                 MainJobTitle = "Fake Job Title",
                 SocialMedias = new List<SocialMediaCommand>
                 {
-                    new SocialMediaCommand() { Type = SocialMediaType.GitHub, Link = "Fake Link" }
+                    new SocialMediaCommand() { SocialMediaType = SocialMediaType.GitHub, Link = "Fake Link" }
                 }
             };
 
