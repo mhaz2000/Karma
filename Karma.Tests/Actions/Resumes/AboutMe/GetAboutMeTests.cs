@@ -40,7 +40,7 @@ namespace Karma.Tests.Actions.Resumes.AboutMe
                     new SocialMediaDTO()
                     {
                         Link = "Fake Link",
-                        Type = SocialMediaType.GitHub
+                        SocialMediaType = SocialMediaType.GitHub
                     }
                 }
             };
