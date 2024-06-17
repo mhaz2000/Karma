@@ -16,7 +16,7 @@ namespace Karma.Application.DTOs
 
     public record SocialMediaDTO : IMapFrom<SocialMedia>
     {
-        [JsonPropertyName("Type")]
+        [JsonPropertyName("type")]
         public SocialMediaType SocialMediaType { get; set; }
         public required string Link { get; set; }
     }
