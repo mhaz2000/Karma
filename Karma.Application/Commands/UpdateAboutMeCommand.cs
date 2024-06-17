@@ -25,7 +25,7 @@ namespace Karma.Application.Commands
 
     public class SocialMediaCommand : IBaseCommand, IMapFrom<SocialMedia>
     {
-        [JsonPropertyName("Type")]
+        [JsonPropertyName("type")]
         public SocialMediaType SocialMediaType { get; set; }
         public required string Link { get; set; }
 
