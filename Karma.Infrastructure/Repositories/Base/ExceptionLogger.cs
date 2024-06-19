@@ -6,9 +6,9 @@ namespace Karma.Infrastructure.Repositories.Base
 {
     public class ExceptionLogger : IExceptionLogger
     {
-        private readonly LogContext _context;
+        private readonly DataContext _context;
 
-        public ExceptionLogger(LogContext context)
+        public ExceptionLogger(DataContext context)
         {
             _context = context;
         }

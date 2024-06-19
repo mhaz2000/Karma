@@ -1,4 +1,5 @@
 ﻿using Karma.Core.Entities;
+using Karma.Core.Entities.Base;
 using Karma.Core.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -31,6 +32,7 @@ namespace Karma.Infrastructure.Data
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<UploadedFile> Files { get; set; }
+        public virtual DbSet<ExceptionLog> ExceptionLogs { get; set; }
 
         public virtual DbSet<ExpandedResume> ExpandedResumesView { get; set; }
 
