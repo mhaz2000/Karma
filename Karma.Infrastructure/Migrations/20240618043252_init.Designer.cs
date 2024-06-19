@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Karma.Infrastructure.Migrations.Data
+namespace Karma.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240615073215_work-sample-is-added")]
-    partial class worksampleisadded
+    [Migration("20240618043252_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,29 @@ namespace Karma.Infrastructure.Migrations.Data
                     b.HasIndex("ResumeId");
 
                     b.ToTable("AdditionalSkills");
+                });
+
+            modelBuilder.Entity("Karma.Core.Entities.Base.ExceptionLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("InnerExceptionMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequestUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StackTrace")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExceptionLogs");
                 });
 
             modelBuilder.Entity("Karma.Core.Entities.CareerRecord", b =>

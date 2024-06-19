@@ -13,11 +13,9 @@ namespace Karma.Infrastructure
 {
     public static class InfrastructureExtension
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, string dbConnectionString, string logConnectionString)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, string dbConnectionString)
         {
             services.AddDbContext<DataContext>(opt => opt.UseSqlServer(dbConnectionString));
-            services.AddDbContext<LogContext>(options => options.UseSqlServer(logConnectionString));
-
 
             // add identity
             var identityBuilder = services.AddIdentityCore<User>(o =>

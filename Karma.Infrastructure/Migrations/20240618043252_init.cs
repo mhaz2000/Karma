@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Karma.Infrastructure.Migrations.Data
+namespace Karma.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class init : Migration
@@ -84,6 +84,21 @@ namespace Karma.Infrastructure.Migrations.Data
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Countries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExceptionLogs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RequestUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InnerExceptionMessage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StackTrace = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExceptionLogs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -258,6 +273,26 @@ namespace Karma.Infrastructure.Migrations.Data
                 });
 
             migrationBuilder.CreateTable(
+                name: "Files",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Format = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UploadedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Files", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Files_AspNetUsers_UploadedById",
+                        column: x => x.UploadedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Resumes",
                 columns: table => new
                 {
@@ -266,7 +301,8 @@ namespace Karma.Infrastructure.Migrations.Data
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MainJobTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ResumeFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -452,6 +488,25 @@ namespace Karma.Infrastructure.Migrations.Data
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "WorkSamples",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Link = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ResumeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkSamples", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkSamples_Resumes_ResumeId",
+                        column: x => x.ResumeId,
+                        principalTable: "Resumes",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AdditionalSkills_ResumeId",
                 table: "AdditionalSkills",
@@ -532,6 +587,11 @@ namespace Karma.Infrastructure.Migrations.Data
                 column: "UniversityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Files_UploadedById",
+                table: "Files",
+                column: "UploadedById");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Languages_ResumeId",
                 table: "Languages",
                 column: "ResumeId");
@@ -560,6 +620,11 @@ namespace Karma.Infrastructure.Migrations.Data
                 name: "IX_SoftwareSkills_SystemSoftwareSkillId",
                 table: "SoftwareSkills",
                 column: "SystemSoftwareSkillId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkSamples_ResumeId",
+                table: "WorkSamples",
+                column: "ResumeId");
         }
 
         /// <inheritdoc />
@@ -590,6 +655,12 @@ namespace Karma.Infrastructure.Migrations.Data
                 name: "EducationalRecords");
 
             migrationBuilder.DropTable(
+                name: "ExceptionLogs");
+
+            migrationBuilder.DropTable(
+                name: "Files");
+
+            migrationBuilder.DropTable(
                 name: "Languages");
 
             migrationBuilder.DropTable(
@@ -597,6 +668,9 @@ namespace Karma.Infrastructure.Migrations.Data
 
             migrationBuilder.DropTable(
                 name: "SoftwareSkills");
+
+            migrationBuilder.DropTable(
+                name: "WorkSamples");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -620,10 +694,10 @@ namespace Karma.Infrastructure.Migrations.Data
                 name: "SystemLanguages");
 
             migrationBuilder.DropTable(
-                name: "Resumes");
+                name: "SystemSoftwareSkills");
 
             migrationBuilder.DropTable(
-                name: "SystemSoftwareSkills");
+                name: "Resumes");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

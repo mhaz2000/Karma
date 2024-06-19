@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
 
 namespace Karma.Infrastructure.DbMigration
@@ -13,18 +12,15 @@ namespace Karma.Infrastructure.DbMigration
     public class DatabaseMigration : IDatabaseMigration
     {
         private readonly DataContext _dataContext;
-        private readonly LogContext _logContext;
 
         public DatabaseMigration(IConfiguration configuration)
         {
             _dataContext = new DateContextFactory().CreateDbContext(configuration);
-            _logContext = new LogContextFactory().CreateDbContext(configuration);
 
         }
         public async Task MigrateDatabase()
         {
             _dataContext.Database.Migrate();
-            _logContext.Database.Migrate();
 
             var userStore = new UserStore<User, IdentityRole<Guid>, DataContext, Guid>(_dataContext);
             var userManager = new UserManager<User>(userStore, null, new PasswordHasher<User>(), null, null, null, null, null, null);

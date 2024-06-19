@@ -13,8 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMemoryCache();
 
 builder.Services.AddInfrastructure(
-    builder.Configuration.GetConnectionString("Default") ?? throw new Exception("Default Connection string cannot be found."),
-    builder.Configuration.GetConnectionString("Log") ?? throw new Exception("Log Connection string cannot be found."));
+    builder.Configuration.GetConnectionString("Default") ?? throw new Exception("Default Connection string cannot be found."));
 
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddApplicationAuthentication(builder.Configuration);
