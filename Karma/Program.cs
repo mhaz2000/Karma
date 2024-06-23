@@ -29,11 +29,12 @@ var app = builder.Build();
 // Serve static files from wwwroot
 app.UseStaticFiles();
 
-app.MapGet("/", async context =>
-{
-    context.Response.ContentType = "text/html";
-    await context.Response.SendFileAsync(Path.Combine(app.Environment.WebRootPath, "index.html"));
-});
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// Fallback route for SPA
+app.MapFallbackToFile("index.html");
 
 app.UseCors(c =>
 {
