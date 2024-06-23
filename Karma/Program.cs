@@ -26,6 +26,15 @@ builder.Services.AddControllers().AddJsonOptions(opt =>
 
 var app = builder.Build();
 
+// Serve static files from wwwroot
+app.UseStaticFiles();
+
+app.MapGet("/", async context =>
+{
+    context.Response.ContentType = "text/html";
+    await context.Response.SendFileAsync(Path.Combine(app.Environment.WebRootPath, "index.html"));
+});
+
 app.UseCors(c =>
 {
     c.AllowAnyHeader();
