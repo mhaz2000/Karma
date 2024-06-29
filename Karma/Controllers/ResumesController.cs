@@ -313,5 +313,13 @@ namespace Karma.API.Controllers
             var result = await _resumeReadService.GetResumesAsync(pageQuery, command);
             return Ok(result);
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("UserResume/{id}")]
+        public async Task<IActionResult> GetUserResume(Guid id)
+        {
+            var result = await _resumeReadService.GetUserResumeAsync(id);
+            return Ok(result);
+        }
     }
 }

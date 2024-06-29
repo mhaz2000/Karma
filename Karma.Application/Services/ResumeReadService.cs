@@ -168,5 +168,13 @@ namespace Karma.Application.Services
 
             return _mapper.Map<IEnumerable<WorkSampleDTO>>(resume.WorkSamples);
         }
+
+        public async Task<UserResumeDTO> GetUserResumeAsync(Guid id)
+        {
+            var resume = await _unitOfWork.ResumeRepository.GetByIdAsync(id) ??
+                throw new ManagedException("رزومه کاربر مورد نظر یافت نشد.");
+
+            return _mapper.Map<UserResumeDTO>(resume);
+        }
     }
 }
