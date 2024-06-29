@@ -16,5 +16,6 @@ namespace Karma.Application.Services.Interfaces
         Task<IEnumerable<ResumeQueryDTO>> GetResumesAsync(PageQuery pageQuery, ResumeFilterCommand command);
         Task<(FileStream stream, string filename)> DownloadPersonalResumeAsync(Guid userId);
         Task<IEnumerable<WorkSampleDTO>> GetWorkSamplesAsync(Guid userId);
+        Task<UserResumeDTO> GetUserResumeAsync(Guid id);
     }
 }
