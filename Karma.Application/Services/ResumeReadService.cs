@@ -125,6 +125,7 @@ namespace Karma.Application.Services
                 .WithMilitaryServiceStatuses(command.MilitaryServiceStatuses)
                 .WithMaritalStatus(command.MaritalStatus)
                 .WithCode(command.Code)
+                .WithJobTitle(command.JobTitle)
                 .WithGender(command.Gender)
                 .WithDegreeLevels(command.DegreeLevels)
                 .WithJobCategories(command.JobCategoryIds)

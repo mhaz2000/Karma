@@ -8,6 +8,7 @@ namespace Karma.Application.DTOs
     {
         public Guid Id { get; set; }
         public required string Code { get; set; }
+        public required string JobTitle { get; set; }
         public string? City { get; set; }
         public DateTime? BirthDate { get; set; }
         public string? FirstName { get; set; }

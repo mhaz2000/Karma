@@ -8,6 +8,7 @@ namespace Karma.Application.Commands
     public class ResumeFilterCommand : IBaseCommand
     {
         public string? Code { get; set; }
+        public string? JobTitle { get; set; }
         public DateTime? YoungerThan { get; set; }
         public DateTime? OlderThan { get; set; }
         public string? City { get; set; }

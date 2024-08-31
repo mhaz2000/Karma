@@ -20,6 +20,12 @@ namespace Karma.Core.EntityBuilders
             return this;
         }
 
+        public ResumeQueryBuilder WithJobTitle(string? jobTitle)
+        {
+            _resumes = string.IsNullOrEmpty(jobTitle) ? _resumes : _resumes.Where(c => c.JobTitle?.Contains(jobTitle) ?? false);
+            return this;
+        }
+
         public ResumeQueryBuilder WithYoungerThan(DateTime? youngerThan)
         {
             _resumes = youngerThan is null ? _resumes : _resumes.Where(c => c.BirthDate is not null && c.BirthDate >= youngerThan);
