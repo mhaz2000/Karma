@@ -1,10 +1,11 @@
 ﻿using Karma.Application.Mappings;
 using Karma.Core.Entities;
 using Karma.Core.Enums;
+using System.Globalization;
 
 namespace Karma.Application.DTOs
 {
-    public record CareerRecordDTO : IMapFrom<CareerRecord>
+    public class CareerRecordDTO : IMapFrom<CareerRecord>
     {
         public Guid Id { get; set; }
         public required string JobTitle { get; set; }
@@ -18,6 +19,21 @@ namespace Karma.Application.DTOs
         public int? ToMonth { get; set; }
         public int? ToYear { get; set; }
         public bool CurrentJob { get; set; }
+        public int WorkTotalMonths => CalculateTotalMonths();
 
+        public int CalculateTotalMonths()
+        {
+            int endMonth = ToMonth ?? DateTime.Now.Month;
+            int endYear = ToYear ?? DateTime.Now.Year;
+
+            PersianCalendar pc = new PersianCalendar();
+
+            DateTime fromDate = new DateTime(FromYear, FromMonth, 1, pc);
+            DateTime toDate = new DateTime(endYear, endMonth, 1, pc);
+
+            int totalMonths = ((toDate.Year - fromDate.Year) * 12) + toDate.Month - fromDate.Month;
+
+            return totalMonths;
+        }
     }
 }

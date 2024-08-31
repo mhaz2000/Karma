@@ -30,7 +30,7 @@ namespace Karma.API.Controllers
 
             await _resumeWriteService.UpdateAboutMeAsync(command, UserId);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         [HttpGet("AboutMe")]
@@ -52,7 +52,7 @@ namespace Karma.API.Controllers
 
             await _resumeWriteService.UpdateBasicInfoAsync(command, UserId);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         [HttpGet("BasicInfo")]
@@ -74,7 +74,7 @@ namespace Karma.API.Controllers
 
             await _resumeWriteService.AddEducationalRecordAsync(command, UserId);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         [HttpPut("UpdateEducationalRecord/{id}")]
@@ -84,7 +84,7 @@ namespace Karma.API.Controllers
 
             await _resumeWriteService.UpdateEducationalRecordAsync(id, command, UserId);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         [HttpDelete("RemoveEducationalRecord/{id}")]
@@ -92,7 +92,7 @@ namespace Karma.API.Controllers
         {
             await _resumeWriteService.RemoveEducationalRecordAsync(id);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         [HttpGet("EducationalRecords")]
@@ -114,7 +114,7 @@ namespace Karma.API.Controllers
 
             await _resumeWriteService.AddCareerRecordAsync(command, UserId);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         [HttpPut("UpdateCareerRecord/{id}")]
@@ -124,7 +124,7 @@ namespace Karma.API.Controllers
 
             await _resumeWriteService.UpdateCareerRecordAsync(command, id);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         [HttpGet("CareerRecords")]
@@ -140,7 +140,7 @@ namespace Karma.API.Controllers
         {
             await _resumeWriteService.RemoveCareerRecordAsync(id);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         #endregion
@@ -154,7 +154,7 @@ namespace Karma.API.Controllers
 
             await _resumeWriteService.AddLanguageAsync(command, UserId);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         [HttpGet("Languages")]
@@ -170,7 +170,7 @@ namespace Karma.API.Controllers
         {
             await _resumeWriteService.RemoveLanguageAsync(id);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         #endregion
@@ -184,7 +184,7 @@ namespace Karma.API.Controllers
 
             await _resumeWriteService.AddSoftwareSkillAsync(command, UserId);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         [HttpGet("SoftwareSkills")]
@@ -200,7 +200,7 @@ namespace Karma.API.Controllers
         {
             await _resumeWriteService.RemoveSoftwareSkillAsync(id);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         #endregion
@@ -214,7 +214,7 @@ namespace Karma.API.Controllers
 
             await _resumeWriteService.AddAdditionalSkillAsync(command, UserId);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         [HttpGet("AdditionalSkills")]
@@ -230,7 +230,7 @@ namespace Karma.API.Controllers
         {
             await _resumeWriteService.RemoveAdditionalSkillAsync(id);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         #endregion
@@ -242,7 +242,7 @@ namespace Karma.API.Controllers
         {
             await _resumeWriteService.UploadPersonalResumeAsync(command, UserId);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         [HttpGet("DownloadPersonalResume")]
@@ -273,7 +273,7 @@ namespace Karma.API.Controllers
 
             await _resumeWriteService.AddWorkSampleAsync(command, UserId);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         [HttpPut("UpdateWorkSample/{id}")]
@@ -283,7 +283,7 @@ namespace Karma.API.Controllers
 
             await _resumeWriteService.UpdateWorkSampleAsync(command, id);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         [HttpGet("WorkSamples")]
@@ -299,7 +299,7 @@ namespace Karma.API.Controllers
         {
             await _resumeWriteService.RemoveWorkSampleAsync(id);
 
-            return Ok("تغییرات با موفقیت ثبت شد.");
+            return Ok("تغییرات با موفقیت ذخیره شد.");
         }
 
         #endregion
