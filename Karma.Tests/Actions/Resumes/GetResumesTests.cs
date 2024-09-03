@@ -81,7 +81,8 @@ namespace Karma.Tests.Actions.Resumes
             {
                 new ResumeQueryDTO()
                 {
-                    Code = string.Empty
+                    Code = string.Empty,
+                    JobTitle= string.Empty,
                 }
             };
 
