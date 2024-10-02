@@ -1,4 +1,5 @@
-﻿using Karma.Application.Mappings;
+﻿using Karma.Application.Helpers;
+using Karma.Application.Mappings;
 using Karma.Core.Entities;
 using Karma.Core.Enums;
 using System.Globalization;
@@ -20,7 +21,19 @@ namespace Karma.Application.DTOs
         public int? ToYear { get; set; }
         public bool CurrentJob { get; set; }
         public int WorkTotalMonths => CalculateTotalMonths();
+        public string Duration => CalculateDuration();
 
+        public string CalculateDuration()
+        {
+            string duration = $"از {PersianMonthHelper.GetMonth(FromMonth)} {FromYear} تا ";
+            if (ToMonth is null)
+                duration += "هم اکنون";
+            else
+                duration += $"{PersianMonthHelper.GetMonth(ToMonth.Value)} {ToYear}";
+
+            return duration;
+
+        }
         public int CalculateTotalMonths()
         {
             int endMonth = ToMonth ?? DateTime.Now.Month;

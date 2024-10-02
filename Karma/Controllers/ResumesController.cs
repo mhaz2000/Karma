@@ -5,6 +5,7 @@ using Karma.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
+using System.IO;
 
 namespace Karma.API.Controllers
 {
@@ -303,6 +304,14 @@ namespace Karma.API.Controllers
         }
 
         #endregion
+
+        [HttpGet("Download")]
+        public async Task<IActionResult> DownloadResume()
+        {
+            var result = await _resumeReadService.DownloadKarmaResumeAsync(UserId);
+            return File(result, "application/pdf", "report.pdf");
+
+        }
 
         [Authorize(Roles = "Admin")]
         [HttpPut("Query")]

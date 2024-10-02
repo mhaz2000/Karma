@@ -17,7 +17,7 @@ namespace Karma.Application.Services
         public async Task<(FileStream stream, string filename)> GetFileAsync(Guid id)
         {
             string filename = "File";
-            var path = Directory.GetCurrentDirectory() + "/FileStorage";
+            var path = Directory.GetCurrentDirectory() + "\\FileStorage";
             var filePath = Path.Combine(path, $"{id}.dat");
 
             if (!File.Exists(filePath))
