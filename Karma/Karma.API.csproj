@@ -43,7 +43,13 @@
 	  <None Update="StaticFiles\arial.ttf">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	  <None Update="StaticFiles\B-NAZANIN.TTF">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="StaticFiles\Iranian Sans.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="StaticFiles\log.txt">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="StaticFiles\Report.mrt">

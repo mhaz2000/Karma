@@ -309,7 +309,7 @@ namespace Karma.API.Controllers
         public async Task<IActionResult> DownloadResume()
         {
             var result = await _resumeReadService.DownloadKarmaResumeAsync(UserId);
-            return File(result, "application/pdf", "report.pdf");
+            return File(result.file, "application/pdf", result.name);
 
         }
 

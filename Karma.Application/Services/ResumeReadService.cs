@@ -181,7 +181,7 @@ namespace Karma.Application.Services
             return _mapper.Map<UserResumeDTO>(resume);
         }
 
-        public async Task<MemoryStream> DownloadKarmaResumeAsync(Guid userId)
+        public async Task<(MemoryStream file, string name)> DownloadKarmaResumeAsync(Guid userId)
         {
             var resume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User.Id == userId) ??
                 throw new ManagedException("رزومه شما یافت نشد.");
@@ -241,21 +241,38 @@ namespace Karma.Application.Services
             };
 
 
-            var fontPath = Directory.GetCurrentDirectory() + "/StaticFiles/arial.ttf";
+
+
+            var arialFontPath = Directory.GetCurrentDirectory() + "/StaticFiles/arial.ttf";
+            var iranSansFontPath = Directory.GetCurrentDirectory() + "/StaticFiles/Iranian Sans.ttf";
+            var bNazaninfontPath = Directory.GetCurrentDirectory() + "/StaticFiles/B-NAZANIN.TTF";
             var filePath = Directory.GetCurrentDirectory() + "/StaticFiles/Report.mrt";
             var report = new StiReport();
 
-            StiFontCollection.AddFontFile(fontPath);
+            StiFontCollection.AddFontFile(arialFontPath);
+            StiFontCollection.AddFontFile(iranSansFontPath);
+            StiFontCollection.AddFontFile(bNazaninfontPath);
 
             report.Load(filePath);
             report.RegData("ResumeData", resumeToPrint);
+
+            var debug = report.DataSources[0].Columns[1].PropName;
+            var debug2 = report;
+
+            using(var writer = new StreamWriter(Directory.GetCurrentDirectory() + "/StaticFiles/log.txt"))
+            {
+                writer.WriteLine(debug);
+                writer.WriteLine(resumeToPrint.PhoneNumber);
+            }
+
             report.Render();
 
             var reportStream = new MemoryStream();
             report.ExportDocument(StiExportFormat.Pdf, reportStream);
             reportStream.Position = 0;
 
-            return reportStream;
+            return (reportStream, resume.User.FirstName is not null && resume.User.LastName is not null ? 
+                $"{resume.User.FirstName} {resume.User.LastName}.pdf" : "cv.pdf");
         }
     }
 }
