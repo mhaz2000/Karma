@@ -3,9 +3,12 @@ using Karma.Application.Base;
 using Karma.Application.Commands;
 using Karma.Application.DTOs;
 using Karma.Application.Extensions;
+using Karma.Application.Helpers;
 using Karma.Application.Services.Interfaces;
 using Karma.Core.EntityBuilders;
 using Karma.Core.Repositories.Base;
+using Stimulsoft.Base;
+using Stimulsoft.Report;
 
 namespace Karma.Application.Services
 {
@@ -136,7 +139,7 @@ namespace Karma.Application.Services
                 .Build();
 
             return _mapper.Map<IEnumerable<ResumeQueryDTO>>(filtredResumes)
-                .OrderByDescending(c=>c.DegreeLevel)
+                .OrderByDescending(c => c.DegreeLevel)
                 .DistinctBy(c => c.Id).ToPagingAndSorting(pageQuery);
         }
 
@@ -176,6 +179,100 @@ namespace Karma.Application.Services
                 throw new ManagedException("رزومه کاربر مورد نظر یافت نشد.");
 
             return _mapper.Map<UserResumeDTO>(resume);
+        }
+
+        public async Task<(MemoryStream file, string name)> DownloadKarmaResumeAsync(Guid userId)
+        {
+            var resume = await _unitOfWork.ResumeRepository.FirstOrDefaultAsync(c => c.User.Id == userId) ??
+                throw new ManagedException("رزومه شما یافت نشد.");
+
+            var socialMedias = _mapper.Map<IEnumerable<SocialMediaDTO>>(resume.SocialMedias);
+            var careerRecords = _mapper.Map<IEnumerable<CareerRecordDTO>>(resume.CareerRecords);
+            var educationalRecords = _mapper.Map<IEnumerable<EducationalRecordDTO>>(resume.EducationalRecords);
+            var languages = _mapper.Map<IEnumerable<LanguageDTO>>(resume.Languages);
+            var softwareSkills = _mapper.Map<IEnumerable<SoftwareSkillDTO>>(resume.SoftwareSkills);
+            var workSamples = _mapper.Map<IEnumerable<WorkSampleDTO>>(resume.WorkSamples);
+            var additionalSkills = _mapper.Map<IEnumerable<AdditionalSkillDTO>>(resume.AdditionalSkills);
+
+
+            FileStream? stream = null;
+            byte[]? logoFileBytes = null;
+
+            try
+            {
+
+                if (resume.User.ImageId is not null)
+                {
+                    stream = (await _fileService.GetFileAsync(resume.User.ImageId.Value)).stream;
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await stream.CopyToAsync(memoryStream);
+                        logoFileBytes = memoryStream.ToArray();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            var resumeToPrint = new ResumePrintDTO()
+            {
+                LogoFile = logoFileBytes,
+                PhoneNumber = resume.User.PhoneNumber!,
+                Logo = resume.User.ImageId,
+                MainJobTitle = resume.MainJobTitle,
+                Description = resume.Description,
+                AdditionalSkills = additionalSkills,
+                Email = resume.User.Email,
+                Code = resume.Code,
+                FirstName = resume.User.FirstName,
+                LastName = resume.User.LastName,
+                MilitaryServiceStatus = resume.User.MilitaryServiceStatus.GetDescription(),
+                BirthDate = resume.User.BirthDate,
+                CareerRecords = careerRecords,
+                City = resume.User.City,
+                EducationalRecords = educationalRecords,
+                Languages = languages,
+                SoftwareSkills = softwareSkills,
+                WorkSamples = workSamples,
+                Gender = resume.User.Gender?.GetDescription(),
+                MaritalStatus = resume.User.MaritalStatus?.GetDescription(),
+                SocialMedias = socialMedias
+            };
+
+
+
+
+            var arialFontPath = Directory.GetCurrentDirectory() + "/StaticFiles/arial.ttf";
+            var iranSansFontPath = Directory.GetCurrentDirectory() + "/StaticFiles/Iranian Sans.ttf";
+            var bNazaninfontPath = Directory.GetCurrentDirectory() + "/StaticFiles/B-NAZANIN.TTF";
+            var filePath = Directory.GetCurrentDirectory() + "/StaticFiles/Report.mrt";
+            var report = new StiReport();
+
+            StiFontCollection.AddFontFile(arialFontPath);
+            StiFontCollection.AddFontFile(iranSansFontPath);
+            StiFontCollection.AddFontFile(bNazaninfontPath);
+
+            report.Load(filePath);
+            report.RegData("ResumeData", resumeToPrint);
+
+            var debug = report.DataSources[0].Columns[1].PropName;
+            var debug2 = report;
+
+            using(var writer = new StreamWriter(Directory.GetCurrentDirectory() + "/StaticFiles/log.txt"))
+            {
+                writer.WriteLine(debug);
+                writer.WriteLine(resumeToPrint.PhoneNumber);
+            }
+
+            report.Render();
+
+            var reportStream = new MemoryStream();
+            report.ExportDocument(StiExportFormat.Pdf, reportStream);
+            reportStream.Position = 0;
+
+            return (reportStream, resume.User.FirstName is not null && resume.User.LastName is not null ? 
+                $"{resume.User.FirstName} {resume.User.LastName}.pdf" : "cv.pdf");
         }
     }
 }
