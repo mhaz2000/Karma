@@ -7,6 +7,8 @@ using Karma.Application.Helpers;
 using Karma.Application.Services.Interfaces;
 using Karma.Core.EntityBuilders;
 using Karma.Core.Repositories.Base;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Stimulsoft.Base;
 using Stimulsoft.Report;
 
@@ -241,12 +243,33 @@ namespace Karma.Application.Services
             };
 
 
+            Console.WriteLine(Directory.GetCurrentDirectory() + "/StaticFiles/data.json");
+
+            using (var writer = new StreamWriter(Directory.GetCurrentDirectory() + "/StaticFiles/data.json"))
+            {
+                writer.WriteLine(JsonConvert.SerializeObject(resumeToPrint, new JsonSerializerSettings()
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                }));
+            }
 
 
             var arialFontPath = Directory.GetCurrentDirectory() + "/StaticFiles/arial.ttf";
             var iranSansFontPath = Directory.GetCurrentDirectory() + "/StaticFiles/Iranian Sans.ttf";
             var bNazaninfontPath = Directory.GetCurrentDirectory() + "/StaticFiles/B-NAZANIN.TTF";
             var filePath = Directory.GetCurrentDirectory() + "/StaticFiles/Report.mrt";
+            List<string> lines = new List<string>(File.ReadAllLines(filePath));
+            lines[9] = $"        <PathData>{Directory.GetCurrentDirectory() + "/StaticFiles/data.json"}</PathData>";
+            File.WriteAllLines(filePath, lines);
+
+            Stimulsoft.Base.StiLicense.Key = "6vJhGtLLLz2GNviWmUTrhSqnOItdDwjBylQzQcAOiHkO46nMQvol4ASeg91in+mGJLnn2KMIpg3eSXQSgaFOm15+0l" +
+            "hekKip+wRGMwXsKpHAkTvorOFqnpF9rchcYoxHXtjNDLiDHZGTIWq6D/2q4k/eiJm9fV6FdaJIUbWGS3whFWRLPHWC" +
+            "BsWnalqTdZlP9knjaWclfjmUKf2Ksc5btMD6pmR7ZHQfHXfdgYK7tLR1rqtxYxBzOPq3LIBvd3spkQhKb07LTZQoyQ" +
+            "3vmRSMALmJSS6ovIS59XPS+oSm8wgvuRFqE1im111GROa7Ww3tNJTA45lkbXX+SocdwXvEZyaaq61Uc1dBg+4uFRxv" +
+            "yRWvX5WDmJz1X0VLIbHpcIjdEDJUvVAN7Z+FW5xKsV5ySPs8aegsY9ndn4DmoZ1kWvzUaz+E1mxMbOd3tyaNnmVhPZ" +
+            "eIBILmKJGN0BwnnI5fu6JHMM/9QR2tMO1Z4pIwae4P92gKBrt0MqhvnU1Q6kIaPPuG2XBIvAWykVeH2a9EP6064e11" +
+            "PFCBX4gEpJ3XFD0peE5+ddZh+h495qUc1H2B";
+
             var report = new StiReport();
 
             StiFontCollection.AddFontFile(arialFontPath);
@@ -254,24 +277,13 @@ namespace Karma.Application.Services
             StiFontCollection.AddFontFile(bNazaninfontPath);
 
             report.Load(filePath);
-            report.RegData("ResumeData", resumeToPrint);
-
-            var debug = report.DataSources[0].Columns[1].PropName;
-            var debug2 = report;
-
-            using(var writer = new StreamWriter(Directory.GetCurrentDirectory() + "/StaticFiles/log.txt"))
-            {
-                writer.WriteLine(debug);
-                writer.WriteLine(resumeToPrint.PhoneNumber);
-            }
-
             report.Render();
 
             var reportStream = new MemoryStream();
             report.ExportDocument(StiExportFormat.Pdf, reportStream);
             reportStream.Position = 0;
 
-            return (reportStream, resume.User.FirstName is not null && resume.User.LastName is not null ? 
+            return (reportStream, resume.User.FirstName is not null && resume.User.LastName is not null ?
                 $"{resume.User.FirstName} {resume.User.LastName}.pdf" : "cv.pdf");
         }
     }

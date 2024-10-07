@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <StiSerializer version="1.02" type="Net" application="StiReport">
   <Dictionary Ref="1" type="Dictionary" isKey="true">
     <BusinessObjects isList="true" count="0" />
@@ -7,7 +7,7 @@
         <Alias>ResumeData</Alias>
         <Key />
         <Name>ResumeData</Name>
-        <PathData>C:\Users\78mha\Desktop\data.json</PathData>
+        <PathData>D:\Project\Karma\Karma/StaticFiles/data.json</PathData>
       </ResumeData>
     </Databases>
     <DataSources isList="true" count="15">
@@ -38,7 +38,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>0bac0771206440ccba7b9e17246dc595</Key>
+        <Key>cb785cee89c14f9e9c8d1985f3c62e53</Key>
         <Name>root</Name>
         <NameInSource>ResumeData.root</NameInSource>
       </root>
@@ -48,7 +48,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>812430b5d3de4394937bdb9121a8f143</Key>
+        <Key>af9ebbb664da40c5a1368bf79aee3791</Key>
         <Name>root_additionalSkills</Name>
         <NameInSource>ResumeData.root_additionalSkills</NameInSource>
       </root_additionalSkills>
@@ -72,7 +72,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>c14bb9c308b04b64912df3cb2b6a5f05</Key>
+        <Key>4d35c4ebc8f245af84a7c86fc6ab3055</Key>
         <Name>root_careerRecords</Name>
         <NameInSource>ResumeData.root_careerRecords</NameInSource>
       </root_careerRecords>
@@ -84,7 +84,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>d48df57018a441b4842f3349e5f96e92</Key>
+        <Key>55e65a3155764e63861ccbb23e6d27dd</Key>
         <Name>root_careerRecords_city</Name>
         <NameInSource>ResumeData.root_careerRecords_city</NameInSource>
       </root_careerRecords_city>
@@ -96,7 +96,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>0363ef948d9b489fb1cc3251da29207a</Key>
+        <Key>111eca06b6fe43f99049a723a70f233d</Key>
         <Name>root_careerRecords_country</Name>
         <NameInSource>ResumeData.root_careerRecords_country</NameInSource>
       </root_careerRecords_country>
@@ -108,7 +108,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>9b1cd936b171407f98c41fc4906c1415</Key>
+        <Key>cfae9d9593ce477197753570de0f965b</Key>
         <Name>root_careerRecords_jobCategory</Name>
         <NameInSource>ResumeData.root_careerRecords_jobCategory</NameInSource>
       </root_careerRecords_jobCategory>
@@ -127,7 +127,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>142c74f62b6843bda8febbc2725a8ed6</Key>
+        <Key>1e01f867c3aa4365b8e24123494429de</Key>
         <Name>root_educationalRecords</Name>
         <NameInSource>ResumeData.root_educationalRecords</NameInSource>
       </root_educationalRecords>
@@ -139,7 +139,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>25c7b2a1f74f47c8a85369ccfddc24f7</Key>
+        <Key>8dccbd18e58a4fee84fe132492324444</Key>
         <Name>root_educationalRecords_major</Name>
         <NameInSource>ResumeData.root_educationalRecords_major</NameInSource>
       </root_educationalRecords_major>
@@ -151,7 +151,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>2532e3f1f7e04c07a5e3fffa9b050c64</Key>
+        <Key>2b46d02c903042f19ee41e28c60857da</Key>
         <Name>root_educationalRecords_university</Name>
         <NameInSource>ResumeData.root_educationalRecords_university</NameInSource>
       </root_educationalRecords_university>
@@ -166,7 +166,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>e2cb9549e5374f9693aa4b818112776d</Key>
+        <Key>f2cac2a19b4345e8a7ae6014bc179472</Key>
         <Name>root_languages</Name>
         <NameInSource>ResumeData.root_languages</NameInSource>
       </root_languages>
@@ -178,7 +178,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>4b15a8e610964e8bb1bac43e26d6a7d4</Key>
+        <Key>6b262df6b38e49719c8df12ad96f7320</Key>
         <Name>root_languages_systemLanguage</Name>
         <NameInSource>ResumeData.root_languages_systemLanguage</NameInSource>
       </root_languages_systemLanguage>
@@ -188,7 +188,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>f4f92ec3a71a4329987cdad020dd3c40</Key>
+        <Key>ee284abaebdf4cef9fd86ca6c5035512</Key>
         <Name>root_socialMedias</Name>
         <NameInSource>ResumeData.root_socialMedias</NameInSource>
       </root_socialMedias>
@@ -203,7 +203,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>3bce3e86d491446b80a2883ef694276f</Key>
+        <Key>32873c0f9a87478d9457eda7a2c1feb2</Key>
         <Name>root_softwareSkills</Name>
         <NameInSource>ResumeData.root_softwareSkills</NameInSource>
       </root_softwareSkills>
@@ -215,7 +215,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>ca3ba7719e66494f9a0678e9d415a064</Key>
+        <Key>f5cc53a0377947a4868ff4cde1a7842d</Key>
         <Name>root_softwareSkills_systemSoftwareSkill</Name>
         <NameInSource>ResumeData.root_softwareSkills_systemSoftwareSkill</NameInSource>
       </root_softwareSkills_systemSoftwareSkill>
@@ -227,7 +227,7 @@
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>b635715b274b4618944ca266b2e79502</Key>
+        <Key>b01dfa91cf96425287f9dcbae22703f4</Key>
         <Name>root_workSamples</Name>
         <NameInSource>ResumeData.root_workSamples</NameInSource>
       </root_workSamples>
@@ -1281,10 +1281,10 @@ McNvh/BbRSFFFFFEEUUUUUQRRRRRxPsTRP8P3qg17iWYAHIAAAAASUVORK5CYII=</ImageBytes>
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>10/2/2024 10:52:38 PM</ReportChanged>
+  <ReportChanged>10/7/2024 7:56:16 AM</ReportChanged>
   <ReportCreated>10/1/2024 8:03:42 AM</ReportCreated>
   <ReportFile>D:\Project\Karma\Karma\StaticFiles\Report.mrt</ReportFile>
-  <ReportGuid>b05e135b3f4949c08960f8ae0839338f</ReportGuid>
+  <ReportGuid>043f8e0bb0d74169aef35f32a5b75425</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Inches</ReportUnit>
   <ReportVersion>2023.1.1.0</ReportVersion>
